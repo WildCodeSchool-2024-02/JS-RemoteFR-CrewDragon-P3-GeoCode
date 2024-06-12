@@ -6,13 +6,14 @@ create table role (
 
 create table user (
   id INT unsigned PRIMARY KEY auto_increment NOT NULL,
+  image BLOB NOT NULL, 
   email VARCHAR(255) NOT NULL unique,
-  password VARCHAR(255) NOT NULL,
+  password VARCHAR(255) NOT NULL, 
   firstname VARCHAR(255) NOT NULL,
   lastname VARCHAR(255) NOT NULL,
   birthday DATE NOT NULL, 
   address VARCHAR(255) NOT NULL,
-  zip_code INT NOT NULL,
+  zip_code VARCHAR(20) NOT NULL,
   city VARCHAR(255) NOT NULL, 
   role_id INT UNSIGNED NOT NULL,
   FOREIGN KEY(role_id) REFERENCES role(id)
@@ -31,13 +32,14 @@ create table model (
   FOREIGN KEY(brand_id) REFERENCES brand(id)
 );
 
-create table car (
-  id INT unsigned PRIMARY KEY auto_increment NOT NULL,
-  image TEXT NOT NULL,
+CREATE TABLE car (
+  id INT UNSIGNED PRIMARY KEY AUTO_INCREMENT NOT NULL,
   user_id INT UNSIGNED NOT NULL,
-  FOREIGN KEY(user_id) REFERENCES user(id),
   model_id INT UNSIGNED NOT NULL,
-  FOREIGN KEY(model_id) REFERENCES model(id)
+  FOREIGN KEY (user_id) REFERENCES user(id),
+  FOREIGN KEY (model_id) REFERENCES model(id),
+  image BLOB NOT NULL,
+  name VARCHAR(255) NOT NULL
 );
 
 

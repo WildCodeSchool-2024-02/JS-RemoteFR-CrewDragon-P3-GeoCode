@@ -1,9 +1,10 @@
 const AbstractSeeder = require("./AbstractSeeder");
+const RoleSeeder = require("./RoleSeeder");
 
 class UserSeeder extends AbstractSeeder {
   constructor() {
     // Call the constructor of the parent class (AbstractSeeder) with appropriate options
-    super({ table: "user", truncate: true });
+    super({ table: "User", truncate: true, dependencies: [RoleSeeder] });
   }
 
   // The run method - Populate the 'user' table with fake data
@@ -19,9 +20,12 @@ class UserSeeder extends AbstractSeeder {
         lastname: this.faker.person.firstName(),
         birthday: this.faker.date.birthdate(),
         address: this.faker.location.streetAddress(),
-        zipcode: this.faker.location.zipCode(),
+        zip_code: this.faker.location.zipCode(),
         city: this.faker.location.city(),
-        // NEED TO ADD FK ROLE_ID
+        image: this.faker.image.urlPlaceholder(),
+        // Foreign Keys
+        role_id: this.getRef(`role_${i}`).insertId, // Get the insertId of the corresponding role from RoleSeeder
+        refName: `user_${i}`, // Create a reference name for the user
       };
 
       // Insert the fakeUser data into the 'user' table
