@@ -1,5 +1,7 @@
-function Profile() {
-  return <h1>Coucou je suis la page Profile</h1>;
+import { Outlet } from "react-router-dom";
+
+function Profil() {
+  return <Outlet />;
 }
 
-export default Profile;
+export default Profil;
