@@ -1,8 +1,10 @@
 import React from "react";
+import axios from "axios";
 import ReactDOM from "react-dom/client";
 
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
+// Import des pages
 import Accueil from "./pages/Accueil";
 import Carte from "./pages/Carte";
 import Inscription from "./pages/Inscription";
@@ -22,7 +24,6 @@ import Informations from "./pages/Informations";
 import InformationId from "./pages/InformationId";
 import Aides from "./pages/Aides";
 import AideId from "./pages/AideId";
-
 import App from "./App";
 
 const router = createBrowserRouter([
@@ -58,15 +59,15 @@ const router = createBrowserRouter([
         element: <Profil />,
         children: [
           {
-            path: "/profil/utilisateur",
+            path: "utilisateur",
             element: <ProfilUtilisateur />,
           },
           {
-            path: "/profil/vehicules",
+            path: "vehicules",
             element: <ProfilVehicules />,
           },
           {
-            path: "/profil/reservations",
+            path: "reservations",
             element: <ProfilReservations />,
           },
         ],
@@ -92,19 +93,25 @@ const router = createBrowserRouter([
         element: <Admin />,
         children: [
           {
-            path: "/administrateur/utilisateurs",
+            path: "utilisateurs",
             element: <AdminUtilisateurs />,
+            loader: async () => {
+              const response = await axios.get(
+                "http://localhost:3310/api/users"
+              );
+              return response.data;
+            },
           },
           {
-            path: "/administrateur/vehicules",
+            path: "vehicules",
             element: <AdminVehicules />,
           },
           {
-            path: "/administrateur/bornes",
+            path: "bornes",
             element: <AdminBornes />,
           },
           {
-            path: "/administrateur/reservations",
+            path: "reservations",
             element: <AdminReservations />,
           },
         ],

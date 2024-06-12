@@ -1,5 +1,11 @@
+import { Outlet } from "react-router-dom";
+
 function Admin() {
-  return <h1>Je suis la page Administrateur</h1>;
+  return (
+    <div>
+      <Outlet />
+    </div>
+  );
 }
 
 export default Admin;
