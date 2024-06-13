@@ -78,6 +78,7 @@ app.use(
 // const username = req.cookies.username;
 
 /* ************************************************************************* */
+const path = require("path");
 
 // Import the API router
 const apiRouter = require("./routers/api/router");
@@ -101,8 +102,6 @@ app.use("/api", apiRouter);
 // To enable production configuration:
 // 1. Uncomment the lines related to serving static files and redirecting unhandled requests.
 // 2. Ensure that the `reactBuildPath` points to the correct directory where your client's build artifacts are located.
-
-const path = require("path");
 
 const reactBuildPath = path.join(__dirname, "/../../client/dist");
 const publicFolderPath = path.join(__dirname, "/../public");
