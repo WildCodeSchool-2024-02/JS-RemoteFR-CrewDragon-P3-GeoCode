@@ -93,16 +93,18 @@ const router = createBrowserRouter([
       {
         path: "/administrateur/utilisateurs",
         element: <AdminUtilisateurs />,
-        // loader: async () => {
-        //   const response = await axios.get(
-        //     "http://localhost:3310/api/users"
-        //   );
-        //   return response.data;
-        // },
+        loader: async () => {
+          const response = await axios.get("http://localhost:3310/api/users");
+          return response.data;
+        },
       },
       {
         path: "/administrateur/vehicules",
         element: <AdminVehicules />,
+        loader: async () => {
+          const response = await axios.get("http://localhost:3310/api/cars");
+          return response.data;
+        },
       },
       {
         path: "/administrateur/bornes",

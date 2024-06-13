@@ -1,85 +1,17 @@
-// import { useLoaderData } from "react-router-dom";
+import { useLoaderData } from "react-router-dom";
 import { useState } from "react";
 
 import "./styles/AdminUtilisateurs.scss";
 
-const sampleUsers = [
-  {
-    id: 21,
-    image: "https://img.icons8.com/?size=100&id=7820&format=png&color=000000",
-    email: "Pattie.Strosin77@gmail.com",
-    password: "RyhPKgHyQHSBdv5",
-    firstname: "Viva",
-    lastname: "Alena",
-    birthday: "1945-01-16T23:00:00.000Z",
-    address: "99730 Garden Close",
-    zip_code: "45357-5899",
-    city: "Neldastead",
-    role_id: 22,
-  },
-  {
-    id: 22,
-    image: "https://img.icons8.com/?size=100&id=7820&format=png&color=000000",
-    email: "Cathrine_Beahan@gmail.com",
-    password: "IzrqUdvJQwZIR2y",
-    firstname: "Kaleigh",
-    lastname: "Kraig",
-    birthday: "1957-09-05T23:00:00.000Z",
-    address: "5639 Elisa Ford",
-    zip_code: "57667",
-    city: "Lehigh Acres",
-    role_id: 29,
-  },
-  {
-    id: 23,
-    image: "https://img.icons8.com/?size=100&id=7820&format=png&color=000000",
-    email: "Aisha_Will@gmail.com",
-    password: "un3pUL9FNyW9x5W",
-    firstname: "Easter",
-    lastname: "Anjali",
-    birthday: "1994-12-29T23:00:00.000Z",
-    address: "3262 New Street",
-    zip_code: "46888-8919",
-    city: "Joanaton",
-    role_id: 25,
-  },
-  {
-    id: 24,
-    image: "https://img.icons8.com/?size=100&id=7820&format=png&color=000000",
-    email: "Orie_Mante74@gmail.com",
-    password: "dHpK5Wb4YtH3eCV",
-    firstname: "Janessa",
-    lastname: "Katelynn",
-    birthday: "1971-11-04T23:00:00.000Z",
-    address: "4699 Memorial Drive",
-    zip_code: "02668-2770",
-    city: "Lake Brianmouth",
-    role_id: 27,
-  },
-  {
-    id: 28,
-    image: "https://img.icons8.com/?size=100&id=7820&format=png&color=000000",
-    email: "Bria.Bode@gmail.com",
-    password: "9T7AnsWI0z3RRBs",
-    firstname: "Donna",
-    lastname: "Nayeli",
-    birthday: "2002-12-03T23:00:00.000Z",
-    address: "83040 Domenick Greens",
-    zip_code: "91023",
-    city: "Schenectady",
-    role_id: 21,
-  },
-];
-
 function AdminUtilisateur() {
-  // const users = useLoaderData();
+  const users = useLoaderData();
 
   const [searchQuery, setSearchQuery] = useState("");
-  const [filteredUsers, setFilteredUsers] = useState(sampleUsers);
+  const [filteredUsers, setFilteredUsers] = useState(users);
 
   const filterUsers = (query) => {
     setFilteredUsers(
-      sampleUsers.filter(
+      users.filter(
         (user) =>
           user.firstname.toLowerCase().startsWith(query.toLowerCase()) ||
           user.lastname.toLowerCase().startsWith(query.toLowerCase())
