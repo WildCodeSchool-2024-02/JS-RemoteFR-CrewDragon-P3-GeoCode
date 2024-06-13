@@ -1,0 +1,13 @@
+.admin-users-list {
+  display: flex;
+  flex-direction: column;
+  .admin-users-item {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    .admin-users-infos {
+      display: flex;
+      gap: 0.5rem;
+    }
+  }
+}

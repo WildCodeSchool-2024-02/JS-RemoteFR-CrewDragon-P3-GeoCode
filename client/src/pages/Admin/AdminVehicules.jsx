@@ -1,5 +1,5 @@
 function AdminVehicule() {
-  return <h1>Coucou je suis la page AdminVehicule</h1>;
+  return <h1>Coucou je suis l'outlet Vehicules</h1>;
 }
 
 export default AdminVehicule;
