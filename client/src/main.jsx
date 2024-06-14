@@ -57,20 +57,18 @@ const router = createBrowserRouter([
       {
         path: "/profil",
         element: <Profil />,
-        children: [
-          {
-            path: "utilisateur",
-            element: <ProfilUtilisateur />,
-          },
-          {
-            path: "vehicules",
-            element: <ProfilVehicules />,
-          },
-          {
-            path: "reservations",
-            element: <ProfilReservations />,
-          },
-        ],
+      },
+      {
+        path: "/profil/utilisateur",
+        element: <ProfilUtilisateur />,
+      },
+      {
+        path: "/profil/vehicules",
+        element: <ProfilVehicules />,
+      },
+      {
+        path: "/profil/reservations",
+        element: <ProfilReservations />,
       },
       {
         path: "/informations",
@@ -91,30 +89,30 @@ const router = createBrowserRouter([
       {
         path: "/administrateur",
         element: <Admin />,
-        children: [
-          {
-            path: "utilisateurs",
-            element: <AdminUtilisateurs />,
-            loader: async () => {
-              const response = await axios.get(
-                "http://localhost:3310/api/users"
-              );
-              return response.data;
-            },
-          },
-          {
-            path: "vehicules",
-            element: <AdminVehicules />,
-          },
-          {
-            path: "bornes",
-            element: <AdminBornes />,
-          },
-          {
-            path: "reservations",
-            element: <AdminReservations />,
-          },
-        ],
+      },
+      {
+        path: "/administrateur/utilisateurs",
+        element: <AdminUtilisateurs />,
+        loader: async () => {
+          const response = await axios.get("http://localhost:3310/api/users");
+          return response.data;
+        },
+      },
+      {
+        path: "/administrateur/vehicules",
+        element: <AdminVehicules />,
+        loader: async () => {
+          const response = await axios.get("http://localhost:3310/api/cars");
+          return response.data;
+        },
+      },
+      {
+        path: "/administrateur/bornes",
+        element: <AdminBornes />,
+      },
+      {
+        path: "/administrateur/reservatuibs",
+        element: <AdminReservations />,
       },
     ],
   },

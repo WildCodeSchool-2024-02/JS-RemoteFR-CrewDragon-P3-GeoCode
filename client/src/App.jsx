@@ -1,6 +1,6 @@
 import { Outlet } from "react-router-dom";
 
-import "./App.css";
+import "./styles/index.scss";
 
 function App() {
   return (
