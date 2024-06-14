@@ -2,7 +2,11 @@ import React from "react";
 import axios from "axios";
 import ReactDOM from "react-dom/client";
 
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import {
+  createBrowserRouter,
+  redirect,
+  RouterProvider,
+} from "react-router-dom";
 
 // Import des pages
 import Accueil from "./pages/Accueil";
@@ -25,6 +29,7 @@ import InformationId from "./pages/InformationId";
 import Aides from "./pages/Aides";
 import AideId from "./pages/AideId";
 import App from "./App";
+import AdminUtilisateursEdit from "./pages/Admin/AdminUtilisateursEdit";
 
 const router = createBrowserRouter([
   {
@@ -96,6 +101,46 @@ const router = createBrowserRouter([
         loader: async () => {
           const response = await axios.get("http://localhost:3310/api/users");
           return response.data;
+        },
+      },
+      {
+        path: "/administrateur/utilisateurs/:id",
+        element: <AdminUtilisateursEdit />,
+        loader: async ({ params }) => {
+          const response = await axios.get(
+            `http://localhost:3310/api/users/${params.id}`
+          );
+          return response.data;
+        },
+        action: async ({ request, params }) => {
+          const formData = await request.formData();
+          console.info(formData);
+
+          switch (request.method.toLowerCase()) {
+            case "put": {
+              await axios.put(`http://localhost:3310/api/users/${params.id}`, {
+                firstname: formData.get("firstname"),
+                lastname: formData.get("lastname"),
+              });
+
+              return redirect(
+                `http://localhost:3000/administrateur/utilisateurs/${params.id}`
+              );
+            }
+
+            case "delete": {
+              await axios.delete(
+                `http://localhost:3310/api/users/${params.id}`
+              );
+
+              return redirect(
+                `http://localhost:3000/administrateur/utilisateurs/`
+              );
+            }
+
+            default:
+              throw new Response("", { status: 405 });
+          }
         },
       },
       {

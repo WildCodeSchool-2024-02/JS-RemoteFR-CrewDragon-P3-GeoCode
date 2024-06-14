@@ -16,7 +16,7 @@ create table user (
   zip_code VARCHAR(20) NOT NULL,
   city VARCHAR(255) NOT NULL, 
   role_id INT UNSIGNED NOT NULL,
-  FOREIGN KEY(role_id) REFERENCES role(id)
+  FOREIGN KEY(role_id) REFERENCES role(id) ON DELETE CASCADE
 );
 
 create table brand (
@@ -29,15 +29,15 @@ create table model (
   name VARCHAR(255) NOT NULL,
   plug_type VARCHAR(255) NOT NULL,
   brand_id INT UNSIGNED NOT NULL,
-  FOREIGN KEY(brand_id) REFERENCES brand(id)
+  FOREIGN KEY(brand_id) REFERENCES brand(id) ON DELETE CASCADE
 );
 
 CREATE TABLE car (
   id INT UNSIGNED PRIMARY KEY AUTO_INCREMENT NOT NULL,
   user_id INT UNSIGNED NOT NULL,
   model_id INT UNSIGNED NOT NULL,
-  FOREIGN KEY (user_id) REFERENCES user(id),
-  FOREIGN KEY (model_id) REFERENCES model(id),
+  FOREIGN KEY (user_id) REFERENCES user(id) ON DELETE CASCADE,
+  FOREIGN KEY (model_id) REFERENCES model(id) ON DELETE CASCADE,
   image BLOB NOT NULL,
   name VARCHAR(255) NOT NULL
 );
@@ -62,7 +62,7 @@ date DATE NOT NULL,
 starting_hour TIME NOT NULL, 
 end_hour TIME NOT NULL, 
 terminal_id INT UNSIGNED NOT NULL,
-FOREIGN KEY(terminal_id) REFERENCES terminal(id),
+FOREIGN KEY(terminal_id) REFERENCES terminal(id) ON DELETE CASCADE,
 user_id INT UNSIGNED NOT NULL,
-FOREIGN KEY(user_id) REFERENCES user(id)
+FOREIGN KEY(user_id) REFERENCES user(id) ON DELETE CASCADE
 );
