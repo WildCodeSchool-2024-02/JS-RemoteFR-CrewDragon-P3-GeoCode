@@ -24,11 +24,11 @@ router.get("/:id", read);
 // Route to edit a specific item by ID
 router.put("/:id", edit);
 
-// Route to edit a specific item by ID
-router.delete("/:id", destroy);
-
 // Route to add a new item
 router.post("/", add);
+
+// Route to delete a specific item by ID
+router.delete("/:id", destroy);
 
 /* ************************************************************************* */
 

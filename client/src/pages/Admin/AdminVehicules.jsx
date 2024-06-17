@@ -43,6 +43,7 @@ function AdminVehicule() {
             <img src={car.image} alt={car.name} />
             <div className="admin-users-infos">
               <p>{car.name}</p>
+              <p>{car.id}</p>
             </div>
             <svg
               viewBox="0 0 24 24"
