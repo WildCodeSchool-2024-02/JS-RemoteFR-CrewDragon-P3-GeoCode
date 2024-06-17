@@ -8,12 +8,7 @@ function AdminVehiculesEdit() {
       <h1> {vehicule.name} </h1>
       <Form method="put">
         <label htmlFor="name">Nom</label>{" "}
-        <input
-          type="text"
-          id="name"
-          name="name"
-          defaultValue={vehicule.name}
-        />
+        <input type="text" id="name" name="name" defaultValue={vehicule.name} />
         <button type="submit">Modifier</button>
       </Form>
 
