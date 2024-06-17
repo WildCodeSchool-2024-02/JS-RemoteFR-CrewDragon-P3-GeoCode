@@ -12,8 +12,8 @@ class CarRepository extends AbstractRepository {
   async create(car) {
     // Execute the SQL INSERT query to add a new car to the "car" table
     const [result] = await this.database.query(
-      `insert into ${this.table} (title, user_id) values (?, ?)`,
-      [car.title, car.user_id]
+      `insert into ${this.table} (title, car_id) values (?, ?)`,
+      [car.title, car.car_id]
     );
 
     // Return the ID of the newly inserted car
@@ -42,18 +42,34 @@ class CarRepository extends AbstractRepository {
   }
 
   // The U of CRUD - Update operation
-  // TODO: Implement the update operation to modify an existing car
+  async update(car) {
+    // Execute the SQL UPDATE query to update a specific car
 
-  // async update(car) {
-  //   ...
-  // }
+    const [result] = await this.database.query(
+      `update ${this.table} set name = ? where id = ?`,
+
+      [car.name, car.id]
+    );
+
+    // Return how many rows were affected
+    console.info(result.affectedRows);
+    return result.affectedRows;
+  }
 
   // The D of CRUD - Delete operation
-  // TODO: Implement the delete operation to remove an car by its ID
+  async delete(id) {
+    // Execute the SQL DELETE query to delete a specific car
 
-  // async delete(id) {
-  //   ...
-  // }
+    const [result] = await this.database.query(
+      `delete from ${this.table} where id = ?`,
+
+      [id]
+    );
+
+    // Return how many rows were affected
+
+    return result.affectedRows;
+  }
 }
 
 module.exports = CarRepository;

@@ -30,6 +30,7 @@ import Aides from "./pages/Aides";
 import AideId from "./pages/AideId";
 import App from "./App";
 import AdminUtilisateursEdit from "./pages/Admin/AdminUtilisateursEdit";
+import AdminVehiculesEdit from "./pages/Admin/AdminVehiculesEdit";
 
 const router = createBrowserRouter([
   {
@@ -149,6 +150,43 @@ const router = createBrowserRouter([
         loader: async () => {
           const response = await axios.get("http://localhost:3310/api/cars");
           return response.data;
+        },
+      },
+      {
+        path: "/administrateur/vehicules/:id",
+        element: <AdminVehiculesEdit />,
+        loader: async ({ params }) => {
+          const response = await axios.get(
+            `http://localhost:3310/api/cars/${params.id}`
+          );
+          return response.data;
+        },
+        action: async ({ request, params }) => {
+          const formData = await request.formData();
+          console.info(formData);
+
+          switch (request.method.toLowerCase()) {
+            case "put": {
+              await axios.put(`http://localhost:3310/api/cars/${params.id}`, {
+                name: formData.get("name"),
+              });
+
+              return redirect(
+                `http://localhost:3000/administrateur/vehicules/${params.id}`
+              );
+            }
+
+            case "delete": {
+              await axios.delete(`http://localhost:3310/api/cars/${params.id}`);
+
+              return redirect(
+                `http://localhost:3000/administrateur/vehicules/`
+              );
+            }
+
+            default:
+              throw new Response("", { status: 405 });
+          }
         },
       },
       {

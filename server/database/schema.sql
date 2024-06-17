@@ -6,7 +6,7 @@ create table role (
 
 create table user (
   id INT unsigned PRIMARY KEY auto_increment NOT NULL,
-  image BLOB NOT NULL, 
+  image VARCHAR(255) NOT NULL, 
   email VARCHAR(255) NOT NULL unique,
   password VARCHAR(255) NOT NULL, 
   firstname VARCHAR(255) NOT NULL,
@@ -38,7 +38,7 @@ CREATE TABLE car (
   model_id INT UNSIGNED NOT NULL,
   FOREIGN KEY (user_id) REFERENCES user(id) ON DELETE CASCADE,
   FOREIGN KEY (model_id) REFERENCES model(id) ON DELETE CASCADE,
-  image BLOB NOT NULL,
+  image VARCHAR(255) NOT NULL,
   name VARCHAR(255) NOT NULL
 );
 

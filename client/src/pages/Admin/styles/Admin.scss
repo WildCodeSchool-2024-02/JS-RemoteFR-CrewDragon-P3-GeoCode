@@ -6,7 +6,13 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  border: 1px rgba(62, 62, 62, 0.6) solid;
+  //border: 1px rgba(62, 62, 62, 0.6) solid;
+
+  .admin-header {
+    display: flex;
+    flex-direction: row;
+    align-items: stretch;
+  }
 
   .admin-avatar {
     width: 5rem;

@@ -6,6 +6,7 @@ function AdminUtilisateursEdit() {
   return (
     <>
       <h1> {user.firstname} </h1>
+      
       <Form method="put">
         <label htmlFor="firstname">Prénom</label>{" "}
         <input
