@@ -7,7 +7,9 @@ import hero from "./assets/images/hero-relative.png";
 function App() {
   return (
     <main className="container">
-      <Menu />
+      <div className="menu">
+        <Menu />
+      </div>
       <div
         className="hero"
         style={{

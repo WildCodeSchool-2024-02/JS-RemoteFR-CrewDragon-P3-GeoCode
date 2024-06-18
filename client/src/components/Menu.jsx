@@ -10,7 +10,7 @@ function Menu() {
   };
 
   return (
-    <nav className={`menu ${open ? "open" : ""}`}>
+    <nav className={`menu ${open ? "open" : ""} nav-site`}>
       <div className="button-section">
         <button
           className={`burger ${open ? "open" : ""}`}
