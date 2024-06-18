@@ -7,6 +7,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@react-leaflet/core": "^2.1.0",
     "axios": "^1.7.2",
     "leaflet": "^1.9.4",
     "prop-types": "^15.8.1",
@@ -17,7 +18,6 @@
     "sass": "^1.77.5"
   },
   "devDependencies": {
-    "@types/leaflet": "^1.9.12",
     "@vitejs/plugin-react": "^4.2.1",
     "eslint": "^8.57.0",
     "eslint-config-airbnb": "^19.0.4",
