@@ -18,7 +18,7 @@ function Admin() {
       <h2 className="admin-Title">
         <Link to="/administrateur">Admin</Link>
       </h2>
-      <nav>
+      <nav className="admin-nav">
         <ul className="admin-List">
           <Link to="/administrateur/utilisateurs">
             <li className="admin-List-Items">
