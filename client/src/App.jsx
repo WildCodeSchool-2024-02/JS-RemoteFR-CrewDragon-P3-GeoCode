@@ -1,7 +1,6 @@
 import { Outlet } from "react-router-dom";
 import Menu from "./components/Menu";
 
-import "./styles/index.scss";
 import hero from "./assets/images/hero-relative.png";
 
 function App() {

@@ -8,6 +8,8 @@ import {
   RouterProvider,
 } from "react-router-dom";
 
+import "./styles/index.scss";
+
 // Import des pages
 import Accueil from "./pages/Accueil";
 import Carte from "./pages/Carte";
