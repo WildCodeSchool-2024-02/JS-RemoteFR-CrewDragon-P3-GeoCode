@@ -12,6 +12,13 @@ function App() {
         return Data[i].img;
       }
     }
+    return Data[0].img;
+  }
+
+  function isFullPage(path) {
+    if (path === "carte" || path === "") {
+      return true;
+    }
     return false;
   }
 
@@ -26,7 +33,20 @@ function App() {
           backgroundImage: `url(${isCurrentPage(heroData, page)})`,
         }}
       />
-      <div className="content">
+      <div
+        className="content"
+        style={
+          isFullPage(page)
+            ? {
+                width: "100%",
+                height: "100vh",
+                marginTop: "0",
+                borderRadius: "0",
+                padding: "0",
+              }
+            : {}
+        }
+      >
         <Outlet />
       </div>
     </main>
