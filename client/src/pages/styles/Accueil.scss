@@ -1,6 +1,6 @@
 .accueil-section {
   margin: 2rem;
-  background-color: white;
+  background-color: variables.$fourth-color;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -9,7 +9,7 @@
     margin-bottom: 2rem;
 
     .blue {
-      color: #21a89a;
+      color: variables.$secondary-color;
     }
   }
 
@@ -50,15 +50,15 @@
           .dot {
             width: 15px;
             height: 15px;
-            background-color: #afb1b0;
+            background-color: variables.$third-color;
             border-radius: 50%;
-            border: solid 0.1rem #afb1b0;
+            border: solid 0.1rem variables.$third-color;
             cursor: pointer;
             transition: background-color 0.3s;
 
             &.active {
-              background-color: #21a89a;
-              border: solid 0.1rem #21a89a;
+              background-color: variables.$secondary-color;
+              border: solid 0.1rem variables.$secondary-color;
             }
           }
         }
@@ -82,20 +82,20 @@
         padding: 1rem 0 1.5rem;
 
         .accueil-connexion {
-          background-color: #21a89a;
-          color: white;
+          background-color: variables.$secondary-color;
+          color: variables.$fourth-color;
           width: 100%;
           padding: 0.5rem;
           border-radius: 10rem;
-          border: 0.1rem solid #21a89a;
+          border: 0.1rem solid variables.$secondary-color;
         }
 
         .accueil-inscription {
-          background-color: white;
+          background-color: variables.$fourth-color;
           width: 100%;
           padding: 0.5rem;
           border-radius: 10rem;
-          border: 0.1rem solid #afb1b0;
+          border: 0.1rem solid variables.$third-color;
         }
       }
 
@@ -140,7 +140,7 @@
             display: block;
             padding: 0.5rem;
             border: none;
-            border-bottom: 0.1rem solid #afb1b0;
+            border-bottom: 0.1rem solid variables.$third-color;
             background-color: transparent;
             cursor: pointer;
           }
