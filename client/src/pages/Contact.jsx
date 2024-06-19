@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import { useState } from "react";
+import "./styles/Contact.scss";
 
 function Contact() {
   const [formData, setFormData] = useState({
@@ -43,7 +44,7 @@ function Contact() {
               name="nom"
               value={formData.nom}
               onChange={handleChange}
-              className="form-input"
+              className="form-input-container"
               required
             />
           </div>
@@ -57,7 +58,7 @@ function Contact() {
               name="prenom"
               value={formData.prenom}
               onChange={handleChange}
-              className="form-input"
+              className="form-input-container"
               required
             />
           </div>
@@ -95,18 +96,22 @@ function Contact() {
           <label htmlFor="message" className="form-label">
             Message:
           </label>
-          <textarea>
-            id="message" name="message" value={formData.message}
+          <textarea
+            id="message"
+            name="message"
+            value={formData.message}
             onChange={handleChange}
-            className="form-textarea" required
-          </textarea>
+            className="form-textarea"
+            required
+          />
         </div>
-        <Link to="/aides/" className="help-center-link">
-          Accéder au help center
-        </Link>
+
         <button type="submit" className="form-button">
           Envoyer ma demande
         </button>
+        <Link to="/aides/" className="help-center-link">
+          Accéder au help center
+        </Link>
       </form>
     </section>
   );
