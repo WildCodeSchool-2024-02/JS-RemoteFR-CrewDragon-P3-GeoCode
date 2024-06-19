@@ -1,12 +1,26 @@
 .admin-users-list {
   display: flex;
   flex-direction: column;
+  gap: 1.5rem;
+
   .admin-users-item {
     display: flex;
-    align-items: center;
+    justify-content: space-between;
     gap: 2rem;
+    border: 1px variables.$third-color solid;
+    border-radius: 1.5rem;
+    padding: 1.5rem;
+
+    img {
+      max-width: 6rem;
+      height: 100px;
+      border-radius: 1.2rem;
+    }
+
     .admin-users-infos {
       display: flex;
+      flex-direction: row;
+
       gap: 0.5rem;
     }
   }

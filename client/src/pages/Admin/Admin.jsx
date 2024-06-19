@@ -1,10 +1,9 @@
 import { Link } from "react-router-dom";
-import "./styles/Admin.scss";
-import avatar from "../../assets/images/avatar-admin.svg";
-import truck from "../../assets/images/truck.svg";
-import users from "../../assets/images/users.svg";
-import lightening from "../../assets/images/lightening.svg";
-import chart from "../../assets/images/chart.svg";
+import avatar from "../../assets/images/icons/avatar-admin.svg";
+import truck from "../../assets/images/icons/truck.svg";
+import users from "../../assets/images/icons/users.svg";
+import lightening from "../../assets/images/icons/lightening.svg";
+import chart from "../../assets/images/icons/chart.svg";
 
 function Admin() {
   return (

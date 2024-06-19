@@ -1,5 +1,3 @@
-@use "../../../styles/variables.scss";
-
 .admin-Content {
   width: 100%;
   display: flex;
@@ -63,7 +61,7 @@
         }
         &:hover {
           background-color: variables.$secondary-color;
-          color: white;
+          color: variables.$background-color;
         }
       }
     }

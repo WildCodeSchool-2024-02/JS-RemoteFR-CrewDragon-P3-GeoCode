@@ -1,5 +1,9 @@
 @use "variables";
 
+@import "../pages/styles/Accueil.scss";
+@import "../pages/Admin/styles/Admin.scss";
+@import "../pages/Admin/styles/AdminUtilisateurs.scss";
+
 * {
   margin: 0;
   padding: 0;
@@ -9,7 +13,7 @@
   body {
     width: 100%;
     margin: 0 auto;
-    text-align: center;
+    text-align: left;
     color: variables.$font-color;
 
     h1,
@@ -21,6 +25,7 @@
 
     p {
       font-family: variables.$font-text;
+      margin: 1.5rem 0;
     }
 
     a {
@@ -58,6 +63,10 @@
       background-color: white;
       margin-top: 0;
       padding: 1rem;
+
+      h1 {
+        text-align: left;
+      }
     }
 
     // media queries desktop
