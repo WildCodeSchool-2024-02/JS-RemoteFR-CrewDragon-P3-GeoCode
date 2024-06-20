@@ -63,12 +63,24 @@ const router = createBrowserRouter([
         element: <Borne />,
       },
       {
-        path: "/profil",
+        path: "/profil/:id",
         element: <Profil />,
+        loader: async ({ params }) => {
+          const response = await axios.get(
+            `http://localhost:3310/api/users/${params.id}`
+          );
+          return response.data;
+        },
       },
       {
-        path: "/profil/utilisateur",
+        path: "/profil/utilisateur/:id",
         element: <ProfilUtilisateur />,
+        loader: async ({ params }) => {
+          const response = await axios.get(
+            `http://localhost:3310/api/users/${params.id}`
+          );
+          return response.data;
+        },
       },
       {
         path: "/profil/vehicules",

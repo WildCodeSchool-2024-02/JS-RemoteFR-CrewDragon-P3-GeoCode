@@ -1,11 +1,11 @@
-import { Link } from "react-router-dom";
+import { Link, useLoaderData } from "react-router-dom";
 import avatar from "../../assets/images/icons/avatar-admin.svg";
 import truck from "../../assets/images/icons/truck.svg";
 import users from "../../assets/images/icons/users.svg";
-import lightening from "../../assets/images/icons/lightening.svg";
-import chart from "../../assets/images/icons/chart.svg";
 
 function Profil() {
+  const user = useLoaderData();
+
   return (
     <section className="profil-Content">
       <div className="profil-Header">
@@ -15,11 +15,13 @@ function Profil() {
       <img src={avatar} alt="" className="profil-Avatar" />
 
       <h2 className="profil-Title">
-        <p>Nom Prénom</p>
+        <p>
+          {user.firstname} {user.lastname}
+        </p>
       </h2>
       <nav className="profil-nav">
         <ul className="profil-List">
-          <Link to="/profil/utilisateur">
+          <Link to={`/profil/utilisateur/${user.id}`}>
             <li className="profil-List-Items">
               <img src={users} alt="" className="profil-List-Icon" />
               <h3>Mes informations</h3>
