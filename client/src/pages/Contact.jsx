@@ -1,6 +1,5 @@
 import { Link } from "react-router-dom";
 import { useState } from "react";
-import "./styles/Contact.scss";
 
 function Contact() {
   const [formData, setFormData] = useState({
@@ -106,7 +105,7 @@ function Contact() {
           />
         </div>
 
-        <button type="submit" className="form-button">
+        <button type="submit" className="form-button" id="submit-bouton">
           Envoyer ma demande
         </button>
         <Link to="/aides/" className="help-center-link">
