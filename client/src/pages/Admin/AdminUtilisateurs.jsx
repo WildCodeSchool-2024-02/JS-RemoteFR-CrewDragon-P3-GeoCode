@@ -1,8 +1,6 @@
 import { useLoaderData, Link } from "react-router-dom";
 import { useState } from "react";
 
-import "./styles/AdminUtilisateurs.scss";
-
 function AdminUtilisateur() {
   const users = useLoaderData();
 
@@ -25,7 +23,7 @@ function AdminUtilisateur() {
   };
 
   return (
-    <div>
+    <section>
       <h1>Mes utilisateurs</h1>
       <p>Trouvez ci-dessous la liste de vos utilisateurs.</p>
 
@@ -70,7 +68,8 @@ function AdminUtilisateur() {
           </li>
         ))}
       </ul>
-    </div>
+      
+    </section>
   );
 }
 
