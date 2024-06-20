@@ -23,8 +23,8 @@
       -webkit-overflow-scrolling: touch;
       .accueil-image {
         scroll-snap-align: start;
-        height: 40vh;
-        width: 40vh;
+        height: auto;
+        width: 100%;
 
         img {
           width: 100%;
