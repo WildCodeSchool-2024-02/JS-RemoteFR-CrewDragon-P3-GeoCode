@@ -1,12 +1,10 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 
-import Accueil1 from "../assets/images/1.png";
-import Accueil2 from "../assets/images/2.png";
-import Accueil3 from "../assets/images/11.png";
-import Accueil4 from "../assets/images/13.png";
-
-import "./styles/Accueil.scss";
+import Accueil1 from "../assets/images/carrousel/1.png";
+import Accueil2 from "../assets/images/carrousel/2.png";
+import Accueil3 from "../assets/images/carrousel/11.png";
+import Accueil4 from "../assets/images/carrousel/13.png";
 
 const items = [
   {
@@ -64,52 +62,59 @@ function Accueil() {
         Restez <span className="blue"> branchés </span> à GéoCode
       </h1>
       <div className="accueil-container">
-        {items.length > 0 && (
-          <div className="accueil-image">
-            <img src={items[currentItem]?.src} alt={items[currentItem]?.alt} />
-          </div>
-        )}
-
-        <div className="accueil-buttons">
-          <button
-            className="navigation-buttons"
-            type="button"
-            onClick={prevImage}
-          >
-            Précédent
-          </button>
-          <div className="accueil-dots">
-            {Array.from({ length: numberOfDots }).map((_, index) => (
-              <button
-                aria-label="dots"
-                key={items.id}
-                className={`dot ${currentItem === index ? "active" : ""}`}
-                onClick={() => handleDotClick(index)}
-                tabIndex={0}
-                type="button"
+        <div className="accueil-scroll">
+          {items.length > 0 && (
+            <div className="accueil-image">
+              <img
+                src={items[currentItem]?.src}
+                alt={items[currentItem]?.alt}
               />
-            ))}
+            </div>
+          )}
+
+          <div className="accueil-buttons">
+            <button
+              className="navigation-buttons"
+              type="button"
+              onClick={prevImage}
+            >
+              Précédent
+            </button>
+            <div className="accueil-dots">
+              {Array.from({ length: numberOfDots }).map((_, index) => (
+                <button
+                  aria-label="dots"
+                  key={items.id}
+                  className={`dot ${currentItem === index ? "active" : ""}`}
+                  onClick={() => handleDotClick(index)}
+                  tabIndex={0}
+                  type="button"
+                />
+              ))}
+            </div>
+            <button
+              className="navigation-buttons"
+              type="button"
+              onClick={nextImage}
+            >
+              Suivant
+            </button>
           </div>
-          <button
-            className="navigation-buttons"
-            type="button"
-            onClick={nextImage}
-          >
-            Suivant
-          </button>
+          {items.length > 0 && (
+            <div className="accueil-bottom-text">
+              <p>{items[currentItem]?.text}</p>
+            </div>
+          )}
         </div>
-        {items.length > 0 && (
-          <div className="accueil-bottom-text">
-            <p>{items[currentItem]?.text}</p>
-          </div>
-        )}
         <div className="accueil-bottom-buttons">
-          <Link to="/connexion" className="accueil-connexion">
-            Créer votre compte
-          </Link>
-          <Link to="/inscription" className="accueil-inscription">
-            Inscrivez-vous
-          </Link>
+          <div className="accueil-bottom-buttons-web">
+            <Link to="/connexion" className="accueil-connexion">
+              Créer votre compte
+            </Link>
+            <Link to="/inscription" className="accueil-inscription">
+              Inscrivez-vous
+            </Link>
+          </div>
           <Link to="/carte" className="accueil-link">
             Accéder directement à la carte
           </Link>
