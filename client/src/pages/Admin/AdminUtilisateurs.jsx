@@ -1,5 +1,6 @@
 import { useLoaderData, Link } from "react-router-dom";
 import { useState } from "react";
+import HeaderSearchbar from "../../components/HeaderSearchbar";
 
 function AdminUtilisateur() {
   const users = useLoaderData();
@@ -24,8 +25,11 @@ function AdminUtilisateur() {
 
   return (
     <section>
-      <h1>Mes utilisateurs</h1>
-
+          <HeaderSearchbar>
+        {{
+          title: 'Mes utilisateurs',
+        }}
+      </HeaderSearchbar>
       <form onSubmit={(e) => e.preventDefault()}>
         <label htmlFor="site-search">
           Trouvez ci-dessous la liste de vos utilisateurs.
