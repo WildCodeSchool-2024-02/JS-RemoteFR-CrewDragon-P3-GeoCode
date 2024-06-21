@@ -6,7 +6,7 @@ create table role (
 
 create table user (
   id INT unsigned PRIMARY KEY auto_increment NOT NULL,
-  image VARCHAR(255) NOT NULL, 
+  avatar VARCHAR(255) NOT NULL, 
   email VARCHAR(255) NOT NULL unique,
   password VARCHAR(255) NOT NULL, 
   firstname VARCHAR(255) NOT NULL,

@@ -25,7 +25,10 @@ class UserRepository extends AbstractRepository {
   async read(id) {
     // Execute the SQL SELECT query to retrieve a specific user by its ID
     const [rows] = await this.database.query(
-      `select * from ${this.table} where id = ?`,
+      `SELECT user.*, car.*
+         FROM ${this.table} AS user
+         JOIN car ON car.user_id = user.id
+         WHERE user.id = ?`,
       [id]
     );
 

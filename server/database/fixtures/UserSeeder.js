@@ -22,7 +22,7 @@ class UserSeeder extends AbstractSeeder {
         address: this.faker.location.streetAddress(),
         zip_code: this.faker.location.zipCode(),
         city: this.faker.location.city(),
-        image: this.faker.image.avatar(),
+        avatar: this.faker.image.avatar(),
         // Foreign Keys
         role_id: this.getRef(`role_${i}`).insertId, // Get the insertId of the corresponding role from RoleSeeder
         refName: `user_${i}`, // Create a reference name for the user
