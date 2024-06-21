@@ -12,8 +12,8 @@ class TerminalRepository extends AbstractRepository {
   async create(terminal) {
     // Execute the SQL INSERT query to add a new terminal to the "terminal" table
     const [result] = await this.database.query(
-      `insert into ${this.table} (title, user_id) values (?, ?)`,
-      [terminal.title, terminal.user_id]
+      `insert into ${this.table} (title, terminal_id) values (?, ?)`,
+      [terminal.title, terminal.terminal_id]
     );
 
     // Return the ID of the newly inserted terminal
@@ -42,18 +42,34 @@ class TerminalRepository extends AbstractRepository {
   }
 
   // The U of CRUD - Update operation
-  // TODO: Implement the update operation to modify an existing terminal
+  async update(terminal) {
+    // Execute the SQL UPDATE query to update a specific terminal
 
-  // async update(terminal) {
-  //   ...
-  // }
+    const [result] = await this.database.query(
+      `update ${this.table} set name = ? where id = ?`,
+
+      [terminal.name, terminal.id]
+    );
+
+    // Return how many rows were affected
+    console.info(result.affectedRows);
+    return result.affectedRows;
+  }
 
   // The D of CRUD - Delete operation
-  // TODO: Implement the delete operation to remove an terminal by its ID
+  async delete(id) {
+    // Execute the SQL DELETE query to delete a specific terminal
 
-  // async delete(id) {
-  //   ...
-  // }
+    const [result] = await this.database.query(
+      `delete from ${this.table} where id = ?`,
+
+      [id]
+    );
+
+    // Return how many rows were affected
+
+    return result.affectedRows;
+  }
 }
 
 module.exports = TerminalRepository;
