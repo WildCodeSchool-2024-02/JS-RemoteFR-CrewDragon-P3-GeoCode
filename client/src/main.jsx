@@ -33,6 +33,8 @@ import AideId from "./pages/AideId";
 import App from "./App";
 import AdminUtilisateursEdit from "./pages/Admin/AdminUtilisateursEdit";
 import AdminVehiculesEdit from "./pages/Admin/AdminVehiculesEdit";
+import AdminBornesEdit from "./pages/Admin/AdminBornesEdit";
+import AdminBornesAddCsv from "./pages/Admin/AdminBornesAddCsv";
 import ProfilUtilisateurEdit from "./pages/Profil/ProfilUtilisateurEdit";
 
 const router = createBrowserRouter([
@@ -245,9 +247,69 @@ const router = createBrowserRouter([
       {
         path: "/administrateur/bornes",
         element: <AdminBornes />,
+        loader: async () => {
+          const response = await axios.get(
+            "http://localhost:3310/api/terminals"
+          );
+          return response.data;
+        },
       },
       {
-        path: "/administrateur/reservatuibs",
+        path: "/administrateur/bornes/:id",
+        element: <AdminBornesEdit />,
+        loader: async ({ params }) => {
+          const response = await axios.get(
+            `http://localhost:3310/api/terminals/${params.id}`
+          );
+          return response.data;
+        },
+        action: async ({ request, params }) => {
+          const formData = await request.formData();
+          console.info(formData);
+
+          switch (request.method.toLowerCase()) {
+            case "put": {
+              await axios.put(
+                `http://localhost:3310/api/terminals/${params.id}`,
+                {
+                  name: formData.get("name"),
+                }
+              );
+
+              return redirect(
+                `http://localhost:3000/administrateur/bornes/${params.id}`
+              );
+            }
+
+            case "delete": {
+              await axios.delete(
+                `http://localhost:3310/api/terminals/${params.id}`
+              );
+
+              return redirect(`http://localhost:3000/administrateur/bornes/`);
+            }
+
+            default:
+              throw new Response("", { status: 405 });
+          }
+        },
+      },
+      {
+        path: "/administrateur/bornes/import",
+        element: <AdminBornesAddCsv />,
+        action: async ({ request }) => {
+          const formData = await request.formData();
+          console.info(formData);
+
+          const file = formData.get("file");
+
+          await axios.post("/api/terminals", { file });
+          return false; // test mode
+        },
+      },
+
+      {
+        path: "/administrateur/reservations",
         element: <AdminReservations />,
       },
     ],
