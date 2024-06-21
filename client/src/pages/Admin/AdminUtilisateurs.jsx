@@ -1,4 +1,4 @@
-import { useLoaderData, Link } from "react-router-dom";
+import { useLoaderData, Form, Link } from "react-router-dom";
 import { SearchProvider, useSearch } from "../../contexts/SearchContext";
 import HeaderSearchbar from "../../components/HeaderSearchbar";
 
@@ -18,6 +18,18 @@ function Content() {
   const { filteredItems } = useSearch();
   return (
     <section>
+      <Form method="post">
+        <label htmlFor="firstname">Prénom</label>{" "}
+        <input
+          type="text"
+          id="firstname"
+          name="firstname"
+          defaultValue="John"
+        />
+        <label htmlFor="lastname">Nom</label>{" "}
+        <input type="text" id="lastname" name="lastname" defaultValue="Doe" />
+        <button type="submit">Ajouter</button>
+      </Form>
       <HeaderSearchbar>
         {{
           title: "Mes utilisateurs",
