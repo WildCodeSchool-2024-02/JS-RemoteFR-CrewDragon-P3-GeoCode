@@ -16,7 +16,6 @@ function AdminUtilisateur() {
 // Déclaration d'un composant Content CAR, on a besoin de items pour le state init du filteredItems (qui est dans le context). On peut ainsi l'appeler avec useSearch sans undefined.
 function Content() {
   const { filteredItems } = useSearch();
-  console.info(filteredItems);
   return (
     <section>
       <HeaderSearchbar>
