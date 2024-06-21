@@ -1,0 +1,96 @@
+@use "variables";
+@import "../pages/styles/Contact.scss";
+
+@import "../pages/styles/Accueil.scss";
+@import "../pages/Admin/styles/Admin.scss";
+@import "../pages/Admin/styles/AdminUtilisateurs.scss";
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  scroll-behavior: smooth;
+
+  body {
+    width: 100%;
+    margin: 0 auto;
+    text-align: left;
+    color: variables.$font-color;
+
+    h1,
+    h2,
+    h3,
+    h4 {
+      font-family: variables.$font-title;
+    }
+
+    h1 {
+      margin-bottom: 1.5rem;
+    }
+
+    p,
+    label {
+      font-family: variables.$font-text;
+      margin: 1.5rem 0;
+    }
+
+    a {
+      text-decoration: none;
+      color: variables.$font-color;
+      font-family: variables.$font-title;
+    }
+
+    // Main containing all the APP
+    .container {
+      position: relative;
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    // Header with img BG
+    .hero {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 300px;
+      background-size: cover;
+      background-repeat: no-repeat;
+      z-index: -1;
+    }
+
+    // Outlet
+    .content {
+      width: 100%;
+      height: 100vh;
+      overflow-x: scroll;
+      -ms-overflow-style: none; /* for Internet Explorer, Edge */
+      scrollbar-width: none; /* for Firefox */
+      position: relative;
+      z-index: 1;
+      background-color: white;
+      margin-top: 0;
+      padding: 1rem;
+
+      h1 {
+        text-align: left;
+      }
+    }
+
+    // media queries desktop
+    @media screen and (min-width: 768px) {
+      .content {
+        width: 88ch;
+        position: relative;
+        z-index: 1;
+        background-color: white;
+        margin-top: calc(8vw);
+        padding: 2rem;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        border-radius: 1.5rem;
+      }
+    }
+  }
+}

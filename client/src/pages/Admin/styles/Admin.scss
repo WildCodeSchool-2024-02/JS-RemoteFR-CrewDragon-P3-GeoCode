@@ -1,0 +1,69 @@
+.admin-Content {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  .admin-Header {
+    display: flex;
+    width: 100%;
+    flex-direction: row;
+    justify-content: space-between;
+    gap: 3rem;
+
+    h1 {
+      font-size: 1.5rem;
+    }
+  }
+
+  .admin-Title {
+    font-weight: bold;
+    font-size: 1.3rem;
+  }
+
+  .admin-Avatar {
+    width: 8rem;
+    margin: 4rem 0 1rem;
+  }
+  .admin-nav {
+    margin-top: 25px;
+    width: 100%;
+
+    .admin-List {
+      display: grid;
+      grid-template-columns: repeat(1, 1fr);
+      list-style-type: none;
+      gap: 1.2rem;
+
+      .admin-List-Items {
+        border: 1px variables.$secondary-color solid;
+        border-radius: 10px;
+        padding: 1.4rem;
+        width: 100%;
+
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        text-align: left;
+
+        .admin-List-Icon {
+          width: 1.5rem;
+        }
+
+        p {
+          font-size: 1rem;
+          color: variables.$third-color;
+          margin: 0.8rem 0;
+        }
+
+        h3 {
+          font-size: 1.2;
+          margin: 1.2rem 0;
+        }
+        &:hover {
+          background-color: variables.$secondary-color;
+          color: variables.$background-color;
+        }
+      }
+    }
+  }
+}
