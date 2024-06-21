@@ -158,6 +158,32 @@ const router = createBrowserRouter([
           const response = await axios.get("http://localhost:3310/api/users");
           return response.data;
         },
+        action: async ({ request }) => {
+          const formData = await request.formData();
+
+          switch (request.method.toLowerCase()) {
+            case "post": {
+              await axios.post(`http://localhost:3310/api/users/`, {
+                firstname: formData.get("firstname"),
+                lastname: formData.get("lastname"),
+                avatar: "vvvvv",
+                email: "michelle@michel.com",
+                password: "vvvvv",
+                address: "vvvvv",
+                zip_code: "vvvvv",
+                city: "vvvvv",
+                role_id: 3,
+              });
+
+              return redirect(
+                `http://localhost:3000/administrateur/utilisateurs/`
+              );
+            }
+
+            default:
+              throw new Response("", { status: 405 });
+          }
+        },
       },
       {
         path: "/administrateur/utilisateurs/:id",
@@ -174,6 +200,17 @@ const router = createBrowserRouter([
           switch (request.method.toLowerCase()) {
             case "put": {
               await axios.put(`http://localhost:3310/api/users/${params.id}`, {
+                firstname: formData.get("firstname"),
+                lastname: formData.get("lastname"),
+              });
+
+              return redirect(
+                `http://localhost:3000/administrateur/utilisateurs/${params.id}`
+              );
+            }
+
+            case "post": {
+              await axios.post(`http://localhost:3310/api/users/`, {
                 firstname: formData.get("firstname"),
                 lastname: formData.get("lastname"),
               });
@@ -294,7 +331,6 @@ const router = createBrowserRouter([
         },
       },
       {
-
         path: "/administrateur/bornes/import",
         element: <AdminBornesAddCsv />,
         action: async ({ request }) => {

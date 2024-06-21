@@ -11,7 +11,7 @@ create table user (
   password VARCHAR(255) NOT NULL, 
   firstname VARCHAR(255) NOT NULL,
   lastname VARCHAR(255) NOT NULL,
-  birthday DATE NOT NULL, 
+  birthday DATE, 
   address VARCHAR(255) NOT NULL,
   zip_code VARCHAR(20) NOT NULL,
   city VARCHAR(255) NOT NULL, 
