@@ -196,7 +196,7 @@ const router = createBrowserRouter([
         element: <AdminBornes />,
       },
       {
-        path: "/administrateur/reservatuibs",
+        path: "/administrateur/reservations",
         element: <AdminReservations />,
       },
     ],
