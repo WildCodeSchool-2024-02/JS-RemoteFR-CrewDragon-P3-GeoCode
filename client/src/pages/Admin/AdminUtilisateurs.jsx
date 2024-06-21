@@ -6,8 +6,8 @@ function AdminUtilisateur() {
   const items = useLoaderData(); // Récupération des items via le loader dans main.jsx
 
   return (
-    // Import du provider ICI car on fait remonter les items dans le Contexte 
-    <SearchProvider items={items}> 
+    // Import du provider ICI car on fait remonter les items dans le Contexte
+    <SearchProvider items={items}>
       <Content />
     </SearchProvider>
   );
@@ -16,20 +16,20 @@ function AdminUtilisateur() {
 // Déclaration d'un composant Content CAR, on a besoin de items pour le state init du filteredItems (qui est dans le context). On peut ainsi l'appeler avec useSearch sans undefined.
 function Content() {
   const { filteredItems } = useSearch();
-
+  console.info(filteredItems);
   return (
     <section>
       <HeaderSearchbar>
         {{
           title: "Mes utilisateurs",
-          label: "Trouvez ci-dessous la liste de vos utilisateurs.",
+          label: "Trouvez ci-dessous la liste de vos ",
         }}
       </HeaderSearchbar>
 
       <p>
         {filteredItems.length === 0
-          ? "Aucun utilisateur correspondant à la recherche"
-          : `${filteredItems.length} utilisateur${filteredItems.length === 1 ? "" : "s"}`}
+          ? "Aucun résultat correspondant à la recherche"
+          : `${filteredItems.length} résultat${filteredItems.length === 1 ? "" : "s"}`}
       </p>
 
       <ul className="admin-users-list">

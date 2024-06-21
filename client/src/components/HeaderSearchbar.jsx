@@ -8,7 +8,10 @@ function HeaderSearchbar({ children }) {
     <>
       <h1>{children.title}</h1>
       <form onSubmit={(e) => e.preventDefault()}>
-        <label htmlFor="site-search">{children.label}</label>
+        <label htmlFor="site-search">
+          {children.label}
+          {children.title.split(" ")[1]}
+        </label>
         <input
           className="searchbar"
           type="search"
@@ -16,7 +19,7 @@ function HeaderSearchbar({ children }) {
           name="search"
           value={searchQuery}
           onChange={handleSearchInputChange}
-          placeholder={`Rechercher parmi ${children.title} 🔎`}
+          placeholder={`Rechercher parmi les ${children.title.split(" ")[1]} 🔎`}
         />
       </form>
     </>
