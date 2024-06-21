@@ -170,7 +170,6 @@ const router = createBrowserRouter([
         },
         action: async ({ request, params }) => {
           const formData = await request.formData();
-          console.info(formData);
 
           switch (request.method.toLowerCase()) {
             case "put": {
@@ -295,6 +294,7 @@ const router = createBrowserRouter([
         },
       },
       {
+
         path: "/administrateur/bornes/import",
         element: <AdminBornesAddCsv />,
         action: async ({ request }) => {

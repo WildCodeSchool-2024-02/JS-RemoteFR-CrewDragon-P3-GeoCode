@@ -1,53 +1,38 @@
 import { useLoaderData, Link } from "react-router-dom";
-import { useState } from "react";
+import { SearchProvider, useSearch } from "../../contexts/SearchContext";
+import HeaderSearchbar from "../../components/HeaderSearchbar";
 
 function AdminUtilisateur() {
-  const users = useLoaderData();
-
-  const [searchQuery, setSearchQuery] = useState("");
-  const [filteredUsers, setFilteredUsers] = useState(users);
-
-  const filterUsers = (query) => {
-    setFilteredUsers(
-      users.filter(
-        (user) =>
-          user.firstname.toLowerCase().startsWith(query.toLowerCase()) ||
-          user.lastname.toLowerCase().startsWith(query.toLowerCase())
-      )
-    );
-  };
-
-  const handleSearchInputChange = (event) => {
-    setSearchQuery(event.target.value);
-    filterUsers(event.target.value);
-  };
+  const items = useLoaderData(); // Récupération des items via le loader dans main.jsx
 
   return (
-    <section>
-      <h1>Mes utilisateurs</h1>
+    // Import du provider ICI car on fait remonter les items dans le Contexte
+    <SearchProvider items={items}>
+      <Content />
+    </SearchProvider>
+  );
+}
 
-      <form onSubmit={(e) => e.preventDefault()}>
-        <label htmlFor="site-search">
-          Trouvez ci-dessous la liste de vos utilisateurs.
-        </label>
-        <input
-          className="searchbar"
-          type="search"
-          id="site-search"
-          name="search"
-          value={searchQuery}
-          onChange={handleSearchInputChange}
-          placeholder="Rechercher un utilisateur 🔎"
-        />
-      </form>
+// Déclaration d'un composant Content CAR, on a besoin de items pour le state init du filteredItems (qui est dans le context). On peut ainsi l'appeler avec useSearch sans undefined.
+function Content() {
+  const { filteredItems } = useSearch();
+  return (
+    <section>
+      <HeaderSearchbar>
+        {{
+          title: "Mes utilisateurs",
+          label: "Trouvez ci-dessous la liste de vos ",
+        }}
+      </HeaderSearchbar>
+
       <p>
-        {filteredUsers.length === 0
-          ? "Aucun utilisateur correpondant à la recherche"
-          : `${filteredUsers.length} utilisateur${filteredUsers.length === 1 ? "" : "s"}`}
+        {filteredItems.length === 0
+          ? "Aucun résultat correspondant à la recherche"
+          : `${filteredItems.length} résultat${filteredItems.length === 1 ? "" : "s"}`}
       </p>
 
       <ul className="admin-users-list">
-        {filteredUsers.map((user) => (
+        {filteredItems.map((user) => (
           <Link to={`/administrateur/utilisateurs/${user.id}`} key={user.id}>
             <li className="admin-users-item">
               <img
