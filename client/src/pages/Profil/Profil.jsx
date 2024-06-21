@@ -1,5 +1,4 @@
 import { Link, useLoaderData } from "react-router-dom";
-import avatar from "../../assets/images/icons/avatar-admin.svg";
 import truck from "../../assets/images/icons/truck.svg";
 import users from "../../assets/images/icons/users.svg";
 
@@ -12,7 +11,7 @@ function Profil() {
         <h1>Page profil</h1>
       </div>
 
-      <img src={avatar} alt="" className="profil-Avatar" />
+      <img src={user.avatar} alt="" className="profil-Avatar" />
 
       <h2 className="profil-Title">
         <p>
@@ -21,7 +20,7 @@ function Profil() {
       </h2>
       <nav className="profil-nav">
         <ul className="profil-List">
-          <Link to={`/profil/utilisateur/${user.id}`}>
+          <Link to={`/profil/utilisateur/${user.user_id}`}>
             <li className="profil-List-Items">
               <img src={users} alt="" className="profil-List-Icon" />
               <h3>Mes informations</h3>

@@ -33,6 +33,7 @@ import AideId from "./pages/AideId";
 import App from "./App";
 import AdminUtilisateursEdit from "./pages/Admin/AdminUtilisateursEdit";
 import AdminVehiculesEdit from "./pages/Admin/AdminVehiculesEdit";
+import ProfilUtilisateurEdit from "./pages/Profil/ProfilUtilisateurEdit";
 
 const router = createBrowserRouter([
   {
@@ -80,6 +81,44 @@ const router = createBrowserRouter([
             `http://localhost:3310/api/users/${params.id}`
           );
           return response.data;
+        },
+      },
+      {
+        path: "/profil/utilisateur/edit/:id",
+        element: <ProfilUtilisateurEdit />,
+        loader: async ({ params }) => {
+          const response = await axios.get(
+            `http://localhost:3310/api/users/${params.id}`
+          );
+          return response.data;
+        },
+        action: async ({ request, params }) => {
+          const formData = await request.formData();
+          console.info(formData);
+
+          switch (request.method.toLowerCase()) {
+            case "put": {
+              await axios.put(`http://localhost:3310/api/users/${params.id}`, {
+                firstname: formData.get("firstname"),
+                lastname: formData.get("lastname"),
+              });
+
+              return redirect(
+                `http://localhost:3000/profil/utilisateur/${params.id}`
+              );
+            }
+
+            case "delete": {
+              await axios.delete(
+                `http://localhost:3310/api/users/${params.id}`
+              );
+
+              return redirect(`http://localhost:3000/`);
+            }
+
+            default:
+              throw new Response("", { status: 405 });
+          }
         },
       },
       {
