@@ -103,6 +103,12 @@ const router = createBrowserRouter([
               await axios.put(`http://localhost:3310/api/users/${params.id}`, {
                 firstname: formData.get("firstname"),
                 lastname: formData.get("lastname"),
+                email: formData.get("email"),
+                password: formData.get("password"),
+                birthday: formData.get("birthday"),
+                address: formData.get("address"),
+                zip_code: formData.get("zipcode"),
+                city: formData.get("city"),
               });
 
               return redirect(
@@ -294,7 +300,6 @@ const router = createBrowserRouter([
         },
       },
       {
-
         path: "/administrateur/bornes/import",
         element: <AdminBornesAddCsv />,
         action: async ({ request }) => {
