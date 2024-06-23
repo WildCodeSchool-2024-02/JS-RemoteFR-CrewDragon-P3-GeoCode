@@ -23,10 +23,10 @@ function ProfilUtilisateurEdit() {
           defaultValue={user.lastname}
         />
         <label htmlFor="email">Email</label>{" "}
-        <input type="text" id="email" name="email" defaultValue={user.email} />
+        <input type="email" id="email" name="email" defaultValue={user.email} />
         <label htmlFor="email">Mot de passe</label>{" "}
         <input
-          type="text"
+          type="password"
           id="password"
           name="password"
           defaultValue={user.password}
