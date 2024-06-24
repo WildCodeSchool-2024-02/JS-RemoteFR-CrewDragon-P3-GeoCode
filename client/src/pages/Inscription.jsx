@@ -1,7 +1,18 @@
-import { useRef, useState } from "react";
-import { useNavigate, Link } from "react-router-dom";
+import { useForm } from "react-hook-form";
+
+import { useRef } from "react";
+import { Link, useNavigate } from "react-router-dom";
 
 function Inscription() {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    trigger,
+  } = useForm();
+
+  const navigate = useNavigate();
+
   // Références pour les champs
   const emailRef = useRef();
   const firstnameRef = useRef();
@@ -9,28 +20,11 @@ function Inscription() {
   const addressRef = useRef();
   const zipcodeRef = useRef();
   const cityRef = useRef();
+  const passwordRef = useRef();
+  const confirmPasswordRef = useRef();
 
-  // États pour le mot de passe et la confirmation du mot de passe
-  const [password, setPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
-
-  // Hook pour la navigation
-  const navigate = useNavigate();
-
-  // Gestionnaire de changement du mot de passe
-  const handlePasswordChange = (event) => {
-    setPassword(event.target.value);
-  };
-
-  // Gestionnaire de changement de la confirmation du mot de passe
-  const handleConfirmPasswordChange = (event) => {
-    setConfirmPassword(event.target.value);
-  };
-
-  // Gestionnaire de soumission du formulaire
-  const handleSubmit = async (event) => {
-    event.preventDefault();
-
+  const onSubmit = async () => {
+    // async request which may result error
     try {
       // Appel à l'API pour créer un nouvel utilisateur
       const response = await fetch(
@@ -41,7 +35,7 @@ function Inscription() {
           body: JSON.stringify({
             avatar: "https://via.placeholder.com/64x64",
             email: emailRef.current.value,
-            password,
+            password: passwordRef.current.value,
             firstname: firstnameRef.current.value,
             lastname: lastnameRef.current.value,
             address: addressRef.current.value,
@@ -51,7 +45,6 @@ function Inscription() {
           }),
         }
       );
-
       // Redirection vers la page de connexion si la création réussit
       if (response.status === 201) {
         navigate("/connexion");
@@ -68,36 +61,72 @@ function Inscription() {
   return (
     <section>
       <h1> Bonjour je suis l'inscription </h1>
-      <form onSubmit={handleSubmit}>
+
+      <form onSubmit={handleSubmit(onSubmit)}>
+        {/* eslint-disable react/jsx-props-no-spreading */}
+
         <div>
           {/* Champ pour l'email */}
-          <label htmlFor="email">email</label>{" "}
-          <input ref={emailRef} type="email" id="email" />
+          <label htmlFor="email">Email</label>{" "}
+          <input
+            ref={emailRef}
+            type="email"
+            id="email"
+            {...register("email", {
+              required: true,
+              pattern: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/,
+            })}
+            onBlur={() => trigger("email")} // Validation au moment de la perte du focus
+          />{" "}
+          {errors.email && (
+            <p role="alert">
+              {errors.email.type === "required" && "L'email est obligatoire"}
+
+              {errors.email.type === "pattern" && "C'est pas bon le format"}
+            </p>
+          )}
         </div>
         <div>
           {/* Champ pour le mot de passe */}
-          <label htmlFor="password">password</label>{" "}
+          <label htmlFor="password">Mot de passe</label>{" "}
           <input
             type="password"
             id="password"
-            value={password}
-            onChange={handlePasswordChange}
-          />{" "}
-          {/* Indicateur de force du mot de passe */}
-          {password.length >= 8 ? "✅" : "❌"}{" "}
-          {`length: ${password.length} >= 8`}
+            ref={passwordRef}
+            {...register("password", {
+              required: true,
+              pattern: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).{8,}$/,
+            })}
+            onBlur={() => trigger("password")} // Validation au moment de la perte du focus
+          />
+          {errors.password && (
+            <p role="alert">
+              {errors.password.type === "required" &&
+                "Le mot de passe est obligatoire"}
+              {errors.password.type === "pattern" && "C'est pas bon le format"}
+            </p>
+          )}
         </div>
         <div>
           {/* Champ pour la confirmation du mot de passe */}
-          <label htmlFor="confirm-password">confirm password</label>{" "}
+          <label htmlFor="confirm-password">
+            Confirmer le mot de passe
+          </label>{" "}
           <input
+            ref={confirmPasswordRef}
             type="password"
             id="confirm-password"
-            value={confirmPassword}
-            onChange={handleConfirmPasswordChange}
-          />{" "}
-          {/* Indicateur de correspondance avec le mot de passe */}
-          {password === confirmPassword ? "✅" : "❌"}
+            {...register("confirm-password", {
+              required: true,
+            })}
+            onBlur={() => trigger("confirm-password")}
+          />
+          {errors.password && (
+            <p role="alert">
+              {errors.password.type === "required" &&
+                "Le mot de passe est obligatoire"}
+            </p>
+          )}
         </div>
 
         <div>
