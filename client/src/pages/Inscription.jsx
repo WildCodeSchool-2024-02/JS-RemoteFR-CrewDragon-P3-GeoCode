@@ -9,6 +9,7 @@ function Inscription() {
     handleSubmit,
     formState: { errors },
     trigger,
+    watch,
   } = useForm();
 
   const navigate = useNavigate();
@@ -23,8 +24,30 @@ function Inscription() {
   const passwordRef = useRef();
   const confirmPasswordRef = useRef();
 
+  // Surveille le champ de mot de passe pour indiquer ce qu'il manque
+  const validatePassword = (value) => {
+    if (!/(?=.*[a-z])/.test(value)) {
+      return "Il vous manque une lettre minuscule. 🙃";
+    }
+    if (!/(?=.*[A-Z])/.test(value)) {
+      return "Il vous manque une lettre majuscule. 🙃";
+    }
+    if (!/(?=.*\d)/.test(value)) {
+      return "Il vous manque un chiffre. 🙃";
+    }
+    if (!/(?=.*[\W_])/.test(value)) {
+      return "Il vous manque un caractère spécial. 🙃";
+    }
+    if (!/.{8,}/.test(value)) {
+      return "Il vous manque des caractères pour atteindre 8 caractères. 🙃";
+    }
+    return true;
+  };
+
+  // Surveille le champ de mot de passe pour le mot de passe à confirmer
+  const password = watch("password");
+
   const onSubmit = async () => {
-    // async request which may result error
     try {
       // Appel à l'API pour créer un nouvel utilisateur
       const response = await fetch(
@@ -60,34 +83,141 @@ function Inscription() {
 
   return (
     <section>
-      <h1> Bonjour je suis l'inscription </h1>
+      <h1>Rejoignez la communauté ! </h1>
 
       <form onSubmit={handleSubmit(onSubmit)}>
         {/* eslint-disable react/jsx-props-no-spreading */}
+        <div className="form-group-50-50">
+          <div className="form-group">
+            <label htmlFor="firstname">Prénom</label>{" "}
+            <input
+              ref={firstnameRef}
+              type="text"
+              id="firstname"
+              placeholder="Simon"
+              {...register("firstname", {
+                required: true,
+              })}
+              // Validation au moment de la perte du focus
+              onBlur={() => trigger("firstname")}
+            />
+            {errors.firstname && (
+              <p role="alert">
+                {errors.firstname.type === "required" &&
+                  "Vous avez oublié votre prénom ? 🤭"}
+              </p>
+            )}
+          </div>
 
-        <div>
-          {/* Champ pour l'email */}
-          <label htmlFor="email">Email</label>{" "}
+          <div className="form-group">
+            <label htmlFor="lastname">Nom</label>
+            <input
+              ref={lastnameRef}
+              type="text"
+              id="lastname"
+              placeholder="Beget"
+              {...register("lastname", {
+                required: true,
+              })}
+              // Validation au moment de la perte du focus
+              onBlur={() => trigger("lastname")}
+            />
+            {errors.lastname && (
+              <p role="alert">
+                {errors.lastname.type === "required" &&
+                  "Vous avez oublié votre nom ? 🤭"}
+              </p>
+            )}
+          </div>
+        </div>
+        <div className="form-group">
+          <label htmlFor="email">Email</label>
           <input
             ref={emailRef}
             type="email"
             id="email"
+            placeholder="simon.beget@greendrive.com"
             {...register("email", {
               required: true,
               pattern: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/,
             })}
-            onBlur={() => trigger("email")} // Validation au moment de la perte du focus
-          />{" "}
+            // Validation au moment de la perte du focus
+            onBlur={() => trigger("email")}
+          />
           {errors.email && (
             <p role="alert">
-              {errors.email.type === "required" && "L'email est obligatoire"}
+              {errors.email.type === "required" &&
+                "Vous avez oublié votre email ? 🤭"}
 
-              {errors.email.type === "pattern" && "C'est pas bon le format"}
+              {errors.email.type === "pattern" &&
+                "Êtes-vous sûr d'avoir écrit correctement votre email ? 🤔"}
             </p>
           )}
         </div>
-        <div>
-          {/* Champ pour le mot de passe */}
+        <div className="form-group">
+          <label htmlFor="address">Adresse</label>{" "}
+          <input
+            ref={addressRef}
+            type="text"
+            id="address"
+            placeholder="10 Rue de la Mouette Rieuse"
+            {...register("address", {
+              required: true,
+            })}
+            // Validation au moment de la perte du focus
+            onBlur={() => trigger("address")}
+          />
+          {errors.address && (
+            <p role="alert">
+              {errors.address.type === "required" &&
+                "Vous avez oublié où vous habitiez ? 🤭"}
+            </p>
+          )}
+        </div>
+        <div className="form-group-50-50">
+          <div className="form-group">
+            <label htmlFor="zipcode">Code Postal</label>{" "}
+            <input
+              ref={zipcodeRef}
+              type="text"
+              id="zipcode"
+              placeholder="44000"
+              {...register("zipcode", {
+                required: true,
+              })}
+              // Validation au moment de la perte du focus
+              onBlur={() => trigger("zipcode")}
+            />
+            {errors.zipcode && (
+              <p role="alert">
+                {errors.zipcode.type === "required" &&
+                  "Vous avez oublié votre code postal ? 🤭"}
+              </p>
+            )}
+          </div>
+
+          <div className="form-group">
+            <label htmlFor="city">Ville</label>{" "}
+            <input
+              ref={cityRef}
+              type="text"
+              id="city"
+              placeholder="Nantes"
+              {...register("city", {
+                required: true,
+              })}
+              // Validation au moment de la perte du focus
+              onBlur={() => trigger("city")}
+            />
+            {errors.city && (
+              <p role="alert">
+                {errors.city.type === "required" &&
+                  "Vous avez oublié votre ville ? 🤭"}
+              </p>
+            )}
+          </div>
+        </div>
+        <div className="form-group">
           <label htmlFor="password">Mot de passe</label>{" "}
           <input
             type="password"
@@ -95,66 +225,36 @@ function Inscription() {
             ref={passwordRef}
             {...register("password", {
               required: true,
-              pattern: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).{8,}$/,
+              validate: validatePassword,
             })}
-            onBlur={() => trigger("password")} // Validation au moment de la perte du focus
+            onBlur={() => trigger("password")}
           />
           {errors.password && (
             <p role="alert">
               {errors.password.type === "required" &&
-                "Le mot de passe est obligatoire"}
-              {errors.password.type === "pattern" && "C'est pas bon le format"}
+                "Un mot de passe est obligatoire pour protéger l'accès à votre compte"}
+              {errors.password.type === "validate" && errors.password.message}
             </p>
           )}
         </div>
-        <div>
-          {/* Champ pour la confirmation du mot de passe */}
-          <label htmlFor="confirm-password">
-            Confirmer le mot de passe
-          </label>{" "}
+        <div className="form-group">
+          <label htmlFor="confirmPassword">Confirmer le mot de passe</label>
           <input
             ref={confirmPasswordRef}
             type="password"
-            id="confirm-password"
-            {...register("confirm-password", {
-              required: true,
+            id="confirmPassword"
+            {...register("confirmPassword", {
+              required: "La confirmation du mot de passe est obligatoire",
+              validate: (value) =>
+                value === password || "Les mots de passe ne correspondent pas",
             })}
-            onBlur={() => trigger("confirm-password")}
+            onBlur={() => trigger("confirmPassword")}
           />
-          {errors.password && (
-            <p role="alert">
-              {errors.password.type === "required" &&
-                "Le mot de passe est obligatoire"}
-            </p>
+
+          {errors.confirmPassword && (
+            <p role="alert">{errors.confirmPassword.message}</p>
           )}
         </div>
-
-        <div>
-          <label htmlFor="firstname">Prénom</label>{" "}
-          <input ref={firstnameRef} type="text" id="firstname" />
-        </div>
-
-        <div>
-          <label htmlFor="lastname">Nom</label>{" "}
-          <input ref={lastnameRef} type="text" id="lasname" />
-        </div>
-
-        <div>
-          <label htmlFor="address">Adresse</label>{" "}
-          <input ref={addressRef} type="text" id="address" />
-        </div>
-
-        <div>
-          <label htmlFor="zipcode">Code Postal</label>{" "}
-          <input ref={zipcodeRef} type="text" id="zipcode" />
-        </div>
-
-        <div>
-          <label htmlFor="city">Ville</label>{" "}
-          <input ref={cityRef} type="text" id="city" />
-        </div>
-
-        {/* Bouton de soumission du formulaire */}
         <button type="submit">Send</button>
       </form>
       <Link to="/connexion"> J'ai déjà un compte </Link>
