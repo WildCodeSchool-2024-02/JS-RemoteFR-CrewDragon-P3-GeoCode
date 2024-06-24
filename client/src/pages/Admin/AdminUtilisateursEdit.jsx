@@ -28,8 +28,6 @@ function AdminUtilisateursEdit() {
       <Form method="delete">
         <button type="submit">Supprimer</button>
       </Form>
-
-    
     </>
   );
 }
