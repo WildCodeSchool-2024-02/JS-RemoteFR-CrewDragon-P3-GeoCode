@@ -109,7 +109,7 @@ function Accueil() {
         <div className="accueil-bottom-buttons">
           <div className="accueil-bottom-buttons-web">
             <Link to="/connexion" className="accueil-connexion">
-              Créer votre compte
+              Connectez-vous
             </Link>
             <Link to="/inscription" className="accueil-inscription">
               Inscrivez-vous
