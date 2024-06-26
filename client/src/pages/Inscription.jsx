@@ -39,7 +39,7 @@ function Inscription() {
     try {
       // Appel à l'API pour créer un nouvel utilisateur
       const response = await fetch(
-        `${import.meta.env.VITE_API_URL}/api/users`, // change road register
+        `${import.meta.env.VITE_API_URL}/api/auths/register`, // change road register
         {
           method: "post",
           headers: { "Content-Type": "application/json" },
@@ -48,11 +48,11 @@ function Inscription() {
             avatar: "https://via.placeholder.com/64x64",
             email: data.email,
             password: data.password,
-            firstname: data.firstname, // dans profil ?
-            lastname: data.lastname, // dans profil ?
+            firstname: data.firstname,
+            lastname: data.lastname,
             address: data.address,
-            zip_code: data.zip_code, // dans profil ?
-            city: data.city, // dans profil ?
+            zip_code: data.zip_code,
+            city: data.city,
             role_id: 3, // A faire en back
             // Data for car table
             name: data.name,

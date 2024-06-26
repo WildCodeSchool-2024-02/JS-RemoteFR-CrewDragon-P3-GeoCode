@@ -18,6 +18,29 @@ const login = async (req, res, next) => {
   }
 };
 
+// The A of BREAD - Add (Create) operation
+const register = async (req, res, next) => {
+  // Extract the user data from the request body
+  const user = req.body;
+  const car = {
+    name: req.body.name,
+    image: req.body.image,
+    model_id: req.body.model_id,
+  };
+
+  try {
+    // Insert the user into the database
+    const insertId = await tables.user.createWithCar(user, car);
+
+    // Respond with HTTP 201 (Created) and the ID of the newly inserted user
+    res.status(201).json({ insertId });
+  } catch (err) {
+    // Pass any errors to the error-handling middleware
+    next(err);
+  }
+};
+
 module.exports = {
   login,
+  register,
 };

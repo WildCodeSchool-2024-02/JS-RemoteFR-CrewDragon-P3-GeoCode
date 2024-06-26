@@ -1,20 +1,42 @@
 const AbstractRepository = require("./AbstractRepository");
-const tables = require("../tables");
+const CarRepository = require("./CarRepository");
 
 class UserRepository extends AbstractRepository {
   constructor() {
     // Call the constructor of the parent class (AbstractRepository)
     // and pass the table name "user" as configuration
     super({ table: "user" });
+    this.carRepository = new CarRepository();
   }
 
   // The C of CRUD - Create operation
 
-  async create(user, car) {
+  async create(user) {
     // Execute the SQL INSERT query to add a new user to the "user" table
 
-    console.info("Creating user with data:", user);
-    console.info("Creating car with data:", car);
+    const [result] = await this.database.query(
+      `insert into ${this.table} (firstname, lastname, avatar, email, password, address, zip_code, city, role_id) values (?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+      [
+        user.firstname,
+        user.lastname,
+        user.avatar,
+        user.email,
+        user.password,
+        user.address,
+        user.zip_code,
+        user.city,
+        user.role_id,
+      ]
+    );
+
+    // Return the ID of the newly inserted user
+    return result.insertId;
+  }
+
+  async createWithCar(user, car) {
+    // Execute the SQL INSERT query to add a new user to the "user" table
+    console.info(user);
+    console.info(car);
 
     const [result] = await this.database.query(
       `insert into ${this.table} (firstname, lastname, avatar, email, password, address, zip_code, city, role_id) values (?, ?, ?, ?, ?, ?, ?, ?, ?)`,
@@ -36,7 +58,7 @@ class UserRepository extends AbstractRepository {
 
     // Execute the SQL INSERT query to add a new car to the "car" table
     // Insert car into the car table using CarRepository
-    await tables.car.create({
+    await this.carRepository.create({
       name: car.name,
       image: car.image,
       model_id: car.model_id,
@@ -45,6 +67,7 @@ class UserRepository extends AbstractRepository {
 
     return userId;
   }
+
   // The Rs of CRUD - Read operations
 
   async read(id) {
