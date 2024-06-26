@@ -39,7 +39,7 @@ function Inscription() {
     try {
       // Appel à l'API pour créer un nouvel utilisateur
       const response = await fetch(
-        `${import.meta.env.VITE_API_URL}/api/users`,
+        `${import.meta.env.VITE_API_URL}/api/users`, // change road register
         {
           method: "post",
           headers: { "Content-Type": "application/json" },
@@ -48,17 +48,16 @@ function Inscription() {
             avatar: "https://via.placeholder.com/64x64",
             email: data.email,
             password: data.password,
-            firstname: data.firstname,
-            lastname: data.lastname,
+            firstname: data.firstname, // dans profil ?
+            lastname: data.lastname, // dans profil ?
             address: data.address,
-            zip_code: data.zip_code,
-            city: data.city,
-            role_id: 3,
+            zip_code: data.zip_code, // dans profil ?
+            city: data.city, // dans profil ?
+            role_id: 3, // A faire en back
             // Data for car table
             name: data.name,
             image: "https://via.placeholder.com/128x128",
             model_id: 3,
-            user_id: 3,
           }),
         }
       );
