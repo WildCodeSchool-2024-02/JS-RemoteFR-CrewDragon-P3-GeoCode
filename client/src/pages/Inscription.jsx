@@ -1,6 +1,4 @@
 import { useForm } from "react-hook-form";
-
-import { useRef } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
 function Inscription() {
@@ -13,16 +11,6 @@ function Inscription() {
   } = useForm();
 
   const navigate = useNavigate();
-
-  // Références pour les champs
-  const emailRef = useRef();
-  const firstnameRef = useRef();
-  const lastnameRef = useRef();
-  const addressRef = useRef();
-  const zipcodeRef = useRef();
-  const cityRef = useRef();
-  const passwordRef = useRef();
-  const confirmPasswordRef = useRef();
 
   // Surveille le champ de mot de passe pour indiquer ce qu'il manque
   const validatePassword = (value) => {
@@ -47,7 +35,7 @@ function Inscription() {
   // Surveille le champ de mot de passe pour le mot de passe à confirmer
   const password = watch("password");
 
-  const onSubmit = async () => {
+  const onSubmit = async (data) => {
     try {
       // Appel à l'API pour créer un nouvel utilisateur
       const response = await fetch(
@@ -56,15 +44,21 @@ function Inscription() {
           method: "post",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
+            // Data for user table
             avatar: "https://via.placeholder.com/64x64",
-            email: emailRef.current.value,
-            password: passwordRef.current.value,
-            firstname: firstnameRef.current.value,
-            lastname: lastnameRef.current.value,
-            address: addressRef.current.value,
-            zip_code: zipcodeRef.current.value,
-            city: cityRef.current.value,
+            email: data.email,
+            password: data.password,
+            firstname: data.firstname,
+            lastname: data.lastname,
+            address: data.address,
+            zip_code: data.zip_code,
+            city: data.city,
             role_id: 3,
+            // Data for car table
+            name: data.name,
+            image: "https://via.placeholder.com/128x128",
+            model_id: 3,
+            user_id: 3,
           }),
         }
       );
@@ -91,7 +85,6 @@ function Inscription() {
           <div className="form-group">
             <label htmlFor="firstname">Prénom</label>{" "}
             <input
-              ref={firstnameRef}
               type="text"
               id="firstname"
               placeholder="Simon"
@@ -112,7 +105,6 @@ function Inscription() {
           <div className="form-group">
             <label htmlFor="lastname">Nom</label>
             <input
-              ref={lastnameRef}
               type="text"
               id="lastname"
               placeholder="Beget"
@@ -133,7 +125,6 @@ function Inscription() {
         <div className="form-group">
           <label htmlFor="email">Email</label>
           <input
-            ref={emailRef}
             type="email"
             id="email"
             placeholder="simon.beget@greendrive.com"
@@ -144,6 +135,7 @@ function Inscription() {
             // Validation au moment de la perte du focus
             onBlur={() => trigger("email")}
           />
+
           {errors.email && (
             <p role="alert">
               {errors.email.type === "required" &&
@@ -157,7 +149,6 @@ function Inscription() {
         <div className="form-group">
           <label htmlFor="address">Adresse</label>{" "}
           <input
-            ref={addressRef}
             type="text"
             id="address"
             placeholder="10 Rue de la Mouette Rieuse"
@@ -176,30 +167,27 @@ function Inscription() {
         </div>
         <div className="form-group-50-50">
           <div className="form-group">
-            <label htmlFor="zipcode">Code Postal</label>{" "}
+            <label htmlFor="zip_code">Code Postal</label>{" "}
             <input
-              ref={zipcodeRef}
               type="text"
-              id="zipcode"
+              id="zip_code"
               placeholder="44000"
-              {...register("zipcode", {
+              {...register("zip_code", {
                 required: true,
               })}
               // Validation au moment de la perte du focus
-              onBlur={() => trigger("zipcode")}
+              onBlur={() => trigger("zip_code")}
             />
-            {errors.zipcode && (
+            {errors.zip_code && (
               <p role="alert">
-                {errors.zipcode.type === "required" &&
+                {errors.zip_code.type === "required" &&
                   "Vous avez oublié votre code postal ? 🤭"}
               </p>
             )}
           </div>
-
           <div className="form-group">
             <label htmlFor="city">Ville</label>{" "}
             <input
-              ref={cityRef}
               type="text"
               id="city"
               placeholder="Nantes"
@@ -222,7 +210,6 @@ function Inscription() {
           <input
             type="password"
             id="password"
-            ref={passwordRef}
             {...register("password", {
               required: true,
               validate: validatePassword,
@@ -240,7 +227,6 @@ function Inscription() {
         <div className="form-group">
           <label htmlFor="confirmPassword">Confirmer le mot de passe</label>
           <input
-            ref={confirmPasswordRef}
             type="password"
             id="confirmPassword"
             {...register("confirmPassword", {
@@ -255,6 +241,21 @@ function Inscription() {
             <p role="alert">{errors.confirmPassword.message}</p>
           )}
         </div>
+
+        <div className="form-group">
+          <label htmlFor="name">Nom de la voiture</label>
+          <input
+            type="text"
+            id="name"
+            {...register("name", {
+              required: "Le nom de la voiture est obligatoire",
+            })}
+            onBlur={() => trigger("name")}
+          />
+
+          {errors.name && <p role="alert">{errors.name.message}</p>}
+        </div>
+
         <button type="submit">Send</button>
       </form>
       <Link to="/connexion"> J'ai déjà un compte </Link>

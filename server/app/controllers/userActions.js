@@ -55,10 +55,15 @@ const edit = async (req, res, next) => {
 const add = async (req, res, next) => {
   // Extract the user data from the request body
   const user = req.body;
+  const car = {
+    name: req.body.name,
+    image: req.body.image,
+    model_id: req.body.model_id,
+  };
 
   try {
     // Insert the user into the database
-    const insertId = await tables.user.create(user);
+    const insertId = await tables.user.create(user, car);
 
     // Respond with HTTP 201 (Created) and the ID of the newly inserted user
     res.status(201).json({ insertId });
