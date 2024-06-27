@@ -65,6 +65,7 @@ class UserRepository extends AbstractRepository {
       user_id: userId,
     });
 
+
     return userId;
   }
 

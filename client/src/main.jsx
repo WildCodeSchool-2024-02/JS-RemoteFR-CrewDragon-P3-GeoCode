@@ -52,6 +52,10 @@ const router = createBrowserRouter([
       {
         path: "/inscription",
         element: <Inscription />,
+        loader: async () => {
+          const response = await axios.get("http://localhost:3310/api/models");
+          return response.data;
+        },
       },
       {
         path: "/connexion",

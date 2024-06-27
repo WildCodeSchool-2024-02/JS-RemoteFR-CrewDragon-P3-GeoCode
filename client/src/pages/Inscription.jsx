@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
-import { Link, useNavigate } from "react-router-dom";
-import brandData from "../services/brandData";
+import { Link, useNavigate, useLoaderData } from "react-router-dom";
 
 function Inscription() {
   const {
@@ -11,6 +10,9 @@ function Inscription() {
     trigger,
     watch,
   } = useForm();
+
+  const modelsData = useLoaderData();
+  console.info(modelsData);
 
   const navigate = useNavigate();
 
@@ -44,7 +46,9 @@ function Inscription() {
   const watchModel = watch("model");
 
   useEffect(() => {
-    const brand = brandData.find((b) => b.id === parseInt(watchBrand, 10));
+    const brand = modelsData.find(
+      (b) => b.brand_id === parseInt(watchBrand, 10)
+    );
     setSelectedBrand(brand);
   }, [watchBrand]);
 
@@ -279,7 +283,7 @@ function Inscription() {
             onBlur={() => trigger("brand")}
           >
             <option value="">Choisissez une marque</option>
-            {brandData.map((brand) => (
+            {modelsData.map((brand) => (
               <option key={brand.id} value={brand.id}>
                 {brand.name}
               </option>

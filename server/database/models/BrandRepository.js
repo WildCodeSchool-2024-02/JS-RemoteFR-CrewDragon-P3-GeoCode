@@ -34,11 +34,11 @@ class BrandRepository extends AbstractRepository {
   }
 
   async readAll() {
-    // Execute the SQL SELECT query to retrieve all brands from the "brand" table
-    const [rows] = await this.database.query(`select * from ${this.table}`);
+   // Execute the SQL SELECT query to retrieve all items from the "item" table
+   const [rows] = await this.database.query(`select * from ${this.table}`);
 
-    // Return the array of brands
-    return rows;
+   // Return the array of items
+   return rows;
   }
 
   // The U of CRUD - Update operation

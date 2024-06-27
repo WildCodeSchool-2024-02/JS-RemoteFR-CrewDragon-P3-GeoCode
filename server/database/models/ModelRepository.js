@@ -33,11 +33,14 @@ class ModelRepository extends AbstractRepository {
     return rows[0];
   }
 
-  async readAll() {
-    // Execute the SQL SELECT query to retrieve all models from the "model" table
-    const [rows] = await this.database.query(`select * from ${this.table}`);
-
-    // Return the array of models
+  async readAllWithBrand() {
+    // Execute the SQL SELECT query to retrieve all brands from the "brand" table
+    const [rows] = await this.database.query(
+      `SELECT model.*, brand.*
+         FROM ${this.table} AS model
+         JOIN brand ON model.brand_id = brand.id`
+    );
+    // Return the first row of the result, which represents the model
     return rows;
   }
 

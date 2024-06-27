@@ -8,7 +8,7 @@ const browse = async (req, res, next) => {
     const brands = await tables.brand.readAll();
 
     // Respond with the brands in JSON format
-    res.json(brands);
+    res.json(brands); 
   } catch (err) {
     // Pass any errors to the error-handling middleware
     next(err);

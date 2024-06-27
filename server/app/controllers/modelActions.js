@@ -5,7 +5,7 @@ const tables = require("../../database/tables");
 const browse = async (req, res, next) => {
   try {
     // Fetch all models from the database
-    const models = await tables.model.readAll();
+    const models = await tables.model.readAllWithBrand();
 
     // Respond with the models in JSON format
     res.json(models);
