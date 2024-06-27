@@ -6,7 +6,7 @@ class UserRepository extends AbstractRepository {
     // Call the constructor of the parent class (AbstractRepository)
     // and pass the table name "user" as configuration
     super({ table: "user" });
-    this.carRepository = new CarRepository();
+    this.CarRepository = new CarRepository();
   }
 
   // The C of CRUD - Create operation
@@ -58,7 +58,7 @@ class UserRepository extends AbstractRepository {
 
     // Execute the SQL INSERT query to add a new car to the "car" table
     // Insert car into the car table using CarRepository
-    await this.carRepository.create({
+    await this.CarRepository.create({
       name: car.name,
       image: car.image,
       model_id: car.model_id,

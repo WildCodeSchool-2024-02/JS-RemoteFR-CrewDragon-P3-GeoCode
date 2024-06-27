@@ -41,6 +41,8 @@ function Inscription() {
   const watchBrand = watch("brand");
   const [selectedBrand, setSelectedBrand] = useState(null);
 
+  const watchModel = watch("model");
+
   useEffect(() => {
     const brand = brandData.find((b) => b.id === parseInt(watchBrand, 10));
     setSelectedBrand(brand);
@@ -68,8 +70,7 @@ function Inscription() {
             // Data for car table
             name: data.name,
             image: "https://via.placeholder.com/128x128",
-            car_model: data.model,
-            model_id: 3,
+            model_id: parseInt(watchModel, 10),
           }),
         }
       );

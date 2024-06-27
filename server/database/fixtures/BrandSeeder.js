@@ -1,4 +1,5 @@
 const AbstractSeeder = require("./AbstractSeeder");
+const brandData = require("../../app/services/brandData");
 
 class BrandSeeder extends AbstractSeeder {
   constructor() {
@@ -6,19 +7,19 @@ class BrandSeeder extends AbstractSeeder {
     super({ table: "Brand", truncate: true, dependencies: [] });
   }
 
-  // The run method - Populate the 'Brand' table with fake data
+  // The run method - Populate the 'Brand' table
 
   run() {
-    // Generate and insert fake data into the 'Brand' table
-    for (let i = 0; i < 10; i += 1) {
-      // Generate fake Brand data
-      const fakeBrand = {
-        name: this.faker.vehicle.manufacturer(), // Generate a fake vehicule brand using faker library
+    // Generate and insert data into the 'Brand' table
+    for (let i = 0; i < brandData.length; i += 1) {
+      // Generate Brand data
+      const brand = {
+        name: brandData[i].name, // Generate a vehicule brand
         refName: `brand_${i}`, // Create a reference name for the brand
       };
 
-      // Insert the fakeBrand data into the 'Brand' table
-      this.insert(fakeBrand); // insert into Brand(email, password) values (?, ?)
+      // Insert the brand data into the 'Brand' table
+      this.insert(brand); // insert into Brand(name) values (?)
     }
   }
 }
