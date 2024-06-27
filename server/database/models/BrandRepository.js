@@ -34,11 +34,47 @@ class BrandRepository extends AbstractRepository {
   }
 
   async readAll() {
-   // Execute the SQL SELECT query to retrieve all items from the "item" table
-   const [rows] = await this.database.query(`select * from ${this.table}`);
+    // Execute the SQL SELECT query to retrieve all items from the "item" table
+    const [rows] = await this.database.query(`select * from ${this.table}`);
 
-   // Return the array of items
-   return rows;
+    // Return the array of items
+    return rows;
+  }
+
+  async readAllWithModel() {
+    // Exécutez la requête SQL SELECT pour récupérer toutes les marques et les modèles associés
+    const [rows] = await this.database.query(
+      `SELECT brand.id AS brandId, brand.name AS brandName, model.id AS modelId, model.name AS modelName, model.plug_type AS modelPlugType
+     FROM brand
+     JOIN model ON brand.id = model.brand_id`
+    );
+
+    // Initialisez un objet pour regrouper les marques et leurs modèles
+    const brands = {};
+
+    // Parcourez chaque ligne de résultat pour regrouper les modèles sous la marque correspondante
+    rows.forEach((row) => {
+      const { brandId, brandName, modelId, modelName, modelPlugType } = row;
+
+      // Si la marque n'existe pas encore dans l'objet, ajoutez-la
+      if (!brands[brandId]) {
+        brands[brandId] = {
+          id: brandId,
+          name: brandName,
+          models: [],
+        };
+      }
+
+      // Ajoutez le modèle à la liste des modèles de la marque
+      brands[brandId].models.push({
+        id: modelId,
+        name: modelName,
+        plug_type: modelPlugType,
+      });
+    });
+
+    // Retournez les marques sous forme de tableau
+    return Object.values(brands);
   }
 
   // The U of CRUD - Update operation

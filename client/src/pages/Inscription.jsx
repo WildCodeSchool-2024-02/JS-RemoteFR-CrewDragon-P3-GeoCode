@@ -11,8 +11,7 @@ function Inscription() {
     watch,
   } = useForm();
 
-  const modelsData = useLoaderData();
-  console.info(modelsData);
+  const brandData = useLoaderData();
 
   const navigate = useNavigate();
 
@@ -43,12 +42,12 @@ function Inscription() {
   const watchBrand = watch("brand");
   const [selectedBrand, setSelectedBrand] = useState(null);
 
+  console.info(selectedBrand);
+
   const watchModel = watch("model");
 
   useEffect(() => {
-    const brand = modelsData.find(
-      (b) => b.brand_id === parseInt(watchBrand, 10)
-    );
+    const brand = brandData.find((b) => b.id === parseInt(watchBrand, 10));
     setSelectedBrand(brand);
   }, [watchBrand]);
 
@@ -283,7 +282,7 @@ function Inscription() {
             onBlur={() => trigger("brand")}
           >
             <option value="">Choisissez une marque</option>
-            {modelsData.map((brand) => (
+            {brandData.map((brand) => (
               <option key={brand.id} value={brand.id}>
                 {brand.name}
               </option>

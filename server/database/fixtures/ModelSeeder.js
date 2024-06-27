@@ -18,7 +18,7 @@ class ModelSeeder extends AbstractSeeder {
         // Generate  Model data
         const model = {
           name: brandData[i].models[j].name, // Generate a model
-          plug_type: "usb type C",
+          plug_type: brandData[i].models[j].plug_type,
           // Foreign Keys
           brand_id: this.getRef(`brand_${i}`).insertId, // Get the insertId of the corresponding brand from BrandeSeeder
           refName: `model_${i}`, // Create a reference name for the model

@@ -3,176 +3,89 @@ const brandData = [
     id: 1,
     name: "Tesla",
     models: [
-      {
-        id: 1,
-        name: "Model S",
-      },
-      {
-        id: 2,
-        name: "Model 3",
-      },
-      {
-        id: 3,
-        name: "Model X",
-      },
-      {
-        id: 4,
-        name: "Model Y",
-      },
+      { id: 1, name: "Model S", plug_type: "Type 2" },
+      { id: 2, name: "Model 3", plug_type: "Type 2" },
+      { id: 3, name: "Model X", plug_type: "Type 2" },
+      { id: 4, name: "Model Y", plug_type: "Type 2" },
     ],
   },
   {
     id: 2,
     name: "Nissan",
     models: [
-      {
-        id: 1,
-        name: "Leaf",
-      },
-      {
-        id: 2,
-        name: "Ariya",
-      },
+      { id: 1, name: "Leaf", plug_type: "CHAdeMO" },
+      { id: 2, name: "Ariya", plug_type: "Type 2" },
     ],
   },
   {
     id: 3,
     name: "Chevrolet",
     models: [
-      {
-        id: 1,
-        name: "Bolt EV",
-      },
-      {
-        id: 2,
-        name: "Bolt EUV",
-      },
+      { id: 1, name: "Bolt EV", plug_type: "CCS" },
+      { id: 2, name: "Bolt EUV", plug_type: "CCS" },
     ],
   },
   {
     id: 4,
     name: "BMW",
     models: [
-      {
-        id: 1,
-        name: "i3",
-      },
-      {
-        id: 2,
-        name: "i4",
-      },
-      {
-        id: 3,
-        name: "iX3",
-      },
-      {
-        id: 4,
-        name: "iX",
-      },
+      { id: 1, name: "i3", plug_type: "CCS" },
+      { id: 2, name: "i4", plug_type: "CCS" },
+      { id: 3, name: "iX3", plug_type: "CCS" },
+      { id: 4, name: "iX", plug_type: "CCS" },
     ],
   },
   {
     id: 5,
     name: "Hyundai",
     models: [
-      {
-        id: 1,
-        name: "Kona Electric",
-      },
-      {
-        id: 2,
-        name: "Ioniq Electric",
-      },
-      {
-        id: 3,
-        name: "Ioniq 5",
-      },
+      { id: 1, name: "Kona Electric", plug_type: "CCS" },
+      { id: 2, name: "Ioniq Electric", plug_type: "CCS" },
+      { id: 3, name: "Ioniq 5", plug_type: "CCS" },
     ],
   },
   {
     id: 6,
     name: "Volkswagen",
     models: [
-      {
-        id: 1,
-        name: "ID.3",
-      },
-      {
-        id: 2,
-        name: "ID.4",
-      },
-      {
-        id: 3,
-        name: "ID. Buzz",
-      },
+      { id: 1, name: "ID.3", plug_type: "CCS" },
+      { id: 2, name: "ID.4", plug_type: "CCS" },
+      { id: 3, name: "ID. Buzz", plug_type: "CCS" },
     ],
   },
   {
     id: 7,
     name: "Renault",
     models: [
-      {
-        id: 1,
-        name: "Zoe",
-      },
-      {
-        id: 2,
-        name: "Twingo Electric",
-      },
-      {
-        id: 3,
-        name: "Megane E-Tech",
-      },
+      { id: 1, name: "Zoe", plug_type: "Type 2" },
+      { id: 2, name: "Twingo Electric", plug_type: "Type 2" },
+      { id: 3, name: "Megane E-Tech", plug_type: "Type 2" },
     ],
   },
   {
     id: 8,
     name: "Audi",
     models: [
-      {
-        id: 1,
-        name: "e-tron",
-      },
-      {
-        id: 2,
-        name: "Q4 e-tron",
-      },
-      {
-        id: 3,
-        name: "e-tron GT",
-      },
+      { id: 1, name: "e-tron", plug_type: "CCS" },
+      { id: 2, name: "Q4 e-tron", plug_type: "CCS" },
+      { id: 3, name: "e-tron GT", plug_type: "CCS" },
     ],
   },
   {
     id: 9,
     name: "Ford",
     models: [
-      {
-        id: 1,
-        name: "Mustang Mach-E",
-      },
-      {
-        id: 2,
-        name: "F-150 Lightning",
-      },
+      { id: 1, name: "Mustang Mach-E", plug_type: "CCS" },
+      { id: 2, name: "F-150 Lightning", plug_type: "CCS" },
     ],
   },
   {
     id: 10,
     name: "Kia",
     models: [
-      {
-        id: 1,
-        name: "Soul EV",
-      },
-      {
-        id: 2,
-        name: "Niro EV",
-      },
-      {
-        id: 3,
-        name: "EV6",
-      },
+      { id: 1, name: "Soul EV", plug_type: "CCS" },
+      { id: 2, name: "Niro EV", plug_type: "CCS" },
+      { id: 3, name: "EV6", plug_type: "CCS" },
     ],
   },
 ];
