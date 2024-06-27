@@ -1,5 +1,7 @@
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
+import brandData from "../services/brandData";
 
 function Inscription() {
   const {
@@ -35,6 +37,15 @@ function Inscription() {
   // Surveille le champ de mot de passe pour le mot de passe à confirmer
   const password = watch("password");
 
+  // Surveille le champ de marque pour afficher les modèles
+  const watchBrand = watch("brand");
+  const [selectedBrand, setSelectedBrand] = useState(null);
+
+  useEffect(() => {
+    const brand = brandData.find((b) => b.id === parseInt(watchBrand, 10));
+    setSelectedBrand(brand);
+  }, [watchBrand]);
+
   const onSubmit = async (data) => {
     try {
       // Appel à l'API pour créer un nouvel utilisateur
@@ -53,10 +64,11 @@ function Inscription() {
             address: data.address,
             zip_code: data.zip_code,
             city: data.city,
-            role_id: 3, // A faire en back
+            role_id: 3,
             // Data for car table
             name: data.name,
             image: "https://via.placeholder.com/128x128",
+            car_model: data.model,
             model_id: 3,
           }),
         }
@@ -255,8 +267,53 @@ function Inscription() {
           {errors.name && <p role="alert">{errors.name.message}</p>}
         </div>
 
+        <div className="form-group">
+          <label htmlFor="brand">Marque de la voiture</label>
+          <select
+            id="brand"
+            name="brand"
+            {...register("brand", {
+              required: "La marque de la voiture est obligatoire",
+            })}
+            onBlur={() => trigger("brand")}
+          >
+            <option value="">Choisissez une marque</option>
+            {brandData.map((brand) => (
+              <option key={brand.id} value={brand.id}>
+                {brand.name}
+              </option>
+            ))}
+          </select>
+
+          {errors.name && <p role="alert">{errors.name.message}</p>}
+        </div>
+
+        {selectedBrand && (
+          <div className="form-group">
+            <label htmlFor="model">Modèle de la voiture</label>
+            <select
+              id="model"
+              name="model"
+              {...register("model", {
+                required: "Le modèle de la voiture est obligatoire",
+              })}
+              onBlur={() => trigger("model")}
+            >
+              <option value="">Choisissez un modèle</option>
+              {selectedBrand.models.map((model) => (
+                <option key={model.id} value={model.id}>
+                  {model.name}
+                </option>
+              ))}
+            </select>
+
+            {errors.name && <p role="alert">{errors.name.message}</p>}
+          </div>
+        )}
+
         <button type="submit">Send</button>
       </form>
+
       <Link to="/connexion"> J'ai déjà un compte </Link>
       <Link to=":">Poursuivre</Link>
     </section>
