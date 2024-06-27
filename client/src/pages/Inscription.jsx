@@ -41,9 +41,6 @@ function Inscription() {
   // Surveille le champ de marque pour afficher les modèles
   const watchBrand = watch("brand");
   const [selectedBrand, setSelectedBrand] = useState(null);
-
-  console.info(selectedBrand);
-
   const watchModel = watch("model");
 
   useEffect(() => {
