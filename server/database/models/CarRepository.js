@@ -12,8 +12,8 @@ class CarRepository extends AbstractRepository {
   async create(car) {
     // Execute the SQL INSERT query to add a new car to the "car" table
     const [result] = await this.database.query(
-      `insert into ${this.table} (title, car_id) values (?, ?)`,
-      [car.title, car.car_id]
+      `insert into  ${this.table} (name, image, model_id, user_id) values (?, ?, ?, ?)`,
+      [car.name, car.image, car.model_id, car.user_id]
     );
 
     // Return the ID of the newly inserted car

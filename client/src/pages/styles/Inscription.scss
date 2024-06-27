@@ -1,0 +1,54 @@
+// Inputs and label on every form
+.form-group {
+  display: flex;
+  flex-direction: column;
+
+  input {
+    width: 100%;
+    border-radius: 1rem;
+    padding: 0.8rem;
+    font-size: 0.9rem;
+    border: 1px variables.$third-color solid;
+
+    &:hover {
+      border: 1px variables.$secondary-color solid;
+    }
+
+    &:focus {
+      border: 1px variables.$font-color solid;
+      outline: none;
+    }
+  }
+}
+
+.form-group-50-50 {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  justify-content: space-between;
+
+  .form-group {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+  }
+}
+
+[role="alert"] {
+  background-color: variables.$alert-color;
+  color: variables.$font-color solid;
+  line-height: 1.6rem;
+  padding: 10px;
+  font-size: 0.8rem;
+  border-radius: 0.3rem;
+  margin: 0.8rem 0 0;
+}
+
+// media queries desktop
+@media screen and (min-width: 768px) {
+  .form-group-50-50 {
+    display: flex;
+    flex-direction: row;
+    gap: 2rem;
+  }
+}

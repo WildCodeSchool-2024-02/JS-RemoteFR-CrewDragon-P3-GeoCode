@@ -52,6 +52,12 @@ const terminalsRouter = require("./terminals/router");
 
 router.use("/terminals", terminalsRouter);
 
+// Auths
+
+const authsRouter = require("./auths/router");
+
+router.use("/auths", authsRouter);
+
 /* ************************************************************************* */
 
 module.exports = router;
