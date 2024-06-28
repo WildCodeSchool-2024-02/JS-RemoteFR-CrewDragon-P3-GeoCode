@@ -39,7 +39,7 @@ class UserRepository extends AbstractRepository {
     console.info(car);
 
     const [result] = await this.database.query(
-      `insert into ${this.table} (firstname, lastname, avatar, email, password, address, zip_code, city, role_id) values (?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+      `insert into ${this.table} (firstname, lastname, avatar, email, password, address, zip_code, city, role_id) values (?, ?, ?, ?, ?, ?, ?, ?, 1)`,
       [
         user.firstname,
         user.lastname,

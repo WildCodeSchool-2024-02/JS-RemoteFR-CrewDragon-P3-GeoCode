@@ -79,6 +79,11 @@ INSERT INTO brand (name) VALUES
 ('Ford'),
 ('Kia');
 
+INSERT INTO role (id, name) VALUES 
+(1, 'User'),
+(2, 'Admin');
+
+
 INSERT INTO model (name, plug_type, brand_id) VALUES 
 ('Model S', 'Type 2', 1),
 ('Model 3', 'Type 2', 1),
