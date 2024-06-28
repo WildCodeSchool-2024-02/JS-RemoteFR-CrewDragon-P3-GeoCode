@@ -1,5 +1,11 @@
+import Articles from "../components/Articles"; // Chemin vers votre composant Articles
+
 function Aides() {
-  return <h1> Bonjour je suis Aides </h1>;
+  return (
+    <div>
+      <Articles />
+    </div>
+  );
 }
 
 export default Aides;

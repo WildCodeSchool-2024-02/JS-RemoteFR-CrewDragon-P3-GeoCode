@@ -157,11 +157,16 @@ const router = createBrowserRouter([
       {
         path: "/aides/",
         element: <Aides />,
+        loader: async () => {
+          const response = await axios.get("../assets/data/articles.json");
+          return response.data;
+        },
       },
       {
         path: "/aides/:id",
         element: <AideId />,
       },
+
       {
         path: "/administrateur",
         element: <Admin />,
