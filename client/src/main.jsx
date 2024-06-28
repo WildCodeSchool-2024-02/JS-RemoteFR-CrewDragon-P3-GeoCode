@@ -33,6 +33,9 @@ import AideId from "./pages/AideId";
 import App from "./App";
 import AdminUtilisateursEdit from "./pages/Admin/AdminUtilisateursEdit";
 import AdminVehiculesEdit from "./pages/Admin/AdminVehiculesEdit";
+import AdminBornesEdit from "./pages/Admin/AdminBornesEdit";
+import AdminBornesAddCsv from "./pages/Admin/AdminBornesAddCsv";
+import ProfilUtilisateurEdit from "./pages/Profil/ProfilUtilisateurEdit";
 
 const router = createBrowserRouter([
   {
@@ -49,6 +52,12 @@ const router = createBrowserRouter([
       {
         path: "/inscription",
         element: <Inscription />,
+        loader: async () => {
+          const response = await axios.get(
+            `${import.meta.env.VITE_API_URL}/api/brands`
+          );
+          return response.data;
+        },
       },
       {
         path: "/connexion",
@@ -63,12 +72,71 @@ const router = createBrowserRouter([
         element: <Borne />,
       },
       {
-        path: "/profil",
+        path: "/profil/:id",
         element: <Profil />,
+        loader: async ({ params }) => {
+          const response = await axios.get(
+            `${import.meta.env.VITE_API_URL}/api/users/${params.id}`
+          );
+          return response.data;
+        },
       },
       {
-        path: "/profil/utilisateur",
+        path: "/profil/utilisateur/:id",
         element: <ProfilUtilisateur />,
+        loader: async ({ params }) => {
+          const response = await axios.get(
+            `${import.meta.env.VITE_API_URL}/api/users/${params.id}`
+          );
+          return response.data;
+        },
+      },
+      {
+        path: "/profil/utilisateur/edit/:id",
+        element: <ProfilUtilisateurEdit />,
+        loader: async ({ params }) => {
+          const response = await axios.get(
+            `${import.meta.env.VITE_API_URL}/api/users/${params.id}`
+          );
+          return response.data;
+        },
+        action: async ({ request, params }) => {
+          const formData = await request.formData();
+          console.info(formData);
+
+          switch (request.method.toLowerCase()) {
+            case "put": {
+              await axios.put(
+                `${import.meta.env.VITE_API_URL}/api/users/${params.id}`,
+                {
+                  firstname: formData.get("firstname"),
+                  lastname: formData.get("lastname"),
+                  email: formData.get("email"),
+                  password: formData.get("password"),
+                  birthday: formData.get("birthday"),
+                  address: formData.get("address"),
+                  zip_code: formData.get("zipcode"),
+                  city: formData.get("city"),
+                }
+              );
+
+              return redirect(
+                `${import.meta.env.CLIENT_URL}profil/utilisateur/${params.id}`
+              );
+            }
+
+            case "delete": {
+              await axios.delete(
+                `${import.meta.env.VITE_API_URL}/api/users/${params.id}`
+              );
+
+              return redirect(`${import.meta.env.CLIENT_URL}`);
+            }
+
+            default:
+              throw new Response("", { status: 405 });
+          }
+        },
       },
       {
         path: "/profil/vehicules",
@@ -89,11 +157,16 @@ const router = createBrowserRouter([
       {
         path: "/aides/",
         element: <Aides />,
+        loader: async () => {
+          const response = await axios.get("../assets/data/articles.json");
+          return response.data;
+        },
       },
       {
         path: "/aides/:id",
         element: <AideId />,
       },
+
       {
         path: "/administrateur",
         element: <Admin />,
@@ -102,8 +175,36 @@ const router = createBrowserRouter([
         path: "/administrateur/utilisateurs",
         element: <AdminUtilisateurs />,
         loader: async () => {
-          const response = await axios.get("http://localhost:3310/api/users");
+          const response = await axios.get(
+            `${import.meta.env.VITE_API_URL}/api/users`
+          );
           return response.data;
+        },
+        action: async ({ request }) => {
+          const formData = await request.formData();
+
+          switch (request.method.toLowerCase()) {
+            case "post": {
+              await axios.post(`${import.meta.env.VITE_API_URL}/api/users/`, {
+                firstname: formData.get("firstname"),
+                lastname: formData.get("lastname"),
+                avatar: "vvvvv",
+                email: "michelle@michel.com",
+                password: "vvvvv",
+                address: "vvvvv",
+                zip_code: "vvvvv",
+                city: "vvvvv",
+                role_id: 3,
+              });
+
+              return redirect(
+                `${import.meta.env.CLIENT_URL}administrateur/utilisateurs/`
+              );
+            }
+
+            default:
+              throw new Response("", { status: 405 });
+          }
         },
       },
       {
@@ -111,33 +212,46 @@ const router = createBrowserRouter([
         element: <AdminUtilisateursEdit />,
         loader: async ({ params }) => {
           const response = await axios.get(
-            `http://localhost:3310/api/users/${params.id}`
+            `${import.meta.env.VITE_API_URL}/api/users/${params.id}`
           );
           return response.data;
         },
         action: async ({ request, params }) => {
           const formData = await request.formData();
-          console.info(formData);
 
           switch (request.method.toLowerCase()) {
             case "put": {
-              await axios.put(`http://localhost:3310/api/users/${params.id}`, {
+              await axios.put(
+                `${import.meta.env.VITE_API_URL}/api/users/${params.id}`,
+                {
+                  firstname: formData.get("firstname"),
+                  lastname: formData.get("lastname"),
+                }
+              );
+
+              return redirect(
+                `${import.meta.env.CLIENT_URL}administrateur/utilisateurs/${params.id}`
+              );
+            }
+
+            case "post": {
+              await axios.post(`${import.meta.env.VITE_API_URL}/api/users/`, {
                 firstname: formData.get("firstname"),
                 lastname: formData.get("lastname"),
               });
 
               return redirect(
-                `http://localhost:3000/administrateur/utilisateurs/${params.id}`
+                `${import.meta.env.CLIENT_URL}administrateur/utilisateurs/${params.id}`
               );
             }
 
             case "delete": {
               await axios.delete(
-                `http://localhost:3310/api/users/${params.id}`
+                `${import.meta.env.VITE_API_URL}/api/users/${params.id}`
               );
 
               return redirect(
-                `http://localhost:3000/administrateur/utilisateurs/`
+                `${import.meta.env.CLIENT_URL}administrateur/utilisateurs/`
               );
             }
 
@@ -150,7 +264,9 @@ const router = createBrowserRouter([
         path: "/administrateur/vehicules",
         element: <AdminVehicules />,
         loader: async () => {
-          const response = await axios.get("http://localhost:3310/api/cars");
+          const response = await axios.get(
+            `${import.meta.env.VITE_API_URL}/api/cars`
+          );
           return response.data;
         },
       },
@@ -159,7 +275,7 @@ const router = createBrowserRouter([
         element: <AdminVehiculesEdit />,
         loader: async ({ params }) => {
           const response = await axios.get(
-            `http://localhost:3310/api/cars/${params.id}`
+            `${import.meta.env.VITE_API_URL}/api/cars/${params.id}`
           );
           return response.data;
         },
@@ -169,20 +285,25 @@ const router = createBrowserRouter([
 
           switch (request.method.toLowerCase()) {
             case "put": {
-              await axios.put(`http://localhost:3310/api/cars/${params.id}`, {
-                name: formData.get("name"),
-              });
+              await axios.put(
+                `${import.meta.env.VITE_API_URL}/api/cars/${params.id}`,
+                {
+                  name: formData.get("name"),
+                }
+              );
 
               return redirect(
-                `http://localhost:3000/administrateur/vehicules/${params.id}`
+                `${import.meta.env.CLIENT_URL}administrateur/vehicules/${params.id}`
               );
             }
 
             case "delete": {
-              await axios.delete(`http://localhost:3310/api/cars/${params.id}`);
+              await axios.delete(
+                `${import.meta.env.VITE_API_URL}/api/cars/${params.id}`
+              );
 
               return redirect(
-                `http://localhost:3000/administrateur/vehicules/`
+                `${import.meta.env.CLIENT_URL}administrateur/vehicules/`
               );
             }
 
@@ -194,9 +315,71 @@ const router = createBrowserRouter([
       {
         path: "/administrateur/bornes",
         element: <AdminBornes />,
+        loader: async () => {
+          const response = await axios.get(
+            `${import.meta.env.VITE_API_URL}/api/terminals`
+          );
+          return response.data;
+        },
       },
       {
-        path: "/administrateur/reservatuibs",
+        path: "/administrateur/bornes/:id",
+        element: <AdminBornesEdit />,
+        loader: async ({ params }) => {
+          const response = await axios.get(
+            `${import.meta.env.VITE_API_URL}/api/terminals/${params.id}`
+          );
+          return response.data;
+        },
+        action: async ({ request, params }) => {
+          const formData = await request.formData();
+          console.info(formData);
+
+          switch (request.method.toLowerCase()) {
+            case "put": {
+              await axios.put(
+                `${import.meta.env.VITE_API_URL}/api/terminals/${params.id}`,
+                {
+                  name: formData.get("name"),
+                }
+              );
+
+              return redirect(
+                `${import.meta.env.CLIENT_URL}administrateur/bornes/${params.id}`
+              );
+            }
+
+            case "delete": {
+              await axios.delete(
+                `${import.meta.env.VITE_API_URL}/api/terminals/${params.id}`
+              );
+
+              return redirect(
+                `${import.meta.env.CLIENT_URL}administrateur/bornes/`
+              );
+            }
+
+            default:
+              throw new Response("", { status: 405 });
+          }
+        },
+      },
+      {
+        path: "/administrateur/bornes/import",
+        element: <AdminBornesAddCsv />,
+        action: async ({ request }) => {
+          const formData = await request.formData();
+          console.info(formData);
+
+          const file = formData.get("file");
+
+          await axios.post("/api/terminals", { file });
+          return false; // test mode
+        },
+      },
+
+      {
+        path: "/administrateur/reservations",
         element: <AdminReservations />,
       },
     ],

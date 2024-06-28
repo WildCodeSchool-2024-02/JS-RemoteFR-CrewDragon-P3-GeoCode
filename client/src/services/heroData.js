@@ -18,7 +18,6 @@ const heroData = [
     name: "connexion",
     img: connexion,
   },
-  
 ];
 
 export default heroData;

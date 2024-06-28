@@ -33,11 +33,12 @@ class ModelRepository extends AbstractRepository {
     return rows[0];
   }
 
+
   async readAll() {
-    // Execute the SQL SELECT query to retrieve all models from the "model" table
+    // Execute the SQL SELECT query to retrieve all items from the "item" table
     const [rows] = await this.database.query(`select * from ${this.table}`);
 
-    // Return the array of models
+    // Return the array of items
     return rows;
   }
 

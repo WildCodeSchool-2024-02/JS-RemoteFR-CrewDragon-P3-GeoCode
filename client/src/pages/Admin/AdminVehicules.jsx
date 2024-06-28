@@ -1,44 +1,39 @@
 import { useLoaderData, Link } from "react-router-dom";
-import { useState } from "react";
+import { SearchProvider, useSearch } from "../../contexts/SearchContext";
+import HeaderSearchbar from "../../components/HeaderSearchbar";
 
 function AdminVehicule() {
-  const cars = useLoaderData();
-
-  const [searchQuery, setSearchQuery] = useState("");
-  const [filteredCars, setFilteredCars] = useState(cars);
-
-  const filterCars = (query) => {
-    setFilteredCars(
-      cars.filter((car) =>
-        car.name.toLowerCase().startsWith(query.toLowerCase())
-      )
-    );
-  };
-
-  const handleSearchInputChange = (event) => {
-    setSearchQuery(event.target.value);
-    filterCars(event.target.value);
-  };
+  const items = useLoaderData(); // Récupération des items via le loader dans main.jsx
 
   return (
-    <div>
-      <h1>Vehicules</h1>
-      <p>Trouvez ci-dessous la liste de des vehicules.</p>
+    // Import du provider ICI car on fait remonter les items dans le Contexte
+    <SearchProvider items={items}>
+      <Content />
+    </SearchProvider>
+  );
+}
 
-      <form onSubmit={(e) => e.preventDefault()}>
-        <label htmlFor="site-search">Chercher un vehicule:</label>
-        <input
-          type="search"
-          id="site-search"
-          name="search"
-          value={searchQuery}
-          onChange={handleSearchInputChange}
-        />
-        <button type="submit">Chercher</button>
-      </form>
+// Déclaration d'un composant Content CAR, on a besoin de items pour le state init du filteredItems (qui est dans le context). On peut ainsi l'appeler avec useSearch sans undefined.
+function Content() {
+  const { filteredItems } = useSearch();
+
+  return (
+    <section>
+      <HeaderSearchbar>
+        {{
+          title: "Mes véhicules",
+          label: "Trouvez ci-dessous la liste de vos ",
+        }}
+      </HeaderSearchbar>
+
+      <p>
+        {filteredItems.length === 0
+          ? "Aucun résultat correspondant à la recherche"
+          : `${filteredItems.length} résultat${filteredItems.length === 1 ? "" : "s"}`}
+      </p>
 
       <ul className="admin-users-list">
-        {filteredCars.map((car) => (
+        {filteredItems.map((car) => (
           <li className="admin-users-item" key={car.id}>
             <img src={car.image} alt={car.name} />
             <div className="admin-users-infos">
@@ -66,7 +61,7 @@ function AdminVehicule() {
           </li>
         ))}
       </ul>
-    </div>
+    </section>
   );
 }
 

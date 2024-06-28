@@ -1,5 +1,6 @@
 const AbstractSeeder = require("./AbstractSeeder");
 const BrandSeeder = require("./BrandSeeder");
+const brandData = require("../../app/services/brandData"); // Assurez-vous de fournir le bon chemin
 
 class ModelSeeder extends AbstractSeeder {
   constructor() {
@@ -10,19 +11,22 @@ class ModelSeeder extends AbstractSeeder {
   // The run method - Populate the 'Model' table with fake data
 
   run() {
-    // Generate and insert fake data into the 'Model' table
-    for (let i = 0; i < 10; i += 1) {
-      // Generate fake Model data
-      const fakeModel = {
-        name: this.faker.vehicle.model(), // Generate a fake vehicule using faker library
-        plug_type: this.faker.vehicle.fuel(),
-        // Foreign Keys
-        brand_id: this.getRef(`brand_${i}`).insertId, // Get the insertId of the corresponding brand from BrandeSeeder
-        refName: `model_${i}`, // Create a reference name for the model
-      };
+    // Generate and insert data into the 'Model' table
+    for (let i = 0; i < brandData.length; i += 1) {
+      // iterate throught Brand
+      for (let j = 0; j < brandData[i].models.length; j += 1) {
+        // Generate  Model data
+        const model = {
+          name: brandData[i].models[j].name, // Generate a model
+          plug_type: brandData[i].models[j].plug_type,
+          // Foreign Keys
+          brand_id: this.getRef(`brand_${i}`).insertId, // Get the insertId of the corresponding brand from BrandeSeeder
+          refName: `model_${i}`, // Create a reference name for the model
+        };
 
-      // Insert the fakeModel data into the 'Model' table
-      this.insert(fakeModel); // insert into Model(email, password) values (?, ?)
+        // Insert the fakeModel data into the 'Model' table
+        this.insert(model); // insert into Model(name, plug_type) values (?, ?)
+      }
     }
   }
 }
