@@ -66,7 +66,6 @@ function Inscription() {
             address: data.address,
             zip_code: data.zip_code,
             city: data.city,
-            role_id: 3,
             // Data for car table
             name: data.name,
             image: "https://via.placeholder.com/128x128",
@@ -268,49 +267,51 @@ function Inscription() {
           {errors.name && <p role="alert">{errors.name.message}</p>}
         </div>
 
-        <div className="form-group">
-          <label htmlFor="brand">Marque de la voiture</label>
-          <select
-            id="brand"
-            name="brand"
-            {...register("brand", {
-              required: "La marque de la voiture est obligatoire",
-            })}
-            onBlur={() => trigger("brand")}
-          >
-            <option value="">Choisissez une marque</option>
-            {brandData.map((brand) => (
-              <option key={brand.id} value={brand.id}>
-                {brand.name}
-              </option>
-            ))}
-          </select>
-
-          {errors.name && <p role="alert">{errors.name.message}</p>}
-        </div>
-
-        {selectedBrand && (
+        <div className="form-group-50-50">
           <div className="form-group">
-            <label htmlFor="model">Modèle de la voiture</label>
+            <label htmlFor="brand">Marque de la voiture</label>
             <select
-              id="model"
-              name="model"
-              {...register("model", {
-                required: "Le modèle de la voiture est obligatoire",
+              id="brand"
+              name="brand"
+              {...register("brand", {
+                required: "La marque de la voiture est obligatoire",
               })}
-              onBlur={() => trigger("model")}
+              onBlur={() => trigger("brand")}
             >
-              <option value="">Choisissez un modèle</option>
-              {selectedBrand.models.map((model) => (
-                <option key={model.id} value={model.id}>
-                  {model.name}
+              <option value="">Choisissez une marque</option>
+              {brandData.map((brand) => (
+                <option key={brand.id} value={brand.id}>
+                  {brand.name}
                 </option>
               ))}
             </select>
 
             {errors.name && <p role="alert">{errors.name.message}</p>}
           </div>
-        )}
+
+          {selectedBrand && (
+            <div className="form-group">
+              <label htmlFor="model">Modèle de la voiture</label>
+              <select
+                id="model"
+                name="model"
+                {...register("model", {
+                  required: "Le modèle de la voiture est obligatoire",
+                })}
+                onBlur={() => trigger("model")}
+              >
+                <option value="">Choisissez un modèle</option>
+                {selectedBrand.models.map((model) => (
+                  <option key={model.id} value={model.id}>
+                    {model.name}
+                  </option>
+                ))}
+              </select>
+
+              {errors.name && <p role="alert">{errors.name.message}</p>}
+            </div>
+          )}
+        </div>
 
         <button type="submit">Send</button>
       </form>
