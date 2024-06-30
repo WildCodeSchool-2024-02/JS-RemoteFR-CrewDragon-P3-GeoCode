@@ -8,7 +8,7 @@ create table user (
   id INT unsigned PRIMARY KEY auto_increment NOT NULL,
   avatar VARCHAR(255) NOT NULL,
   email VARCHAR(255) NOT NULL unique,
-  password VARCHAR(255) NOT NULL, 
+  hashed_password VARCHAR(255) NOT NULL,
   firstname VARCHAR(255) NOT NULL,
   lastname VARCHAR(255) NOT NULL,
   birthday DATE, 
