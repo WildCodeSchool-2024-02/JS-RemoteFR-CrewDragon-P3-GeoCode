@@ -58,19 +58,18 @@ const router = createBrowserRouter([
         element: <Carte />,
       },
       {
+        path: "carte/bornes/:id",
+        element: <Borne />,
+      },
+      {
         path: "/inscription",
         element: <Inscription />,
-        loader: withAuth(async (auth) => {
+        loader: async () => {
           const response = await axios.get(
-            `${import.meta.env.VITE_API_URL}/api/brands/`,
-            {
-              headers: {
-                Authorization: `Bearer ${auth.token}`,
-              },
-            }
+            `${import.meta.env.VITE_API_URL}/api/brands/`
           );
           return response.data;
-        }),
+        },
       },
       {
         path: "/connexion",
@@ -80,29 +79,19 @@ const router = createBrowserRouter([
         path: "/contact",
         element: <Contact />,
       },
+
       {
-        path: "/borne/:id",
-        element: <Borne />,
-      },
-      {
-        path: "/profil/:id",
+        path: "/profil/gestion/:id",
         element: <Profil />,
-        loader: withAuth(async ({ params }, auth) => {
+        loader: async ({ params }) => {
           const response = await axios.get(
-            `${import.meta.env.VITE_API_URL}/api/users/${params.id}`,
-            {
-              headers: {
-                Authorization: `Bearer ${auth.token}`,
-              },
-              // Attention, si ça ne fonctionne pas, il faut mettre
-              // credentials: true,
-            }
+            `${import.meta.env.VITE_API_URL}/api/users/${params.id}`
           );
           return response.data;
-        }),
+        },
       },
       {
-        path: "/profil/utilisateur/:id",
+        path: "/profil/gestion/:id/utilisateur",
         element: <ProfilUtilisateur />,
         loader: async ({ params }) => {
           const response = await axios.get(
@@ -112,7 +101,7 @@ const router = createBrowserRouter([
         },
       },
       {
-        path: "/profil/utilisateur/edit/:id",
+        path: "/profil/gestion/:id/utilisateur/edit/",
         element: <ProfilUtilisateurEdit />,
         loader: withAuth(async ({ params }, auth) => {
           const response = await axios.get(
@@ -164,11 +153,11 @@ const router = createBrowserRouter([
         },
       },
       {
-        path: "/profil/vehicules",
+        path: "/profil/gestion/:id/vehicules/",
         element: <ProfilVehicules />,
       },
       {
-        path: "/profil/reservations",
+        path: "/profil/gestion/:id/reservations/",
         element: <ProfilReservations />,
       },
       {
