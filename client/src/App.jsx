@@ -6,8 +6,6 @@ import { useAuth } from "./contexts/AuthContext";
 function App() {
   const location = useLocation();
   const { auth } = useAuth();
-  console.info(auth);
-  console.info(`coucou from home ${{ auth }}`);
 
   const page = location.pathname.replaceAll("/", "");
   /* eslint no-plusplus: ["error", { "allowForLoopAfterthoughts": true }] */
@@ -53,6 +51,7 @@ function App() {
         }
       >
         <Outlet />
+        <p>{auth}</p>
       </div>
     </main>
   );
