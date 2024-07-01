@@ -381,15 +381,6 @@ const router = createBrowserRouter([
       {
         path: "/administrateur/bornes/import",
         element: <AdminBornesAddCsv />,
-        action: async ({ request }) => {
-          const formData = await request.formData();
-          console.info(formData);
-
-          const file = formData.get("file");
-
-          await axios.post("/api/terminals", { file });
-          return false; // test mode
-        },
       },
 
       {
