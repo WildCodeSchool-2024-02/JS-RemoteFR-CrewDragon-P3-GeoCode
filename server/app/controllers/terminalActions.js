@@ -1,3 +1,6 @@
+const fs = require("fs");
+const csv = require("csv-parser");
+
 // Import access to database tables
 const tables = require("../../database/tables");
 
@@ -85,6 +88,44 @@ const destroy = async (req, res, next) => {
   }
 };
 
+const uploadCSVHandler = async (req, res, next) => {
+  try {
+    const filePath = req.file.path;
+
+    const terminals = [];
+
+    fs.createReadStream(filePath)
+      .pipe(csv())
+      .on("data", (row) => {
+        terminals.push({
+          isBooked: row.isBooked === "true",
+          name: row.name,
+          address: row.address,
+          xlongitude: parseFloat(row.xlongitude),
+          ylatitude: parseFloat(row.ylatitude),
+          power: row.power,
+          plug_type: row.plug_type,
+          chain_name: row.chain_name,
+          accessibility: row.accessibility,
+        });
+      })
+      .on("end", async () => {
+        try {
+          await Promise.all(
+            terminals.map(async (terminal) => {
+              await tables.terminal.create(terminal);
+            })
+          );
+          res.status(200).json({ message: "CSV processed successfully" });
+        } catch (err) {
+          next(err);
+        }
+      });
+  } catch (err) {
+    next(err);
+  }
+};
+
 // Ready to export the controller functions
 module.exports = {
   browse,
@@ -92,4 +133,5 @@ module.exports = {
   edit,
   add,
   destroy,
+  uploadCSVHandler,
 };

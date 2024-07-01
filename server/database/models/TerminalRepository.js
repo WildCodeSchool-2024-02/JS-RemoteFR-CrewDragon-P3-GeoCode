@@ -12,8 +12,18 @@ class TerminalRepository extends AbstractRepository {
   async create(terminal) {
     // Execute the SQL INSERT query to add a new terminal to the "terminal" table
     const [result] = await this.database.query(
-      `insert into ${this.table} (title, terminal_id) values (?, ?)`,
-      [terminal.title, terminal.terminal_id]
+      `insert into ${this.table} (isBooked, name, address, xlongitude, ylatitude, power, plug_type, chain_name, accessibility) values (?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+      [
+        terminal.isBooked,
+        terminal.name,
+        terminal.address,
+        terminal.xlongitude,
+        terminal.ylatitude,
+        terminal.power,
+        terminal.plug_type,
+        terminal.chain_name,
+        terminal.accessibility,
+      ]
     );
 
     // Return the ID of the newly inserted terminal
