@@ -83,6 +83,30 @@ INSERT INTO role (id, name) VALUES
 (1, 'User'),
 (2, 'Admin');
 
+INSERT INTO user (
+  avatar,
+  email,
+  hashed_password,
+  firstname,
+  lastname,
+  birthday,
+  address,
+  zip_code,
+  city,
+  role_id
+) VALUES (
+  'default_avatar.png',
+  'admin123@example.com',
+  '$argon2id$v=19$m=19456,t=2,p=1$YuTUonvj6kDs1gtygYcjpg$fDUntM/0R/oJyXsNf0z0r+jepTG58vMfGkf7Bsjwqig',
+  'John',
+  'Doe',
+  '1985-07-15',
+  '456 Admin Lane',
+  '67890',
+  'Adminville',
+  2
+);
+
 
 INSERT INTO model (name, plug_type, brand_id) VALUES 
 ('Model S', 'Type 2', 1),

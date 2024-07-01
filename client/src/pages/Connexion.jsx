@@ -1,7 +1,9 @@
 import { useRef } from "react";
 import { useNavigate, Link } from "react-router-dom";
+import { useAuth } from "../contexts/AuthContext";
 
 function Connexion() {
+  const { setAuth } = useAuth();
   // Références pour les champs email et mot de passe
 
   const emailRef = useRef();
@@ -25,11 +27,14 @@ function Connexion() {
             email: emailRef.current.value,
             password: passwordRef.current.value,
           }),
+          credentials: "include", // Need it for cookie
         }
       );
 
       // Redirection vers la page de connexion si la création réussit
       if (response.status === 200) {
+        const auth = await response.json();
+        setAuth(auth);
         navigate("/carte");
       } else {
         // Log des détails de la réponse en cas d'échec
