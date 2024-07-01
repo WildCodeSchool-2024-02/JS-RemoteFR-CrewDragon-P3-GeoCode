@@ -20,14 +20,14 @@ function Profil() {
       </h2>
       <nav className="profil-nav">
         <ul className="profil-List">
-          <Link to={`/profil/utilisateur/${user.user_id}`}>
+          <Link to={`/profil/gestion/${user.user_id}/utilisateur`}>
             <li className="profil-List-Items">
               <img src={users} alt="" className="profil-List-Icon" />
               <h3>Mes informations</h3>
               <p>Retrouvez et modifiez ici toutes vos informations.</p>
             </li>
           </Link>
-          <Link to="/profil/vehicules">
+          <Link to={`/profil/gestion/${user.user_id}/vehicules`}>
             <li className="profil-List-Items">
               <img src={truck} alt="" className="profil-List-Icon" />
               <h3>Mes véhicules</h3>
@@ -36,7 +36,7 @@ function Profil() {
               </p>
             </li>
           </Link>
-          <Link to="/profil/reservations">
+          <Link to={`/profil/gestion/${user.user_id}/reservations`}>
             <li className="profil-List-Items">
               <svg
                 xmlns="http://www.w3.org/2000/svg"

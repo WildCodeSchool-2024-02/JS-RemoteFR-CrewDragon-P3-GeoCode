@@ -1,11 +1,10 @@
 import { Outlet, useLocation } from "react-router-dom";
 import Menu from "./components/Menu";
 import heroData from "./services/heroData";
-import { useAuth } from "./contexts/AuthContext";
+
 
 function App() {
   const location = useLocation();
-  const { auth } = useAuth();
 
   const page = location.pathname.replaceAll("/", "");
   /* eslint no-plusplus: ["error", { "allowForLoopAfterthoughts": true }] */
@@ -51,7 +50,6 @@ function App() {
         }
       >
         <Outlet />
-        <p>{auth}</p>
       </div>
     </main>
   );

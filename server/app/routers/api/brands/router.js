@@ -8,10 +8,9 @@ const router = express.Router();
 
 // Import item-related actions
 const { browse, read, add } = require("../../../controllers/brandActions");
-const { verifyToken } = require("../../../services/auth");
 
 // Route to get a list of items
-router.get("/", verifyToken, browse);
+router.get("/", browse);
 
 // Route to get a specific item by ID
 router.get("/:id", read);
