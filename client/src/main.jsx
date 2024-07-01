@@ -8,6 +8,8 @@ import {
   RouterProvider,
 } from "react-router-dom";
 
+import { AuthProvider, useAuth } from "./contexts/AuthContext";
+
 import "./styles/index.scss";
 
 // Import des pages
@@ -37,6 +39,12 @@ import AdminBornesEdit from "./pages/Admin/AdminBornesEdit";
 import AdminBornesAddCsv from "./pages/Admin/AdminBornesAddCsv";
 import ProfilUtilisateurEdit from "./pages/Profil/ProfilUtilisateurEdit";
 
+const withAuth = (Func) => async (Args) => {
+  const { auth } = useAuth();
+  await Func(Args, auth);
+  return true;
+};
+
 const router = createBrowserRouter([
   {
     element: <App />,
@@ -52,12 +60,17 @@ const router = createBrowserRouter([
       {
         path: "/inscription",
         element: <Inscription />,
-        loader: async () => {
+        loader: withAuth(async (auth) => {
           const response = await axios.get(
-            `${import.meta.env.VITE_API_URL}/api/brands`
+            `${import.meta.env.VITE_API_URL}/api/brands/`,
+            {
+              headers: {
+                Authorization: `Bearer ${auth.token}`,
+              },
+            }
           );
           return response.data;
-        },
+        }),
       },
       {
         path: "/connexion",
@@ -74,12 +87,17 @@ const router = createBrowserRouter([
       {
         path: "/profil/:id",
         element: <Profil />,
-        loader: async ({ params }) => {
+        loader: withAuth(async ({ params }, auth) => {
           const response = await axios.get(
-            `${import.meta.env.VITE_API_URL}/api/users/${params.id}`
+            `${import.meta.env.VITE_API_URL}/api/users/${params.id}`,
+            {
+              headers: {
+                Authorization: `Bearer ${auth.token}`,
+              },
+            }
           );
           return response.data;
-        },
+        }),
       },
       {
         path: "/profil/utilisateur/:id",
@@ -94,12 +112,17 @@ const router = createBrowserRouter([
       {
         path: "/profil/utilisateur/edit/:id",
         element: <ProfilUtilisateurEdit />,
-        loader: async ({ params }) => {
+        loader: withAuth(async ({ params }, auth) => {
           const response = await axios.get(
-            `${import.meta.env.VITE_API_URL}/api/users/${params.id}`
+            `${import.meta.env.VITE_API_URL}/api/users/${params.id}`,
+            {
+              headers: {
+                Authorization: `Bearer ${auth.token}`,
+              },
+            }
           );
           return response.data;
-        },
+        }),
         action: async ({ request, params }) => {
           const formData = await request.formData();
           console.info(formData);
@@ -390,6 +413,8 @@ const root = ReactDOM.createRoot(document.getElementById("root"));
 
 root.render(
   <React.StrictMode>
-    <RouterProvider router={router} />
+    <AuthProvider>
+      <RouterProvider router={router} />
+    </AuthProvider>
   </React.StrictMode>
 );
