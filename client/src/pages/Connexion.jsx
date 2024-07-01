@@ -27,6 +27,7 @@ function Connexion() {
             email: emailRef.current.value,
             password: passwordRef.current.value,
           }),
+          credentials: "include", // Need it for cookie
         }
       );
 

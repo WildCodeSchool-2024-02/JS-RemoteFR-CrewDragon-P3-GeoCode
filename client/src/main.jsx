@@ -94,6 +94,8 @@ const router = createBrowserRouter([
               headers: {
                 Authorization: `Bearer ${auth.token}`,
               },
+              // Attention, si ça ne fonctionne pas, il faut mettre
+              // credentials: true,
             }
           );
           return response.data;
