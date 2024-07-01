@@ -54,14 +54,11 @@ const edit = async (req, res, next) => {
 // The A of BREAD - Add (Create) operation
 const add = async (req, res, next) => {
   // Extract the terminal data from the request body
-  const terminal = req.body;
+  console.info("controllers");
 
   try {
     // Insert the terminal into the database
-    const insertId = await tables.terminal.create(terminal);
-
-    // Respond with HTTP 201 (Created) and the ID of the newly inserted terminal
-    res.status(201).json({ insertId });
+    await tables.terminal.create();
   } catch (err) {
     // Pass any errors to the error-handling middleware
     next(err);

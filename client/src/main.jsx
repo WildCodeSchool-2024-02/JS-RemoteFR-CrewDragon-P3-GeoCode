@@ -339,16 +339,35 @@ const router = createBrowserRouter([
       {
         path: "/administrateur/bornes/import",
         element: <AdminBornesAddCsv />,
-        action: async ({ request }) => {
-          const formData = await request.formData();
-          console.info(formData);
 
-          const file = formData.get("file");
+        // action: async ({ request }) => {
+        //   const formData = await request.formData();
 
-          await axios.post("/api/terminals", { file });
-          return false; // test mode
-        },
+        //   switch (request.method.toLowerCase()) {
+        //     case "post": {
+        //       await axios.post(`http://localhost:3310/api/terminals/`, {
+        //         file: formData.get("file"),
+        //       });
+        //       return redirect(
+        //         `http://localhost:3000/administrateur/bornes/import`
+        //       );
+        //     }
+        //     default:
+        //       throw new Response("", { status: 405 });
+        //   }
+        // },
       },
+      //   action: async ({ request }) => {
+      //     const formData = await request.formData();
+      //     console.info(formData);
+
+      //     const file = formData.get("file");
+      //     console.info(file);
+
+      //     await axios.post("http://localhost:3310/api/terminals", { file });
+      //     return redirect("http://localhost:3000/administrateur/bornes");
+      //   },
+      // },
 
       {
         path: "/administrateur/reservations",

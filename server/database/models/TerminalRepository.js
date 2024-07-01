@@ -1,3 +1,5 @@
+const fs = require("fs");
+const Papa = require("papaparse");
 const AbstractRepository = require("./AbstractRepository");
 
 class TerminalRepository extends AbstractRepository {
@@ -9,16 +11,73 @@ class TerminalRepository extends AbstractRepository {
 
   // The C of CRUD - Create operation
 
-  async create(terminal) {
-    // Execute the SQL INSERT query to add a new terminal to the "terminal" table
-    const [result] = await this.database.query(
-      `insert into ${this.table} (title, terminal_id) values (?, ?)`,
-      [terminal.title, terminal.terminal_id]
-    );
+  //------------------------------------------------------------------------------------------------
 
-    // Return the ID of the newly inserted terminal
-    return result.insertId;
+  async create() {
+    // Execute the SQL INSERT query to add a new terminal to the "terminal" table
+    const csvFile = fs.readFileSync(
+      "../../uploads/csv_bornes_client.csv",
+      "utf8"
+    );
+    const parsedData = Papa.parse(csvFile, {
+      header: true,
+      dynamicTyping: true,
+    });
+
+    const filteredData = parsedData.data.filter((e) => e.isBooked !== null);
+
+    const dropTable = `TRUNCATE TABLE ${this.table}`;
+
+    await this.database.query(dropTable, (err) => {
+      if (err) {
+        console.error(`Erreur lors de l'insertion des données : ${err.stack}`);
+        return;
+      }
+      console.info("Table Dropped");
+    });
+
+    const query = `
+INSERT INTO ${this.table} (
+        isBooked,
+        name,	
+        address,	
+        xlongitude,	
+        ylatitude,	
+        power,	
+        plug_type,	
+        chain_name,	
+        accessibility
+      ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ? )
+       `;
+
+    filteredData.map(async (data) => {
+      const values = [
+        data.isBooked,
+        data.name,
+        data.address,
+        data.xlongitude,
+        data.ylatitude,
+        data.power,
+        data.plug_type,
+        data.chain_name,
+        data.accessibility,
+      ];
+
+      await this.database.query(query, values, (err, result) => {
+        if (err) {
+          console.error(
+            `Erreur lors de l'insertion des données : ${err.stack}`
+          );
+          return;
+        }
+        console.info(
+          `Données insérées avec succès, ID de l'enregistrement : ${result.insertId}`
+        );
+      });
+    });
   }
+
+  //------------------------------------------------------------------------------------------------
 
   // The Rs of CRUD - Read operations
 

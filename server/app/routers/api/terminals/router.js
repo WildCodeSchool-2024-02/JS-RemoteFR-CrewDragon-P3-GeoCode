@@ -15,6 +15,10 @@ const {
   destroy,
 } = require("../../../controllers/terminalActions");
 
+const {
+  uploadCSV,
+} = require("../../../services/middlewares/uploadMiddlewares");
+
 // Route to get a list of items
 router.get("/", browse);
 
@@ -25,7 +29,7 @@ router.get("/:id", read);
 router.put("/:id", edit);
 
 // Route to add a new item
-router.post("/", add);
+router.post("/", uploadCSV, add);
 
 // Route to delete a specific item by ID
 router.delete("/:id", destroy);

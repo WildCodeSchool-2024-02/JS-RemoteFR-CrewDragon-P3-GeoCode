@@ -6,7 +6,7 @@ const CarRepository = require("./models/CarRepository");
 const ModelRepository = require("./models/ModelRepository");
 const BrandRepository = require("./models/BrandRepository");
 const BookingRepository = require("./models/BookingRepository");
-const TerminalRepository = require("./models/TerminalRepository");
+const TerminalRepository = require("./models/TerminalRepository").default;
 
 // Create an empty object to hold data repositories for different tables
 const tables = {};
