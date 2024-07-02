@@ -134,7 +134,7 @@ const router = createBrowserRouter([
               );
 
               return redirect(
-                `${import.meta.env.CLIENT_URL}profil/utilisateur/${params.id}`
+                `${import.meta.env.VITE_CLIENT_URL}profil/utilisateur/${params.id}`
               );
             }
 
@@ -143,7 +143,7 @@ const router = createBrowserRouter([
                 `${import.meta.env.VITE_API_URL}/api/users/${params.id}`
               );
 
-              return redirect(`${import.meta.env.CLIENT_URL}`);
+              return redirect(`${import.meta.env.VITE_CLIENT_URL}`);
             }
 
             default:
@@ -221,7 +221,7 @@ const router = createBrowserRouter([
               );
 
               return redirect(
-                `http://localhost:3000/administrateur/utilisateurs`
+                `${import.meta.env.VITE_CLIENT_URL}/administrateur/utilisateurs`
               );
             }
 
@@ -231,7 +231,7 @@ const router = createBrowserRouter([
               );
 
               return redirect(
-                `http://localhost:3000/administrateur/utilisateurs`
+                `${import.meta.env.VITE_CLIENT_URL}/administrateur/utilisateurs`
               );
             }
 
@@ -272,7 +272,7 @@ const router = createBrowserRouter([
               );
 
               return redirect(
-                `${import.meta.env.CLIENT_URL}administrateur/vehicules/${params.id}`
+                `${import.meta.env.VITE_CLIENT_URL}administrateur/vehicules/${params.id}`
               );
             }
 
@@ -282,7 +282,7 @@ const router = createBrowserRouter([
               );
 
               return redirect(
-                `${import.meta.env.CLIENT_URL}administrateur/vehicules/`
+                `${import.meta.env.VITE_CLIENT_URL}administrateur/vehicules/`
               );
             }
 
@@ -323,7 +323,7 @@ const router = createBrowserRouter([
               );
 
               return redirect(
-                `${import.meta.env.CLIENT_URL}administrateur/bornes/${params.id}`
+                `${import.meta.env.VITE_CLIENT_URL}administrateur/bornes/${params.id}`
               );
             }
 
@@ -333,7 +333,7 @@ const router = createBrowserRouter([
               );
 
               return redirect(
-                `${import.meta.env.CLIENT_URL}administrateur/bornes/`
+                `${import.meta.env.VITE_CLIENT_URL}administrateur/bornes/`
               );
             }
 
