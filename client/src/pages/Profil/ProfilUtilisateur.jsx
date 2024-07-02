@@ -86,7 +86,7 @@ function ProfilUtilisateur() {
       </div>
       <Link
         className="profil-user-button"
-        to={`/profil/utilisateur/edit/${user.user_id}`}
+        to={`/profil/gestion/${user.user_id}/utilisateur/edit`}
       >
         Modifier mon profil
       </Link>
@@ -108,7 +108,7 @@ function ProfilUtilisateur() {
       </div>
       <Link
         className="profil-user-button"
-        to={`/profil/utilisateur/edit/${user.user_id}`}
+        to={`/profil/gestion/${user.user_id}/vehicules/edit`}
       >
         Modifier mes véhicules
       </Link>
