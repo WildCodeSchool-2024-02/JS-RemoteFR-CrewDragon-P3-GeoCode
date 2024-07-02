@@ -31,8 +31,6 @@ const login = async (req, res, next) => {
         { expiresIn: "1h" }
       );
 
-      delete user.role_id;
-
       res.cookie("token", token, { httpOnly: true });
       res.json({ token, user });
     } else {

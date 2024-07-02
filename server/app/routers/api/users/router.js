@@ -14,7 +14,7 @@ const {
   add,
   destroy,
 } = require("../../../controllers/userActions");
-const { verifyToken } = require("../../../services/auth");
+
 
 // Route to get a list of items
 router.get("/", browse);
@@ -29,7 +29,7 @@ router.put("/:id", edit);
 router.post("/", add);
 
 // Route to delete a specific item by ID
-router.delete("/:id", verifyToken, destroy);
+router.delete("/:id", destroy);
 
 /* ************************************************************************* */
 

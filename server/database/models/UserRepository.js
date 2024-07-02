@@ -34,10 +34,7 @@ class UserRepository extends AbstractRepository {
   }
 
   async createWithCar(user, car) {
-    // Execute the SQL INSERT query to add a new user to the "user" table
-    console.info(user);
-    console.info(car);
-
+   
     const [result] = await this.database.query(
       `insert into ${this.table} (firstname, lastname, avatar, email, hashed_password, address, zip_code, city, role_id) values (?, ?, ?, ?, ?, ?, ?, ?, 1)`,
       [
@@ -112,13 +109,12 @@ class UserRepository extends AbstractRepository {
     // Execute the SQL UPDATE query to update a specific user
 
     const [result] = await this.database.query(
-      `update ${this.table} set firstname = ?, lastname = ?, email = ?, hashed_password = ?, address = ?, zip_code = ?, city = ? where id = ?`,
+      `update ${this.table} set firstname = ?, lastname = ?, email = ?, address = ?, zip_code = ?, city = ? where id = ?`,
 
       [
         user.firstname,
         user.lastname,
         user.email,
-        user.hashedPassword,
         user.address,
         user.zip_code,
         user.city,

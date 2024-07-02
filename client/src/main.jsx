@@ -116,7 +116,6 @@ const router = createBrowserRouter([
         }),
         action: async ({ request, params }) => {
           const formData = await request.formData();
-          console.info(formData);
 
           switch (request.method.toLowerCase()) {
             case "put": {
@@ -194,35 +193,9 @@ const router = createBrowserRouter([
           );
           return response.data;
         },
-        action: async ({ request }) => {
-          const formData = await request.formData();
-
-          switch (request.method.toLowerCase()) {
-            case "post": {
-              await axios.post(`${import.meta.env.VITE_API_URL}/api/users/`, {
-                firstname: formData.get("firstname"),
-                lastname: formData.get("lastname"),
-                avatar: "vvvvv",
-                email: "michelle@michel.com",
-                password: "vvvvv",
-                address: "vvvvv",
-                zip_code: "vvvvv",
-                city: "vvvvv",
-                role_id: 3,
-              });
-
-              return redirect(
-                `${import.meta.env.CLIENT_URL}administrateur/utilisateurs/`
-              );
-            }
-
-            default:
-              throw new Response("", { status: 405 });
-          }
-        },
       },
       {
-        path: "/administrateur/utilisateurs/:id",
+        path: "/administrateur/utilisateurs/:id/edit",
         element: <AdminUtilisateursEdit />,
         loader: async ({ params }) => {
           const response = await axios.get(
@@ -240,22 +213,15 @@ const router = createBrowserRouter([
                 {
                   firstname: formData.get("firstname"),
                   lastname: formData.get("lastname"),
+                  email: formData.get("email"),
+                  address: formData.get("address"),
+                  zip_code: formData.get("zip_code"),
+                  city: formData.get("city"),
                 }
               );
 
               return redirect(
-                `${import.meta.env.CLIENT_URL}administrateur/utilisateurs/${params.id}`
-              );
-            }
-
-            case "post": {
-              await axios.post(`${import.meta.env.VITE_API_URL}/api/users/`, {
-                firstname: formData.get("firstname"),
-                lastname: formData.get("lastname"),
-              });
-
-              return redirect(
-                `${import.meta.env.CLIENT_URL}administrateur/utilisateurs/${params.id}`
+                `http://localhost:3000/administrateur/utilisateurs`
               );
             }
 
@@ -265,7 +231,7 @@ const router = createBrowserRouter([
               );
 
               return redirect(
-                `${import.meta.env.CLIENT_URL}administrateur/utilisateurs/`
+                `http://localhost:3000/administrateur/utilisateurs`
               );
             }
 
@@ -295,7 +261,6 @@ const router = createBrowserRouter([
         },
         action: async ({ request, params }) => {
           const formData = await request.formData();
-          console.info(formData);
 
           switch (request.method.toLowerCase()) {
             case "put": {
@@ -347,7 +312,6 @@ const router = createBrowserRouter([
         },
         action: async ({ request, params }) => {
           const formData = await request.formData();
-          console.info(formData);
 
           switch (request.method.toLowerCase()) {
             case "put": {
