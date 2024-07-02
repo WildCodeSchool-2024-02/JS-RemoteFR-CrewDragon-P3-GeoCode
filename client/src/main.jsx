@@ -272,11 +272,12 @@ const router = createBrowserRouter([
                 `${import.meta.env.VITE_API_URL}/api/cars/${params.id}`,
                 {
                   name: formData.get("name"),
+                  model_id: formData.get("model"),
                 }
               );
 
               return redirect(
-                `${import.meta.env.VITE_CLIENT_URL}administrateur/vehicules/${params.id}`
+                `${import.meta.env.VITE_CLIENT_URL}/administrateur/vehicules/${params.id}`
               );
             }
 
@@ -286,7 +287,7 @@ const router = createBrowserRouter([
               );
 
               return redirect(
-                `${import.meta.env.VITE_CLIENT_URL}administrateur/vehicules/`
+                `${import.meta.env.VITE_CLIENT_URL}/administrateur/vehicules/`
               );
             }
 

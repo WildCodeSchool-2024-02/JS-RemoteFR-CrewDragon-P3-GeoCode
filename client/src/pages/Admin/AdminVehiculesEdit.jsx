@@ -28,7 +28,8 @@ function AdminVehiculesEdit() {
           <label htmlFor="name">Nom de la voiture</label>
           <input
             id="name"
-            value={vehicule.name}
+            name="name"
+            defaultValue={vehicule.name}
             // Validation au moment de la perte du focus
             onBlur={() => trigger("name")}
           />

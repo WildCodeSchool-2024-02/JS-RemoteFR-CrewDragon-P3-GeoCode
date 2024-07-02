@@ -38,7 +38,7 @@ const read = async (req, res, next) => {
 const edit = async (req, res, next) => {
   // Extract the car data from the request body and params
   const car = { ...req.body, id: req.params.id };
-  console.info(car);
+  console.info("controller form car", car);
   try {
     // Update the car in the database
     await tables.car.update(car);
