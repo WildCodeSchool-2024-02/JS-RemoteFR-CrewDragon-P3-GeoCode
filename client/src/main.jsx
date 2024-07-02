@@ -251,13 +251,17 @@ const router = createBrowserRouter([
         },
       },
       {
-        path: "/administrateur/vehicules/:id",
+        path: "/administrateur/vehicules/:id/edit",
         element: <AdminVehiculesEdit />,
         loader: async ({ params }) => {
-          const response = await axios.get(
-            `${import.meta.env.VITE_API_URL}/api/cars/${params.id}`
-          );
-          return response.data;
+          const [carResponse, brandsResponse] = await Promise.all([
+            axios.get(`${import.meta.env.VITE_API_URL}/api/cars/${params.id}`),
+            axios.get(`${import.meta.env.VITE_API_URL}/api/brands/`),
+          ]);
+          return {
+            vehicule: carResponse.data,
+            brandData: brandsResponse.data,
+          };
         },
         action: async ({ request, params }) => {
           const formData = await request.formData();
