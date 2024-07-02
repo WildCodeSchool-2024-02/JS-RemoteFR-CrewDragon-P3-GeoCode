@@ -34,12 +34,12 @@ class UserRepository extends AbstractRepository {
   }
 
   async createWithCar(user, car) {
-   
     const [result] = await this.database.query(
-      `insert into ${this.table} (firstname, lastname, avatar, email, hashed_password, address, zip_code, city, role_id) values (?, ?, ?, ?, ?, ?, ?, ?, 1)`,
+      `insert into ${this.table} (firstname, lastname, birthday, avatar, email, hashed_password, address, zip_code, city, role_id) values (?, ?, ?, ?, ?, ?, ?, ?, ?, 1)`,
       [
         user.firstname,
         user.lastname,
+        user.birthday,
         user.avatar,
         user.email,
         user.hashedPassword,
@@ -80,7 +80,7 @@ class UserRepository extends AbstractRepository {
     );
 
     // Return the first row of the result, which represents the user
-    console.info(rows[0]);
+    console.info("MAJ BDD user / read :", rows[0]);
 
     return rows[0];
   }

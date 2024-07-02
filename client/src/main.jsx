@@ -8,7 +8,7 @@ import {
   RouterProvider,
 } from "react-router-dom";
 
-import { AuthProvider, useAuth } from "./contexts/AuthContext";
+import { AuthProvider } from "./contexts/AuthContext";
 
 import "./styles/index.scss";
 
@@ -39,11 +39,11 @@ import AdminBornesEdit from "./pages/Admin/AdminBornesEdit";
 import AdminBornesAddCsv from "./pages/Admin/AdminBornesAddCsv";
 import ProfilUtilisateurEdit from "./pages/Profil/ProfilUtilisateurEdit";
 
-const withAuth = (Func) => async (Args) => {
-  const { auth } = useAuth();
-  await Func(Args, auth);
-  return true;
-};
+// const withAuth = (Func) => async (Args) => {
+//   const { auth } = useAuth();
+//   await Func(Args, auth);
+//   return true;
+// };
 
 const router = createBrowserRouter([
   {
@@ -103,17 +103,12 @@ const router = createBrowserRouter([
       {
         path: "/profil/gestion/:id/utilisateur/edit/",
         element: <ProfilUtilisateurEdit />,
-        loader: withAuth(async ({ params }, auth) => {
+        loader: async ({ params }) => {
           const response = await axios.get(
-            `${import.meta.env.VITE_API_URL}/api/users/${params.id}`,
-            {
-              headers: {
-                Authorization: `Bearer ${auth.token}`,
-              },
-            }
+            `${import.meta.env.VITE_API_URL}/api/users/${params.id}`
           );
           return response.data;
-        }),
+        },
         action: async ({ request, params }) => {
           const formData = await request.formData();
 
