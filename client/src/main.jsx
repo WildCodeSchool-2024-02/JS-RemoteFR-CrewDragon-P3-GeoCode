@@ -277,7 +277,7 @@ const router = createBrowserRouter([
               );
 
               return redirect(
-                `${import.meta.env.VITE_CLIENT_URL}/administrateur/vehicules/${params.id}`
+                `${import.meta.env.VITE_CLIENT_URL}/administrateur/vehicules/`
               );
             }
 

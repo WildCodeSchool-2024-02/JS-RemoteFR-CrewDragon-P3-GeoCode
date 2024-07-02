@@ -4,9 +4,6 @@ import { useForm } from "react-hook-form";
 
 function AdminVehiculesEdit() {
   const { vehicule, brandData } = useLoaderData();
-
-  console.info(brandData);
-
   const { trigger, watch, register } = useForm();
 
   const watchBrand = watch("brand");
@@ -16,8 +13,6 @@ function AdminVehiculesEdit() {
     const brand = brandData.find((b) => b.id === parseInt(watchBrand, 10));
     setSelectedBrand(brand);
   }, [watchBrand]);
-
-  console.info("je suis watchbrand", watchBrand);
 
   return (
     <>
