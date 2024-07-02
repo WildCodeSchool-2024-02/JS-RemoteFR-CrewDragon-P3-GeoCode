@@ -1,7 +1,6 @@
 import { Link } from "react-router-dom";
 import { useAuth } from "../../contexts/AuthContext";
 
-import avatar from "../../assets/images/icons/avatar-admin.svg";
 import truck from "../../assets/images/icons/truck.svg";
 import users from "../../assets/images/icons/users.svg";
 import lightening from "../../assets/images/icons/lightening.svg";
@@ -16,7 +15,7 @@ function Admin() {
         <h1>Bonjour {auth.user.firstname} !</h1>
       </div>
 
-      <img src={avatar} alt="" className="admin-Avatar" />
+      <img src={auth.user.avatar} alt="" className="admin-Avatar" />
 
       <h2 className="admin-Title">
         <Link to="/administrateur">

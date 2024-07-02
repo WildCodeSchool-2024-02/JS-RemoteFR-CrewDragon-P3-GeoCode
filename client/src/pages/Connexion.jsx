@@ -51,18 +51,17 @@ function Connexion() {
       <h1>Ravi de vous revoir !</h1>
       <form onSubmit={handleSubmit}>
         <div className="form-group">
-          <label htmlFor="email">email</label>{" "}
+          <label htmlFor="email">Email</label>{" "}
           <input ref={emailRef} type="email" id="email" />
         </div>
         <div className="form-group">
-          <label htmlFor="password">password</label>{" "}
+          <label htmlFor="password">Password</label>{" "}
           <input type="password" id="password" ref={passwordRef} />
         </div>
 
-        <button type="submit">Send</button>
+        <button type="submit">Me connecter</button>
       </form>
       <Link to="/inscription"> Pas encore de compte </Link>
-      <button type="submit">Me connecter</button>
     </section>
   );
 }

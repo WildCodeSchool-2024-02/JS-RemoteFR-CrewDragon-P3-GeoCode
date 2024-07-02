@@ -87,7 +87,7 @@ const router = createBrowserRouter([
           const response = await axios.get(
             `${import.meta.env.VITE_API_URL}/api/users/${params.id}`
           );
-          return response.data;
+          return response.data; 
         },
       },
       {

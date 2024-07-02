@@ -95,17 +95,18 @@ INSERT INTO user (
   city,
   role_id
 ) VALUES (
-  'default_avatar.png',
+  'https://avatar.iran.liara.run/public/47',
   'admin123@example.com',
   '$argon2id$v=19$m=19456,t=2,p=1$YuTUonvj6kDs1gtygYcjpg$fDUntM/0R/oJyXsNf0z0r+jepTG58vMfGkf7Bsjwqig',
-  'John',
-  'Doe',
+  'Anthony',
+  'Gorski',
   '1985-07-15',
-  '456 Admin Lane',
-  '67890',
-  'Adminville',
+  '13 Rue du Stade Vélodrome',
+  '13000',
+  'Marseille',
   2
 );
+
 
 
 INSERT INTO model (name, plug_type, brand_id) VALUES 
@@ -138,3 +139,15 @@ INSERT INTO model (name, plug_type, brand_id) VALUES
 ('Soul EV', 'CCS', 10),
 ('Niro EV', 'CCS', 10),
 ('EV6', 'CCS', 10);
+
+INSERT INTO car (
+  user_id,
+  model_id,
+  image,
+  name
+) VALUES (
+  1,
+  20,
+  'https://avatar.iran.liara.run/username?username=Bob+Lemon',
+  'Bob Lemon'
+);
