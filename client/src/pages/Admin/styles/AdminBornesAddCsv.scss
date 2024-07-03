@@ -1,0 +1,50 @@
+.statusAlertOk {
+  color: green;
+}
+.statusAlertFailed {
+  color: rgb(128, 0, 0);
+}
+.adminUploadContainer {
+  display: flex;
+  flex-direction: column;
+}
+
+.inputUpload[type="file"] {
+  width: 350px;
+  max-width: 100%;
+  color: #0c3617;
+  padding: 8px;
+  background-color: #fff;
+  border-radius: 5px;
+  &:focus {
+    outline: 2px dashed #a72848;
+    outline-offset: 2px;
+  }
+}
+.inputUpload[type="file"]::file-selector-button {
+  margin-right: 8px;
+  border: none;
+  background: #338876;
+  padding: 8px 12px;
+  color: #000000;
+  cursor: pointer;
+  border-radius: 5px;
+  &:hover {
+    background: #39c55c;
+  }
+}
+
+.buttonUpload {
+  padding: 5px;
+  margin-top: 25px;
+  margin-left: 7px;
+  width: 88px;
+  height: 35px;
+  background-color: #338876;
+  border-radius: 5px;
+  border: 1px white solid;
+  &:hover {
+    color: #000000;
+    background-color: #39c55c;
+  }
+}

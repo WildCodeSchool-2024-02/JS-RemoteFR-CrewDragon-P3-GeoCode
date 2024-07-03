@@ -19,6 +19,13 @@ function Content() {
 
   return (
     <section>
+      <Link to="/administrateur">
+        <img
+          className="returnPreviousPage"
+          src="https://img.icons8.com/?size=100&id=11538&format=png&color=000000"
+          alt="retour"
+        />
+      </Link>
       <HeaderSearchbar>
         {{
           title: "Mes véhicules",

@@ -18,6 +18,13 @@ function Content() {
   const { filteredItems } = useSearch();
   return (
     <section>
+      <Link to="/administrateur">
+        <img
+          className="returnPreviousPage"
+          src="https://img.icons8.com/?size=100&id=11538&format=png&color=000000"
+          alt="retour"
+        />
+      </Link>
       <Form method="post">
         <label htmlFor="firstname">Prénom</label>{" "}
         <input
@@ -32,7 +39,7 @@ function Content() {
       </Form>
       <HeaderSearchbar>
         {{
-          title: "Mes utilisateurs",
+          title: `Mes utilisateurs`,
           label: "Trouvez ci-dessous la liste de vos ",
         }}
       </HeaderSearchbar>

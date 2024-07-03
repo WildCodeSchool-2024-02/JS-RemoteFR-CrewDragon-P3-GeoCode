@@ -2,6 +2,7 @@ const fs = require("fs");
 const csv = require("csv-parser");
 
 // Import access to database tables
+
 const tables = require("../../database/tables");
 
 // The B of BREAD - Browse (Read All) operation
@@ -61,6 +62,7 @@ const add = async (req, res, next) => {
 
   try {
     // Insert the terminal into the database
+
     const insertId = await tables.terminal.create(terminal);
 
     // Respond with HTTP 201 (Created) and the ID of the newly inserted terminal
@@ -90,6 +92,8 @@ const destroy = async (req, res, next) => {
 
 const uploadCSVHandler = async (req, res, next) => {
   try {
+    await tables.terminal.clear();
+
     const filePath = req.file.path;
 
     const terminals = [];

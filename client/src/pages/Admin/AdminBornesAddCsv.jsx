@@ -1,10 +1,10 @@
 import { useState } from "react";
 import axios from "axios";
-
-import { Form } from "react-router-dom";
+import { Form, Link } from "react-router-dom";
 
 function AdminBornesAddCsv() {
   const [file, setFile] = useState(null);
+  const [statusAlert, setstatusAlert] = useState("");
 
   const handleFileChange = (e) => {
     setFile(e.target.files[0]);
@@ -12,11 +12,6 @@ function AdminBornesAddCsv() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
-    if (!file) {
-      alert("Please select a file first!");
-      return;
-    }
 
     const formData = new FormData();
     formData.append("csvFile", file);
@@ -33,9 +28,13 @@ function AdminBornesAddCsv() {
       );
 
       if (response.status === 200) {
-        alert("CSV uploaded successfully");
+        setstatusAlert(
+          <p className="statusAlertOk">Le fichier est upload. DB update.</p>
+        );
       } else {
-        alert("Failed to upload CSV");
+        setstatusAlert(
+          <p className="statusAlertFailed">Erreur lord de l'upload.</p>
+        );
       }
     } catch (error) {
       console.error("Error:", error);
@@ -43,9 +42,26 @@ function AdminBornesAddCsv() {
   };
 
   return (
-    <Form onSubmit={handleSubmit}>
-      <input type="file" accept=".csv" onChange={handleFileChange} />
-      <button type="submit">Upload CSV</button>
+    <Form onSubmit={handleSubmit} className="adminUploadContainer">
+      <Link to="/administrateur/bornes">
+        <img
+          className="returnPreviousPage"
+          src="https://img.icons8.com/?size=100&id=11538&format=png&color=000000"
+          alt="retour"
+        />
+      </Link>
+      <h1>Upload CSV</h1>
+      <input
+        type="file"
+        accept=".csv"
+        className="inputUpload"
+        onChange={handleFileChange}
+        required
+      />
+      <button type="submit" className="buttonUpload">
+        Upload CSV
+      </button>
+      {statusAlert}
     </Form>
   );
 }

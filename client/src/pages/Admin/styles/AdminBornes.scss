@@ -1,0 +1,10 @@
+.btnBornesImport {
+  border: 1px grey solid;
+  border-radius: 10px;
+  width: 25%;
+  padding: 5px;
+  &:hover {
+    border: 1px variables.$secondary-color solid;
+    background-color: variables.$alert-color;
+  }
+}

@@ -1,10 +1,17 @@
-import { Form, useLoaderData } from "react-router-dom";
+import { Form, Link, useLoaderData } from "react-router-dom";
 
 function AdminUtilisateursEdit() {
   const user = useLoaderData();
 
   return (
     <>
+      <Link to="/administrateur/utilisateurs">
+        <img
+          className="returnPreviousPage"
+          src="https://img.icons8.com/?size=100&id=11538&format=png&color=000000"
+          alt="retour"
+        />
+      </Link>
       <h1> {user.firstname} </h1>
 
       <Form method="put">
