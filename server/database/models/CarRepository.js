@@ -46,9 +46,9 @@ class CarRepository extends AbstractRepository {
     // Execute the SQL UPDATE query to update a specific car
 
     const [result] = await this.database.query(
-      `update ${this.table} set name = ? where id = ?`,
+      `update ${this.table} set name = ?, model_id = ? where id = ?`,
 
-      [car.name, car.id]
+      [car.name, car.model_id, car.id]
     );
 
     // Return how many rows were affected

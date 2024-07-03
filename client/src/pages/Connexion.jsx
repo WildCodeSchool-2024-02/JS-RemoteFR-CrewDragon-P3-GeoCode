@@ -48,22 +48,20 @@ function Connexion() {
 
   return (
     <section>
+      <h1>Ravi de vous revoir !</h1>
       <form onSubmit={handleSubmit}>
-        <div>
-          {/* Champ pour l'email */}
-          <label htmlFor="email">email</label>{" "}
+        <div className="form-group">
+          <label htmlFor="email">Email</label>{" "}
           <input ref={emailRef} type="email" id="email" />
         </div>
-        <div>
-          {/* Champ pour le mot de passe */}
-          <label htmlFor="password">password</label>{" "}
+        <div className="form-group">
+          <label htmlFor="password">Password</label>{" "}
           <input type="password" id="password" ref={passwordRef} />
         </div>
-        {/* Bouton de soumission du formulaire */}
-        <button type="submit">Send</button>
+
+        <button type="submit">Me connecter</button>
       </form>
       <Link to="/inscription"> Pas encore de compte </Link>
-      <button type="submit">Me connecter</button>
     </section>
   );
 }
