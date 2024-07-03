@@ -31,8 +31,6 @@ const login = async (req, res, next) => {
         { expiresIn: "1h" }
       );
 
-      delete user.role_id;
-
       res.cookie("token", token, { httpOnly: true });
       res.json({ token, user });
     } else {
@@ -47,6 +45,7 @@ const login = async (req, res, next) => {
 // The A of BREAD - Add (Create) operation
 const register = async (req, res, next) => {
   // Extract the user data from the request body
+
   const user = req.body;
   const car = {
     name: req.body.name,

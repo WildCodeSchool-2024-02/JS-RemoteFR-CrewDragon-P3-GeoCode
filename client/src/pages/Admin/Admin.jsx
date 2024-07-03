@@ -1,21 +1,26 @@
 import { Link } from "react-router-dom";
-import avatar from "../../assets/images/icons/avatar-admin.svg";
+import { useAuth } from "../../contexts/AuthContext";
+
 import truck from "../../assets/images/icons/truck.svg";
 import users from "../../assets/images/icons/users.svg";
 import lightening from "../../assets/images/icons/lightening.svg";
 import chart from "../../assets/images/icons/chart.svg";
 
 function Admin() {
+  const { auth } = useAuth();
+
   return (
     <section className="admin-Content">
       <div className="admin-Header">
-        <h1>Page Administrateur</h1>
+        <h1>Bonjour {auth.user.firstname} !</h1>
       </div>
 
-      <img src={avatar} alt="" className="admin-Avatar" />
+      <img src={auth.user.avatar} alt="" className="admin-Avatar" />
 
       <h2 className="admin-Title">
-        <Link to="/administrateur">Admin</Link>
+        <Link to="/administrateur">
+          {auth.user.firstname} {auth.user.lastname}
+        </Link>
       </h2>
       <nav className="admin-nav">
         <ul className="admin-List">

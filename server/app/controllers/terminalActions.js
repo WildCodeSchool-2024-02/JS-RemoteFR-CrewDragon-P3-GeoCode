@@ -42,7 +42,6 @@ const read = async (req, res, next) => {
 const edit = async (req, res, next) => {
   // Extract the terminal data from the request body and params
   const terminal = { ...req.body, id: req.params.id };
-  console.info(terminal);
   try {
     // Update the terminal in the database
     await tables.terminal.update(terminal);

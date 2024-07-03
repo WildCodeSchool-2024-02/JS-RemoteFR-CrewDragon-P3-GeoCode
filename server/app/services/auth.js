@@ -13,6 +13,7 @@ const hashingOptions = {
 const hashPassword = async (req, res, next) => {
   try {
     // Extraction du mot de passe de la requête
+    
     const { password } = req.body;
 
     // Hachage du mot de passe avec les options spécifiées

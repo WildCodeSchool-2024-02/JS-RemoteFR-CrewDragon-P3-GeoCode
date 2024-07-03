@@ -1,4 +1,4 @@
-import { useLoaderData, Form, Link } from "react-router-dom";
+import { useLoaderData, Link } from "react-router-dom";
 import { SearchProvider, useSearch } from "../../contexts/SearchContext";
 import HeaderSearchbar from "../../components/HeaderSearchbar";
 
@@ -25,18 +25,6 @@ function Content() {
           alt="retour"
         />
       </Link>
-      <Form method="post">
-        <label htmlFor="firstname">Prénom</label>{" "}
-        <input
-          type="text"
-          id="firstname"
-          name="firstname"
-          defaultValue="John"
-        />
-        <label htmlFor="lastname">Nom</label>{" "}
-        <input type="text" id="lastname" name="lastname" defaultValue="Doe" />
-        <button type="submit">Ajouter</button>
-      </Form>
       <HeaderSearchbar>
         {{
           title: `Mes utilisateurs`,
@@ -52,10 +40,13 @@ function Content() {
 
       <ul className="admin-users-list">
         {filteredItems.map((user) => (
-          <Link to={`/administrateur/utilisateurs/${user.id}`} key={user.id}>
+          <Link
+            to={`/administrateur/utilisateurs/${user.id}/edit`}
+            key={user.id}
+          >
             <li className="admin-users-item">
               <img
-                src={user.image}
+                src={user.avatar}
                 alt={`${user.firstname} ${user.lastname}`}
               />
               <div className="admin-users-infos">

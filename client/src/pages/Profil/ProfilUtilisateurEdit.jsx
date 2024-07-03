@@ -80,12 +80,10 @@ function ProfilUtilisateurEdit() {
           </div>
         </div>
 
-        <button type="submit" className="profil-user-edit-button">
-          Modifier mes informations
-        </button>
+        <button type="submit">Modifier mes informations</button>
       </Form>
       <Form method="delete">
-        <button type="submit" className="profil-user-edit-button">
+        <button type="submit" className="btn-secondary">
           Supprimer mon profil
         </button>
       </Form>
