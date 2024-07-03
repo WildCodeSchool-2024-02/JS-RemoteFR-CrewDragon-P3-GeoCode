@@ -1,3 +1,5 @@
+import Cookies from "js-cookie";
+
 import { useRef } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { useAuth } from "../contexts/AuthContext";
@@ -22,18 +24,24 @@ function Connexion() {
         `${import.meta.env.VITE_API_URL}/api/auths`,
         {
           method: "post",
+          credentials: "include", // Need it for cookie
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
             email: emailRef.current.value,
             password: passwordRef.current.value,
           }),
-          credentials: "include", // Need it for cookie
         }
       );
 
       // Redirection vers la page de connexion si la création réussit
       if (response.status === 200) {
-        const auth = await response.json();
+        let authData = await Cookies.get("authData");
+
+        if (authData.startsWith("j:")) {
+          authData = authData.slice(2);
+        }
+
+        const auth = JSON.parse(authData);
         setAuth(auth);
         navigate("/carte");
       } else {

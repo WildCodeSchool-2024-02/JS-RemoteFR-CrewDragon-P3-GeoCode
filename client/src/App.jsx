@@ -45,7 +45,7 @@ function App() {
                 borderRadius: "0",
                 padding: "0",
               }
-            : {}
+            : { marginBottom: "4rem" }
         }
       >
         <Outlet />

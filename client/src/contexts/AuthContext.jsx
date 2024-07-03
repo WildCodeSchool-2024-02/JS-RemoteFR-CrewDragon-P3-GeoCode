@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 const AuthContext = createContext();
 
 export function AuthProvider({ children }) {
-  const [auth, setAuth] = useState(null);
+  const [auth, setAuth] = useState({ user: {}, token: "" });
 
   const contextValue = useMemo(
     () => ({

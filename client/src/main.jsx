@@ -1,6 +1,7 @@
 import React from "react";
 import axios from "axios";
 import ReactDOM from "react-dom/client";
+import Cookies from "js-cookie";
 
 import {
   createBrowserRouter,
@@ -38,12 +39,28 @@ import AdminVehiculesEdit from "./pages/Admin/AdminVehiculesEdit";
 import AdminBornesEdit from "./pages/Admin/AdminBornesEdit";
 import AdminBornesAddCsv from "./pages/Admin/AdminBornesAddCsv";
 import ProfilUtilisateurEdit from "./pages/Profil/ProfilUtilisateurEdit";
+import NotFound from "./pages/NotFound";
 
-// const withAuth = (Func) => async (Args) => {
-//   const { auth } = useAuth();
-//   await Func(Args, auth);
-//   return true;
-// };
+const isAuthenticated = () => {
+  let authData = Cookies.get("authData");
+  if (authData === undefined) {
+    return false;
+  }
+
+  if (authData.startsWith("j:")) {
+    authData = authData.slice(2);
+  }
+  const auth = JSON.parse(authData);
+
+  return auth;
+};
+
+const withAuth = (Func) => async (Args) => {
+  const auth = isAuthenticated();
+
+  await Func(Args, auth);
+  return true;
+};
 
 const router = createBrowserRouter([
   {
@@ -88,13 +105,22 @@ const router = createBrowserRouter([
 
       {
         path: "/profil/gestion/:id",
-        element: <Profil />,
-        loader: async ({ params }) => {
+        element: isAuthenticated() !== false ? <Profil /> : <Connexion />,
+
+        loader: withAuth(async ({ params }, auth) => {
+          console.info(auth);
           const response = await axios.get(
-            `${import.meta.env.VITE_API_URL}/api/users/${params.id}`
+            `${import.meta.env.VITE_API_URL}/api/users/${params.id}`,
+            {
+              headers: {
+                Authorization: `Bearer ${auth.token}`,
+              },
+              // Attention, si ça ne fonctionne pas, il faut mettre
+              // credentials: true,
+            }
           );
-          return response.data; 
-        },
+          return response.data;
+        }),
       },
       {
         path: "/profil/gestion/:id/utilisateur",
@@ -356,6 +382,10 @@ const router = createBrowserRouter([
       {
         path: "/administrateur/reservations",
         element: <AdminReservations />,
+      },
+      {
+        path: "*",
+        element: <NotFound />,
       },
     ],
   },
