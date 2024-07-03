@@ -24,14 +24,20 @@ function AdminBornes() {
 
   return (
     <section>
-      <h1>Bornes</h1>
-
-      <Link to="/administrateur/bornes/import">
-        <button type="button">Importer CSV</button>
+      <Link to="/administrateur">
+        <img
+          className="returnPreviousPage"
+          src="https://img.icons8.com/?size=100&id=11538&format=png&color=000000"
+          alt="retour"
+        />
       </Link>
+      <h1>Bornes</h1>
 
       <form onSubmit={(e) => e.preventDefault()}>
         <label htmlFor="site-search">
+          <Link to="/administrateur/bornes/import">
+            <p className="btnBornesImport"> Importer des bornes </p>
+          </Link>
           Trouvez ci-dessous la liste de nos bornes.
         </label>
         <input

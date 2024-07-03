@@ -6,7 +6,9 @@
 @import "../pages/styles/Inscription.scss";
 
 @import "../pages/Admin/styles/Admin.scss";
+@import "../pages/Admin/styles/AdminBornes.scss";
 @import "../pages/Admin/styles/AdminUtilisateurs.scss";
+@import "../pages/Admin/styles/AdminBornesAddCsv.scss";
 @import "../pages/Profil/styles/Profil.scss";
 @import "../pages/Profil/styles/ProfilUtilisateur.scss";
 
@@ -198,5 +200,10 @@
         }
       }
     }
+  }
+  .returnPreviousPage {
+    width: 20px;
+    height: 20px;
+    margin-right: 10px;
   }
 }

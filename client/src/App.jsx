@@ -2,7 +2,6 @@ import { Outlet, useLocation } from "react-router-dom";
 import Menu from "./components/Menu";
 import heroData from "./services/heroData";
 
-
 function App() {
   const location = useLocation();
 

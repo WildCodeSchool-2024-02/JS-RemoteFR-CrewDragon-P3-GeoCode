@@ -1,4 +1,4 @@
-import { Form, useLoaderData } from "react-router-dom";
+import { Form, Link, useLoaderData } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 
@@ -16,7 +16,16 @@ function AdminVehiculesEdit() {
 
   return (
     <>
+
+      <Link to="/administrateur/vehicules">
+        <img
+          className="returnPreviousPage"
+          src="https://img.icons8.com/?size=100&id=11538&format=png&color=000000"
+          alt="retour"
+        />
+      </Link>
       <h1> Modifier le {vehicule.name} </h1>
+
       <Form method="put">
         {/* eslint-disable react/jsx-props-no-spreading */}
         <div className="form-group">

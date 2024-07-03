@@ -1,4 +1,4 @@
-import { Form, useLoaderData } from "react-router-dom";
+import { Form, Link, useLoaderData } from "react-router-dom";
 import { useForm } from "react-hook-form";
 
 function AdminUtilisateursEdit() {
@@ -12,6 +12,15 @@ function AdminUtilisateursEdit() {
 
   return (
     <>
+
+      <Link to="/administrateur/utilisateurs">
+        <img
+          className="returnPreviousPage"
+          src="https://img.icons8.com/?size=100&id=11538&format=png&color=000000"
+          alt="retour"
+        />
+      </Link>
+
       <h1>
         {user.firstname} {user.lastname}
       </h1>
