@@ -11,13 +11,11 @@ export function AuthProvider({ children }) {
     let authData = Cookies.get("authData");
     if (authData === undefined) {
       setAuth({ user: {}, token: "" });
-      console.info(" je suis la res du context en undefined", authData);
     } else {
       if (authData.startsWith("j:")) {
         authData = authData.slice(2);
       }
       const authParsed = JSON.parse(authData);
-      console.info(" je suis la res du context en auth", authParsed);
       setAuth(authParsed);
     }
   }, []);
