@@ -1,4 +1,4 @@
-import Articles from "../components/Articles"; // Chemin vers votre composant Articles
+import Articles from "../components/Articles";
 
 function Aides() {
   return (
