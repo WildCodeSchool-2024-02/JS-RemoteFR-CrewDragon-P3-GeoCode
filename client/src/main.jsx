@@ -7,7 +7,7 @@ import {
   RouterProvider,
 } from "react-router-dom";
 
-import { AuthProvider, } from "./contexts/AuthContext";
+import { AuthProvider } from "./contexts/AuthContext";
 
 import "./styles/index.scss";
 
