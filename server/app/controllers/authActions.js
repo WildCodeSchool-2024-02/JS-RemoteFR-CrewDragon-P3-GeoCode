@@ -26,13 +26,34 @@ const login = async (req, res, next) => {
 
       // Generate JWT token
       const token = jwt.sign(
-        { sub: user.id, role: user.role_id },
+        {
+          sub: user.id,
+          role: user.role_id,
+          firstname: user.firstname,
+          lastname: user.firstname,
+          avatar: user.avatar,
+        },
         process.env.APP_SECRET,
         { expiresIn: "1h" }
       );
 
-      res.cookie("token", token, { httpOnly: true });
-      res.json({ token, user });
+      const cookieData = {
+        user: {
+          id: user.id,
+          role: user.role_id,
+          email: user.email,
+          firstname: user.firstname,
+          lastname: user.lastname,
+          avatar: user.avatar,
+        },
+        token,
+      };
+
+      res.cookie("authData", cookieData, {
+        maxAge: 3600000,
+      });
+
+      res.sendStatus(200);
     } else {
       res.sendStatus(422);
     }

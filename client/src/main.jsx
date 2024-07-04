@@ -8,7 +8,7 @@ import {
   RouterProvider,
 } from "react-router-dom";
 
-import { AuthProvider } from "./contexts/AuthContext";
+import { AuthProvider, useAuth } from "./contexts/AuthContext";
 
 import "./styles/index.scss";
 
@@ -38,12 +38,14 @@ import AdminVehiculesEdit from "./pages/Admin/AdminVehiculesEdit";
 import AdminBornesEdit from "./pages/Admin/AdminBornesEdit";
 import AdminBornesAddCsv from "./pages/Admin/AdminBornesAddCsv";
 import ProfilUtilisateurEdit from "./pages/Profil/ProfilUtilisateurEdit";
+import NotFound from "./pages/NotFound";
 
-// const withAuth = (Func) => async (Args) => {
-//   const { auth } = useAuth();
-//   await Func(Args, auth);
-//   return true;
-// };
+const withAuth = (Func) => async (Args) => {
+  const auth = useAuth();
+
+  await Func(Args, auth);
+  return true;
+};
 
 const router = createBrowserRouter([
   {
@@ -89,12 +91,21 @@ const router = createBrowserRouter([
       {
         path: "/profil/gestion/:id",
         element: <Profil />,
-        loader: async ({ params }) => {
+
+        loader: withAuth(async ({ params }, auth) => {
+          console.info(auth);
           const response = await axios.get(
-            `${import.meta.env.VITE_API_URL}/api/users/${params.id}`
+            `${import.meta.env.VITE_API_URL}/api/users/${params.id}`,
+            {
+              headers: {
+                Authorization: `Bearer ${auth.token}`,
+              },
+              // Attention, si ça ne fonctionne pas, il faut mettre
+              // credentials: true,
+            }
           );
-          return response.data; 
-        },
+          return response.data;
+        }),
       },
       {
         path: "/profil/gestion/:id/utilisateur",
@@ -356,6 +367,10 @@ const router = createBrowserRouter([
       {
         path: "/administrateur/reservations",
         element: <AdminReservations />,
+      },
+      {
+        path: "*",
+        element: <NotFound />,
       },
     ],
   },
