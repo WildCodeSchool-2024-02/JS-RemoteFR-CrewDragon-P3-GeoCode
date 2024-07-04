@@ -1,7 +1,6 @@
 import React from "react";
 import axios from "axios";
 import ReactDOM from "react-dom/client";
-import Cookies from "js-cookie";
 
 import {
   createBrowserRouter,
@@ -9,7 +8,7 @@ import {
   RouterProvider,
 } from "react-router-dom";
 
-import { AuthProvider } from "./contexts/AuthContext";
+import { AuthProvider, useAuth } from "./contexts/AuthContext";
 
 import "./styles/index.scss";
 
@@ -41,22 +40,8 @@ import AdminBornesAddCsv from "./pages/Admin/AdminBornesAddCsv";
 import ProfilUtilisateurEdit from "./pages/Profil/ProfilUtilisateurEdit";
 import NotFound from "./pages/NotFound";
 
-const isAuthenticated = () => {
-  let authData = Cookies.get("authData");
-  if (authData === undefined) {
-    return false;
-  }
-
-  if (authData.startsWith("j:")) {
-    authData = authData.slice(2);
-  }
-  const auth = JSON.parse(authData);
-
-  return auth;
-};
-
 const withAuth = (Func) => async (Args) => {
-  const auth = isAuthenticated();
+  const auth = useAuth();
 
   await Func(Args, auth);
   return true;
@@ -105,7 +90,7 @@ const router = createBrowserRouter([
 
       {
         path: "/profil/gestion/:id",
-        element: isAuthenticated() !== false ? <Profil /> : <Connexion />,
+        element: <Profil />,
 
         loader: withAuth(async ({ params }, auth) => {
           console.info(auth);

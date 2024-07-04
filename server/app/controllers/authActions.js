@@ -37,11 +37,10 @@ const login = async (req, res, next) => {
         { expiresIn: "1h" }
       );
 
-      delete user.role_id;
-
       const cookieData = {
         user: {
           id: user.id,
+          role: user.role_id,
           email: user.email,
           firstname: user.firstname,
           lastname: user.lastname,
