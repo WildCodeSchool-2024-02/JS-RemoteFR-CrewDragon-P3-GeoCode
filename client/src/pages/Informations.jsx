@@ -1,11 +1,11 @@
 import { Link } from "react-router-dom";
 import { SearchProvider, useSearch } from "../contexts/SearchContext";
 import HeaderSearchbar from "../components/HeaderSearchbar";
-import helpData from "../services/helpData";
+import infoData from "../services/infoData";
 import truck from "../assets/images/icons/truck.svg";
 
 function Informations() {
-  const items = helpData; // Récupération des items via le fichier de services
+  const items = infoData; // Récupération des items via le fichier de services
   console.info(items);
 
   return (
@@ -34,13 +34,13 @@ function Content() {
           : `${filteredItems.length} résultat${filteredItems.length === 1 ? "" : "s"}`}
       </p>
 
-      <ul className="help-List">
-        {filteredItems.map((help) => (
-          <Link to={`/aides/${help.id}`} key={`help ${help.id}`}>
-            <li className="help-List-Items">
-              <img src={truck} alt="" className="help-List-Icon" />
-              <h3>{help.title}</h3>
-              <p>{help.subTitle}</p>
+      <ul className="info-List">
+        {filteredItems.map((info) => (
+          <Link to={`/informations/${info.id}`} key={`info ${info.id}`}>
+            <li className="info-List-Items">
+              <img src={truck} alt="" className="info-List-Icon" />
+              <h3>{info.title}</h3>
+              <p>{info.subTitle}</p>
             </li>
           </Link>
         ))}

@@ -8,8 +8,6 @@ function Menu() {
   const { auth } = useAuth();
   const [open, setOpen] = useState(false);
 
-  console.info(auth.user);
-
   const toggleMenu = () => {
     setOpen(!open);
   };

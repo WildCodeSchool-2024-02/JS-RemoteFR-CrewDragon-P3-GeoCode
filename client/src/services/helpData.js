@@ -1,74 +1,75 @@
 const helpData = [
   {
     id: 1,
-    title: "Éviter les Files d’Attente aux Bornes de Recharge cet Été",
-    subTitle:
-      "Stratégies pour une Recharge Efficace en Période de Forte Affluence",
+    title: "Les avantages des voitures électriques",
     content:
-      "L'été peut être une période compliquée pour les conducteurs de voitures électriques en raison de la forte affluence aux bornes de recharge. Voici quelques stratégies pour minimiser les temps d'attente. Pré-planifiez vos arrêts de recharge en utilisant des applications spécialisées pour vérifier la disponibilité des bornes en temps réel. Envisagez de recharger aux heures creuses pour éviter les pics de fréquentation. N'oubliez pas de toujours avoir une alternative en cas de borne hors service. Ces conseils vous aideront à voyager sereinement et sans stress pendant vos vacances estivales.",
+      "Les voitures électriques offrent de nombreux avantages, notamment des coûts de fonctionnement réduits, une empreinte carbone plus faible et une conduite silencieuse. Elles nécessitent également moins d'entretien qu'un véhicule à essence traditionnel.",
   },
   {
     id: 2,
-    title: "Classement des Voitures Électriques pour leur Autonomie",
-    subTitle: "Les Meilleurs Modèles en Termes de Rapport Qualité-Prix",
+    title: "Comment recharger votre voiture électrique",
     content:
-      "Trouver une voiture électrique offrant une grande autonomie sans casser sa tirelire peut être un défi. Cet article passe en revue les meilleurs modèles actuels, mettant en lumière ceux qui offrent le meilleur rapport qualité-prix. Nous analyserons des critères tels que la capacité de la batterie, l'efficacité énergétique, et les technologies d'assistance à la conduite. En tenant compte de ces éléments, vous pourrez faire un choix éclairé pour votre prochaine voiture électrique, équilibrant performance et coût.",
+      "Il existe plusieurs méthodes pour recharger une voiture électrique, y compris à domicile avec une borne de recharge dédiée, sur des bornes publiques et sur des bornes de recharge rapide. La plupart des utilisateurs trouvent que recharger à domicile pendant la nuit est le plus pratique.",
   },
   {
     id: 3,
-    title: "Assurer sa Voiture Électrique",
-    subTitle: "7 Conseils pour Choisir la Meilleure Assurance",
+    title: "Les coûts associés aux voitures électriques",
     content:
-      "L'assurance pour voiture électrique présente des spécificités à connaître pour être bien couvert. Nous vous donnons sept conseils pour choisir l'assurance la plus adaptée. Vérifiez les couvertures spécifiques comme l’assistance en cas de panne de batterie. Comparez les offres des différents assureurs et leurs politiques concernant les réparations des véhicules électriques. Pensez aussi à inclure une couverture pour les accessoires de recharge. Avec ces recommandations, vous pourrez rouler en toute sérénité.",
+      "Bien que le coût initial d'une voiture électrique puisse être plus élevé, les économies réalisées sur le carburant et l'entretien peuvent compenser cette dépense. De plus, il existe souvent des incitations fiscales et des subventions disponibles pour les acheteurs de voitures électriques.",
   },
   {
     id: 4,
-    title: "Partir en Week-End en Voiture Électrique",
-    subTitle: "Conseils Pratiques pour un Voyage Réussi",
+    title: "Autonomie des voitures électriques",
     content:
-      "Voyager en voiture électrique pour un week-end peut être une expérience agréable avec une bonne préparation. Planifiez vos itinéraires en tenant compte des bornes de recharge disponibles sur le trajet. Chargez votre voiture à pleine capacité avant de partir et informez-vous sur les bornes de recharge disponibles à votre destination. Emportez toujours un câble de recharge de secours. Ces conseils vous garantiront un week-end sans tracas, vous permettant de profiter pleinement de votre escapade.",
+      "L'autonomie d'une voiture électrique dépend de plusieurs facteurs, dont la taille de la batterie, le style de conduite et les conditions météorologiques. Les modèles récents offrent souvent une autonomie suffisante pour les trajets quotidiens et des options de recharge rapide pour les longs voyages.",
   },
   {
     id: 5,
-    title: "10 Arguments Contre la Voiture Électrique et Comment y Répondre",
-    subTitle: "Déconstruire les Idées Reçues",
+    title: "Impact environnemental des voitures électriques",
     content:
-      "Les voitures électriques sont souvent sujettes à des idées reçues. Cet article aborde dix arguments courants contre les véhicules électriques et propose des réponses fondées pour chacun. Des préoccupations sur l'autonomie à l'impact environnemental de la production des batteries, nous clarifions les faits pour vous aider à mieux comprendre les avantages des voitures électriques. Informé et armé de ces réponses, vous serez prêt à débattre des mérites des véhicules électriques avec assurance.",
+      "Les voitures électriques sont généralement meilleures pour l'environnement que les voitures à essence, en particulier lorsque l'électricité utilisée pour les recharger provient de sources renouvelables. Elles ne produisent pas d'émissions directes et contribuent à réduire la pollution de l'air dans les zones urbaines.",
   },
   {
     id: 6,
-    title: "Recyclage des Batteries de Voitures Électriques",
-    subTitle: "Où et Comment le Faire",
+    title: "Choisir la bonne voiture électrique",
     content:
-      "Le recyclage des batteries de voitures électriques est essentiel pour minimiser l'impact environnemental. Cet article explore les options disponibles pour recycler efficacement ces batteries. Nous expliquons les processus de recyclage et les lieux où vous pouvez déposer vos batteries usagées. De plus, nous abordons les initiatives des constructeurs automobiles pour faciliter le recyclage. Comprendre ces aspects vous permettra de contribuer activement à la durabilité de votre véhicule électrique.",
+      "Lorsque vous choisissez une voiture électrique, il est important de considérer des facteurs tels que l'autonomie, les options de recharge, les coûts et les caractéristiques de sécurité. Faire un essai routier et consulter des avis peut également aider à prendre une décision éclairée.",
   },
   {
     id: 7,
-    title: "Leasing d’une Voiture Électrique",
-    subTitle: "Avantages et Inconvénients",
+    title: "Les meilleures voitures électriques de 2024",
     content:
-      "Le leasing d'une voiture électrique peut être une option intéressante, mais comporte aussi des inconvénients. Cet article détaille les avantages, comme les faibles mensualités et la possibilité de changer régulièrement de véhicule, ainsi que les inconvénients, tels que les restrictions de kilométrage et les frais de restitution. En évaluant ces aspects, vous pourrez décider si le leasing est la meilleure option pour vous.",
+      "Découvrez notre sélection des meilleures voitures électriques de 2024, avec des modèles pour tous les budgets et besoins. Nous avons pris en compte l'autonomie, la performance, et les caractéristiques innovantes pour vous aider à faire le meilleur choix.",
   },
   {
     id: 8,
-    title: "Installation d’une Borne de Recharge en Copropriété",
-    subTitle: "Guide Pratique pour les Résidents",
+    title: "Entretien d'une voiture électrique",
     content:
-      "Installer une borne de recharge dans une copropriété nécessite une planification minutieuse et la collaboration avec les autres résidents. Nous vous guidons à travers les étapes clés, de l'obtention des autorisations nécessaires à la sélection du bon équipement et à l'installation. Découvrez les aspects légaux à considérer et comment faciliter la mise en place de ce projet en collaboration avec votre syndic. Avec ce guide, vous pourrez profiter de la recharge à domicile en toute tranquillité.",
+      "L'entretien d'une voiture électrique est généralement plus simple et moins coûteux que celui d'un véhicule à combustion interne. Découvrez les principales tâches d'entretien et les intervalles recommandés pour garder votre voiture en parfait état de marche.",
   },
   {
     id: 9,
-    title: "Guide d’Achat ou de Vente d’une Voiture Électrique d’Occasion",
-    subTitle: "Ce qu’il Faut Savoir",
+    title: "Les infrastructures de recharge en Europe",
     content:
-      "Acheter ou vendre une voiture électrique d'occasion comporte des particularités spécifiques. Cet article offre des conseils pour évaluer correctement l’état de la batterie, vérifier les historiques d'entretien, et comprendre les garanties disponibles. Pour les vendeurs, nous donnons des astuces pour préparer votre véhicule à la vente et maximiser sa valeur. En suivant ces conseils, vous pouvez effectuer des transactions sécurisées et avantageuses.",
+      "Les infrastructures de recharge pour les voitures électriques en Europe se développent rapidement. Cet article explore les réseaux de recharge disponibles, les coûts associés et les projets en cours pour améliorer la couverture et l'accessibilité.",
   },
   {
     id: 10,
-    title: "Partir au Ski en Voiture Électrique",
-    subTitle: "Préparation et Astuces pour un Voyage Réussi",
+    title: "Les innovations technologiques des voitures électriques",
     content:
-      "Les voyages en montagne en hiver avec une voiture électrique nécessitent une préparation particulière. Nous vous fournissons des astuces pour optimiser l'autonomie de votre véhicule dans des conditions froides, et des conseils sur la recherche de bornes de recharge en zones montagneuses. En vous préparant correctement, vous pourrez profiter de vos vacances au ski sans souci de recharge, garantissant une expérience agréable et sécurisée.",
+      "Les voitures électriques ne cessent d'innover avec des technologies telles que les batteries à haute densité, la conduite autonome et les systèmes de récupération d'énergie. Découvrez les dernières avancées qui rendent ces véhicules plus efficaces et agréables à conduire.",
+  },
+  {
+    id: 11,
+    title: "Les défis de la transition vers les voitures électriques",
+    content:
+      "La transition vers les voitures électriques présente plusieurs défis, notamment la production de batteries, l'infrastructure de recharge et l'acceptation du public. Cet article examine ces obstacles et les solutions potentielles pour les surmonter.",
+  },
+  {
+    id: 12,
+    title: "Les voitures électriques et le marché de l'occasion",
+    content:
+      "Le marché de l'occasion des voitures électriques est en pleine expansion. Découvrez les avantages et les points à vérifier lors de l'achat d'une voiture électrique d'occasion pour faire un bon investissement.",
   },
 ];
 

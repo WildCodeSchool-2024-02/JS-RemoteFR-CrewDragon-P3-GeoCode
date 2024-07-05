@@ -8,7 +8,7 @@ function Profil() {
   return (
     <section className="profil-Content">
       <div className="profil-Header">
-        <h1>Page profil</h1>
+        <h1>Comment allez-vous {user.firstname} ?</h1>
       </div>
 
       <img src={user.avatar} alt="" className="profil-Avatar" />

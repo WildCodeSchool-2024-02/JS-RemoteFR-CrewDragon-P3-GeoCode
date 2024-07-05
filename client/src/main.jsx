@@ -1,4 +1,3 @@
-import React from "react";
 import axios from "axios";
 import ReactDOM from "react-dom/client";
 
@@ -8,7 +7,7 @@ import {
   RouterProvider,
 } from "react-router-dom";
 
-import { AuthProvider, useAuth } from "./contexts/AuthContext";
+import { AuthProvider } from "./contexts/AuthContext";
 
 import "./styles/index.scss";
 
@@ -39,13 +38,14 @@ import AdminBornesEdit from "./pages/Admin/AdminBornesEdit";
 import AdminBornesAddCsv from "./pages/Admin/AdminBornesAddCsv";
 import ProfilUtilisateurEdit from "./pages/Profil/ProfilUtilisateurEdit";
 import NotFound from "./pages/NotFound";
+import ProfilVehiculesEdit from "./pages/Profil/ProfilVehiculesEdit";
 
-const withAuth = (Func) => async (Args) => {
-  const auth = useAuth();
+// const withAuth = (Func) => async (Args) => {
+//   const auth = useAuth();
 
-  await Func(Args, auth);
-  return true;
-};
+//   await Func(Args, auth);
+//   return true;
+// };
 
 const router = createBrowserRouter([
   {
@@ -87,25 +87,15 @@ const router = createBrowserRouter([
         path: "/contact",
         element: <Contact />,
       },
-
       {
         path: "/profil/gestion/:id",
         element: <Profil />,
-
-        loader: withAuth(async ({ params }, auth) => {
-          console.info(auth);
+        loader: async ({ params }) => {
           const response = await axios.get(
-            `${import.meta.env.VITE_API_URL}/api/users/${params.id}`,
-            {
-              headers: {
-                Authorization: `Bearer ${auth.token}`,
-              },
-              // Attention, si ça ne fonctionne pas, il faut mettre
-              // credentials: true,
-            }
+            `${import.meta.env.VITE_API_URL}/api/users/${params.id}`
           );
           return response.data;
-        }),
+        },
       },
       {
         path: "/profil/gestion/:id/utilisateur",
@@ -166,6 +156,58 @@ const router = createBrowserRouter([
       {
         path: "/profil/gestion/:id/vehicules/",
         element: <ProfilVehicules />,
+        loader: async () => {
+          const response = await axios.get(
+            `${import.meta.env.VITE_API_URL}/api/cars`
+          );
+          return response.data;
+        },
+      },
+      {
+        path: "/profil/gestion/:id/vehicules/edit",
+        element: <ProfilVehiculesEdit />,
+        loader: async ({ params }) => {
+          const [carResponse, brandsResponse] = await Promise.all([
+            axios.get(`${import.meta.env.VITE_API_URL}/api/cars/${params.id}`),
+            axios.get(`${import.meta.env.VITE_API_URL}/api/brands/`),
+          ]);
+          return {
+            vehicule: carResponse.data,
+            brandData: brandsResponse.data,
+          };
+        },
+        action: async ({ request, params }) => {
+          const formData = await request.formData();
+
+          switch (request.method.toLowerCase()) {
+            case "put": {
+              await axios.put(
+                `${import.meta.env.VITE_API_URL}/api/cars/${params.id}`,
+                {
+                  name: formData.get("name"),
+                  model_id: formData.get("model"),
+                }
+              );
+
+              return redirect(
+                `${import.meta.env.VITE_CLIENT_URL}/administrateur/vehicules/`
+              );
+            }
+
+            case "delete": {
+              await axios.delete(
+                `${import.meta.env.VITE_API_URL}/api/cars/${params.id}`
+              );
+
+              return redirect(
+                `${import.meta.env.VITE_CLIENT_URL}/administrateur/vehicules/`
+              );
+            }
+
+            default:
+              throw new Response("", { status: 405 });
+          }
+        },
       },
       {
         path: "/profil/gestion/:id/reservations/",
@@ -379,9 +421,7 @@ const router = createBrowserRouter([
 const root = ReactDOM.createRoot(document.getElementById("root"));
 
 root.render(
-  <React.StrictMode>
-    <AuthProvider>
-      <RouterProvider router={router} />
-    </AuthProvider>
-  </React.StrictMode>
+  <AuthProvider>
+    <RouterProvider router={router} />
+  </AuthProvider>
 );
