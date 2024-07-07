@@ -3,7 +3,14 @@ import { useLoaderData, Link } from "react-router-dom";
 function ProfilUtilisateur() {
   const user = useLoaderData();
   return (
-    <div className="profil-user-container">
+    <section className="profil-user-container">
+      <Link to={`/profil/gestion/${user.id}/`}>
+        <img
+          className="returnPreviousPage"
+          src="https://img.icons8.com/?size=100&id=11538&format=png&color=000000"
+          alt="retour"
+        />
+      </Link>
       <h1 className="profil-user-title">
         {user.firstname} {user.lastname}
       </h1>
@@ -112,7 +119,7 @@ function ProfilUtilisateur() {
       >
         Modifier mes véhicules
       </Link>
-    </div>
+    </section>
   );
 }
 

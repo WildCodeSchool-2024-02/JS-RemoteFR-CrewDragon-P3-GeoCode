@@ -136,7 +136,7 @@ const router = createBrowserRouter([
               );
 
               return redirect(
-                `${import.meta.env.VITE_CLIENT_URL}profil/utilisateur/${params.id}`
+                `${import.meta.env.VITE_CLIENT_URL}/profil/gestion/${params.id}/utilisateur/`
               );
             }
 
@@ -190,7 +190,7 @@ const router = createBrowserRouter([
               );
 
               return redirect(
-                `${import.meta.env.VITE_CLIENT_URL}/administrateur/vehicules/`
+                `${import.meta.env.VITE_CLIENT_URL}/profil/gestion/${params.id}/vehicules/`
               );
             }
 

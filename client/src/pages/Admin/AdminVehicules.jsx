@@ -28,8 +28,8 @@ function Content() {
       </Link>
       <HeaderSearchbar>
         {{
-          title: "Mes véhicules",
-          label: "Trouvez ci-dessous la liste de vos ",
+          title: "Les véhicules enregistrés",
+          label: "Trouvez ci-dessous la liste des ",
         }}
       </HeaderSearchbar>
 

@@ -16,7 +16,6 @@ function AdminVehiculesEdit() {
 
   return (
     <>
-
       <Link to="/administrateur/vehicules">
         <img
           className="returnPreviousPage"
@@ -24,7 +23,7 @@ function AdminVehiculesEdit() {
           alt="retour"
         />
       </Link>
-      <h1> Modifier le {vehicule.name} </h1>
+      <h1> Modifier {vehicule.name} </h1>
 
       <Form method="put">
         {/* eslint-disable react/jsx-props-no-spreading */}
@@ -48,9 +47,12 @@ function AdminVehiculesEdit() {
               {...register("brand")}
               onBlur={() => trigger("brand")}
             >
-              <option value="">Choisissez une marque</option>
               {brandData.map((brand) => (
-                <option key={brand.id} value={brand.id}>
+                <option
+                  key={brand.id}
+                  value={brand.id}
+                  selected={brand.name === vehicule.b_name ? "selected" : ""}
+                >
                   {brand.name}
                 </option>
               ))}
@@ -66,9 +68,12 @@ function AdminVehiculesEdit() {
                 {...register("model")}
                 onBlur={() => trigger("model")}
               >
-                <option value="">Choisissez un modèle</option>
                 {selectedBrand.models.map((model) => (
-                  <option key={model.id} value={model.id}>
+                  <option
+                    key={model.id}
+                    value={model.id}
+                    selected={model.name === vehicule.m_name ? "selected" : ""}
+                  >
                     {model.name}
                   </option>
                 ))}

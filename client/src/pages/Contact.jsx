@@ -28,87 +28,59 @@ function Contact() {
   };
 
   return (
-    <section className="contact-section">
+    <section>
       <h1>Contactez-nous</h1>
-      <p>Vos coordonnées</p>
-      <form onSubmit={handleSubmit} className="formulaire-contact">
-        <div id="container">
+      <form onSubmit={handleSubmit}>
+        <div className="form-group-50-50">
           <div className="form-group">
-            <label htmlFor="nom" className="form-label">
-              Nom:
-            </label>
-            <input
-              type="text"
-              id="nom"
-              name="nom"
-              value={formData.nom}
-              onChange={handleChange}
-              className="form-input-container"
-              required
-            />
+            <label htmlFor="firstname">Prénom</label>{" "}
+            <input type="text" id="firstname" placeholder="Simon" />
           </div>
           <div className="form-group">
-            <label htmlFor="prenom" className="form-label">
-              Prénom:
-            </label>
-            <input
-              type="text"
-              id="prenom"
-              name="prenom"
-              value={formData.prenom}
-              onChange={handleChange}
-              className="form-input-container"
-              required
-            />
+            <label htmlFor="lastname">Nom</label>
+            <input type="text" id="lastname" placeholder="Beget" />
           </div>
         </div>
 
         <div className="form-group">
-          <label htmlFor="email" className="form-label">
-            Votre Email:
-          </label>
+          <label htmlFor="email">Email</label>
           <input
             type="email"
             id="email"
-            name="email"
-            value={formData.email}
-            onChange={handleChange}
-            className="form-input"
-            required
+            placeholder="simon.beget@greendrive.com"
           />
         </div>
+
         <div className="form-group">
           <label htmlFor="motif" className="form-label">
-            Motif:
+            Motif
           </label>
-          <input
-            type="text"
-            id="motif"
-            name="motif"
-            value={formData.motif}
-            onChange={handleChange}
-            className="form-input"
-            required
-          />
+          <select id="subject" name="subject" required>
+            <option value="">--Sélectionnez un motif--</option>
+            <option value="question">Question générale</option>
+            <option value="support">Support technique</option>
+            <option value="feedback">Retour d'expérience</option>
+            <option value="other">Autre</option>
+          </select>
         </div>
         <div className="form-group">
           <label htmlFor="message" className="form-label">
-            Message:
+            Message
           </label>
           <textarea
             id="message"
             name="message"
             value={formData.message}
             onChange={handleChange}
-            className="form-textarea"
+            className="form-input"
             required
           />
         </div>
 
-        <button type="submit" className="form-button" id="submit-bouton">
+        <button type="submit" id="submit-bouton">
           Envoyer ma demande
         </button>
-        <Link to="/aides/" className="help-center-link">
+        <Link to="/aides/" className="btn-secondary">
           Accéder au help center
         </Link>
       </form>

@@ -157,6 +157,28 @@
             color: #d6d1d1;
           }
         }
+        textarea {
+          width: 100%;
+          height: 20vh;
+          border-radius: 1rem;
+          padding: 0.8rem;
+          font-size: 0.9rem;
+          border: 1px variables.$third-color solid;
+
+          &:hover {
+            border: 1px variables.$secondary-color solid;
+          }
+
+          &:focus {
+            border: 1px variables.$font-color solid;
+            outline: none;
+          }
+
+          &:disabled {
+            background-color: #d6d1d1;
+            color: #d6d1d1;
+          }
+        }
       }
 
       .form-group-50-50 {
