@@ -16,14 +16,14 @@ function ProfilVehiculesEdit() {
 
   return (
     <>
-      <Link to="/administrateur/vehicules">
+      <Link to={`/profil/gestion/${vehicule.user_id}/vehicules`}>
         <img
           className="returnPreviousPage"
           src="https://img.icons8.com/?size=100&id=11538&format=png&color=000000"
           alt="retour"
         />
       </Link>
-      <h1> Modifier le {vehicule.name} </h1>
+      <h1> Modifier {vehicule.name} </h1>
 
       <Form method="put">
         {/* eslint-disable react/jsx-props-no-spreading */}
@@ -47,9 +47,12 @@ function ProfilVehiculesEdit() {
               {...register("brand")}
               onBlur={() => trigger("brand")}
             >
-              <option value="">Choisissez une marque</option>
               {brandData.map((brand) => (
-                <option key={brand.id} value={brand.id}>
+                <option
+                  key={brand.id}
+                  value={brand.id}
+                  selected={brand.name === vehicule.b_name ? "selected" : ""}
+                >
                   {brand.name}
                 </option>
               ))}
@@ -65,9 +68,12 @@ function ProfilVehiculesEdit() {
                 {...register("model")}
                 onBlur={() => trigger("model")}
               >
-                <option value="">Choisissez un modèle</option>
                 {selectedBrand.models.map((model) => (
-                  <option key={model.id} value={model.id}>
+                  <option
+                    key={model.id}
+                    value={model.id}
+                    selected={model.name === vehicule.m_name ? "selected" : ""}
+                  >
                     {model.name}
                   </option>
                 ))}
