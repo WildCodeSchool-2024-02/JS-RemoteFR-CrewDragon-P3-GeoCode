@@ -15,6 +15,11 @@ function InformationId() {
         />
       </Link>
       <h1>{information.title}</h1>
+      <img
+        src={information.image}
+        alt={information.title}
+        className="information-id-image"
+      />
       <h2>{information.subTitle}</h2>
       {information.content.map((paragraph) => (
         <p key={paragraph.id}>{paragraph.text}</p>

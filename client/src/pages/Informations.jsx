@@ -5,7 +5,6 @@ import infoData from "../services/infoData";
 
 function Informations() {
   const items = infoData; // Récupération des items via le fichier de services
-  console.info(items);
 
   return (
     // Import du provider ICI car on fait remonter les items dans le Contexte

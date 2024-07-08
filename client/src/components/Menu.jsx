@@ -199,7 +199,7 @@ function Menu() {
                 fill="white"
               />
             </svg>
-            Centre d'aide
+            Ressources
           </li>
         </Link>
         <Link to="/contact" onClick={toggleMenu}>

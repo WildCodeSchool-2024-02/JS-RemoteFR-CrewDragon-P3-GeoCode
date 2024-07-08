@@ -30,7 +30,6 @@ import ProfilReservations from "./pages/Profil/ProfilReservations";
 import Informations from "./pages/Informations";
 import InformationId from "./pages/InformationId";
 import Aides from "./pages/Aides";
-import AideId from "./pages/AideId";
 import App from "./App";
 import AdminUtilisateursEdit from "./pages/Admin/AdminUtilisateursEdit";
 import AdminVehiculesEdit from "./pages/Admin/AdminVehiculesEdit";
@@ -228,10 +227,6 @@ const router = createBrowserRouter([
           const response = await axios.get("../assets/data/articles.json");
           return response.data;
         },
-      },
-      {
-        path: "/aides/:id",
-        element: <AideId />,
       },
 
       {

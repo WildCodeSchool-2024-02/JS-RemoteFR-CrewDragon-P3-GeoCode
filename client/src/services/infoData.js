@@ -1,9 +1,21 @@
+import article1 from "../assets/images/infos/article1.jpg";
+import article2 from "../assets/images/infos/article2.jpg";
+import article3 from "../assets/images/infos/article3.jpg";
+import article4 from "../assets/images/infos/article4.jpg";
+import article5 from "../assets/images/infos/article5.jpg";
+import article6 from "../assets/images/infos/article6.jpg";
+import article7 from "../assets/images/infos/article7.jpg";
+import article8 from "../assets/images/infos/article8.jpg";
+import article9 from "../assets/images/infos/article9.jpg";
+import article10 from "../assets/images/infos/article10.jpg";
+
 const infoData = [
   {
     id: 1,
-    title: "Éviter les Files d’Attente aux Bornes de Recharge cet Été",
+    image: article1,
+    title: "Éviter les files d’attente aux bornes de recharge cet été",
     subTitle:
-      "Stratégies pour une Recharge Efficace en Période de Forte Affluence",
+      "Stratégies pour une recharge efficace en période de forte affluence",
     content: [
       {
         id: 1,
@@ -25,8 +37,9 @@ const infoData = [
   },
   {
     id: 2,
-    title: "Classement des Voitures Électriques pour leur Autonomie",
-    subTitle: "Les Meilleurs Modèles en Termes de Rapport Qualité-Prix",
+    image: article2,
+    title: "Classement des voitures électriques pour leur autonomie",
+    subTitle: "Les meilleurs modèles en termes de rapport Qualité-Prix",
     content: [
       {
         id: 1,
@@ -48,8 +61,9 @@ const infoData = [
   },
   {
     id: 3,
-    title: "Assurer sa Voiture Électrique",
-    subTitle: "7 Conseils pour Choisir la Meilleure Assurance",
+    image: article3,
+    title: "Assurer sa voiture électrique",
+    subTitle: "7 conseils pour choisir la meilleure assurance",
     content: [
       {
         id: 1,
@@ -71,8 +85,9 @@ const infoData = [
   },
   {
     id: 4,
-    title: "Partir en Week-End en Voiture Électrique",
-    subTitle: "Conseils Pratiques pour un Voyage Réussi",
+    image: article4,
+    title: "Partir en week-end en voiture électrique",
+    subTitle: "Conseils pratiques pour un voyage réussi",
     content: [
       {
         id: 1,
@@ -90,8 +105,9 @@ const infoData = [
   },
   {
     id: 5,
-    title: "10 Arguments Contre la Voiture Électrique et Comment y Répondre",
-    subTitle: "Déconstruire les Idées Reçues",
+    image: article5,
+    title: "10 arguments contre la voiture électrique et comment y répondre",
+    subTitle: "Déconstruire les idées reçues",
     content: [
       {
         id: 1,
@@ -109,8 +125,9 @@ const infoData = [
   },
   {
     id: 6,
-    title: "Recyclage des Batteries de Voitures Électriques",
-    subTitle: "Où et Comment le Faire",
+    image: article6,
+    title: "Recyclage des batteries de voitures électriques",
+    subTitle: "Où et comment le faire ?",
     content: [
       {
         id: 1,
@@ -132,8 +149,9 @@ const infoData = [
   },
   {
     id: 7,
-    title: "Leasing d’une Voiture Électrique",
-    subTitle: "Avantages et Inconvénients",
+    image: article7,
+    title: "Leasing d’une voiture électrique",
+    subTitle: "Avantages et inconvénients",
     content: [
       {
         id: 1,
@@ -151,8 +169,9 @@ const infoData = [
   },
   {
     id: 8,
-    title: "Installation d’une Borne de Recharge en Copropriété",
-    subTitle: "Guide Pratique pour les Résidents",
+    image: article8,
+    title: "Installation d’une borne de recharge en copropriété",
+    subTitle: "Guide pratique pour les résidents",
     content: [
       {
         id: 1,
@@ -174,8 +193,9 @@ const infoData = [
   },
   {
     id: 9,
-    title: "Guide d’Achat ou de Vente d’une Voiture Électrique d’Occasion",
-    subTitle: "Ce qu’il Faut Savoir",
+    image: article9,
+    title: "Guide d’achat ou de vente d’une voiture électrique d’occasion",
+    subTitle: "Ce qu’il faut savoir !",
     content: [
       {
         id: 1,
@@ -201,8 +221,9 @@ const infoData = [
   },
   {
     id: 10,
-    title: "Partir au Ski en Voiture Électrique",
-    subTitle: "Préparation et Astuces pour un Voyage Réussi",
+    image: article10,
+    title: "Partir au ski en voiture électrique",
+    subTitle: "Préparation et astuces pour un voyage réussi",
     content: [
       {
         id: 1,
