@@ -1,13 +1,20 @@
+import Cookies from "js-cookie";
+
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { useAuth } from "../contexts/AuthContext";
 
 function Menu() {
-  const { auth } = useAuth();
+  const { auth, setAuth } = useAuth();
   const [open, setOpen] = useState(false);
 
   const toggleMenu = () => {
     setOpen(!open);
+  };
+
+  const clearCookies = () => {
+    Cookies.remove("authData");
+    setAuth({ user: {}, token: "" });
   };
 
   return (
@@ -119,7 +126,7 @@ function Menu() {
                 Profil
               </li>
             </Link>
-            <Link to="/" onClick={toggleMenu}>
+            <Link to="/" onClick={clearCookies}>
               <li className="menu-li">
                 {" "}
                 <svg

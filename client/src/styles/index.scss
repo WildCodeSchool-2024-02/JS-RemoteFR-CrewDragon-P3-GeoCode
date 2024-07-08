@@ -124,9 +124,7 @@
     // Outlet
     .content {
       width: 100%;
-      overflow-x: scroll;
-      -ms-overflow-style: none; /* for Internet Explorer, Edge */
-      scrollbar-width: none; /* for Firefox */
+
       position: relative;
       z-index: 1;
       border-radius: 1rem 1rem 0 0;

@@ -77,7 +77,7 @@ function Contact() {
           />
         </div>
 
-        <button type="submit" id="submit-bouton">
+        <button type="submit" id="submit-bouton" style={{ display: "block" }}>
           Envoyer ma demande
         </button>
         <Link to="/aides/" className="btn-secondary">
