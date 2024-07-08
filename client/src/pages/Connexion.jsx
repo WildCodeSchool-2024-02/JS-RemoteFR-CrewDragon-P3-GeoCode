@@ -59,11 +59,11 @@ function Connexion() {
       <h1>Ravi de vous revoir !</h1>
       <form onSubmit={handleSubmit}>
         <div className="form-group">
-          <label htmlFor="email">Email</label>{" "}
+          <label htmlFor="email">Votre email</label>{" "}
           <input ref={emailRef} type="email" id="email" />
         </div>
         <div className="form-group">
-          <label htmlFor="password">Password</label>{" "}
+          <label htmlFor="password">Votre mot de passe</label>{" "}
           <input type="password" id="password" ref={passwordRef} />
         </div>
 
