@@ -29,7 +29,7 @@ const items = [
     id: 4,
     src: Accueil4,
     alt: "Icone tablette, points de recharge",
-    text: `Retrouvez toutes vos réservations en quelques clics. `,
+    text: `Retrouvez toutes vos réservations en quelques clics depuis notre application. `,
   },
 ];
 
@@ -38,6 +38,10 @@ function Accueil() {
 
   useEffect(() => {
     setCurrentItem(0);
+    const intervalId = setInterval(() => {
+      setCurrentItem((prevIndex) => (prevIndex + 1) % items.length);
+    }, 3000);
+    return () => clearInterval(intervalId);
   }, []);
 
   const handleDotClick = (index) => {
@@ -74,9 +78,9 @@ function Accueil() {
 
           <div className="accueil-buttons">
             <button
-              className="navigation-buttons"
               type="button"
               onClick={prevImage}
+              className="navigation-button"
             >
               Précédent
             </button>
@@ -93,8 +97,8 @@ function Accueil() {
               ))}
             </div>
             <button
-              className="navigation-buttons"
               type="button"
+              className="navigation-button"
               onClick={nextImage}
             >
               Suivant
@@ -108,11 +112,13 @@ function Accueil() {
         </div>
         <div className="accueil-bottom-buttons">
           <div className="accueil-bottom-buttons-web">
-            <Link to="/connexion" className="accueil-connexion">
-              Connectez-vous
+            <Link to="/connexion">
+              <button type="button">Connectez-vous</button>
             </Link>
-            <Link to="/inscription" className="accueil-inscription">
-              Inscrivez-vous
+            <Link to="/inscription">
+              <button type="button" className="btn-secondary">
+                Inscrivez-vous
+              </button>
             </Link>
           </div>
           <Link to="/carte" className="accueil-link">

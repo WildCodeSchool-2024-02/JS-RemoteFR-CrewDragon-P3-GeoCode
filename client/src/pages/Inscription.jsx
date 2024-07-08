@@ -334,7 +334,6 @@ function Inscription() {
       </form>
 
       <Link to="/connexion"> J'ai déjà un compte </Link>
-      <Link to=":">Poursuivre</Link>
     </section>
   );
 }
