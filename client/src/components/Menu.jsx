@@ -2,8 +2,6 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import { useAuth } from "../contexts/AuthContext";
 
-import "./styles/Menu.scss";
-
 function Menu() {
   const { auth } = useAuth();
   const [open, setOpen] = useState(false);
