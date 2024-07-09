@@ -383,7 +383,7 @@ const router = createBrowserRouter([
               );
 
               return redirect(
-                `${import.meta.env.VITE_CLIENT_URL}administrateur/bornes/${params.id}`
+                `${import.meta.env.VITE_CLIENT_URL}/administrateur/bornes/${params.id}`
               );
             }
 
@@ -393,7 +393,7 @@ const router = createBrowserRouter([
               );
 
               return redirect(
-                `${import.meta.env.VITE_CLIENT_URL}administrateur/bornes/`
+                `${import.meta.env.VITE_CLIENT_URL}/administrateur/bornes/`
               );
             }
 
