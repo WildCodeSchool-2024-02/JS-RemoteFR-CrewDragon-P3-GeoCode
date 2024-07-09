@@ -30,7 +30,7 @@
 
     p {
       font-size: 1rem;
-      color: variables.$third-color;
+      color: variables.$font-color;
       margin: 0.8rem 0;
     }
 
@@ -40,7 +40,19 @@
     }
     &:hover {
       background-color: variables.$secondary-color;
-      color: variables.$background-color;
+      color: variables.$fourth-color;
+      p {
+        color: variables.$fourth-color;
+      }
+      svg {
+        fill: variables.$fourth-color;
+      }
     }
   }
+}
+
+.information-id-image {
+  border-radius: 1rem;
+  width: 100%;
+  margin-bottom: 1rem;
 }

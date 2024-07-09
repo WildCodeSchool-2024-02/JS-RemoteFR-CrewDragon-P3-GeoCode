@@ -20,7 +20,7 @@ export function SearchProvider({ children, items }) {
           Object.values(item).find(
             (value) =>
               typeof value === "string" &&
-              value.toLowerCase().startsWith(query.toLowerCase())
+              value.toLowerCase().includes(query.toLowerCase())
           )
         ) // Vérifier les valeurs de l'objet et si String les passer en lowercase
       );
