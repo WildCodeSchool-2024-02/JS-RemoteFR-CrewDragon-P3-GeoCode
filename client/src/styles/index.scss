@@ -9,8 +9,14 @@
 @import "../pages/Admin/styles/AdminBornes.scss";
 @import "../pages/Admin/styles/AdminUtilisateurs.scss";
 @import "../pages/Admin/styles/AdminBornesAddCsv.scss";
+
 @import "../pages/Profil/styles/Profil.scss";
 @import "../pages/Profil/styles/ProfilUtilisateur.scss";
+
+@import "../components/styles/NavVisiteur.scss";
+@import "../components/styles/Menu.scss";
+
+@import "../pages/styles/Aides.scss";
 
 * {
   margin: 0;
@@ -118,14 +124,13 @@
     // Outlet
     .content {
       width: 100%;
-      height: 100vh;
-      overflow-x: scroll;
-      -ms-overflow-style: none; /* for Internet Explorer, Edge */
-      scrollbar-width: none; /* for Firefox */
+
       position: relative;
       z-index: 1;
+      border-radius: 1rem 1rem 0 0;
+
       background-color: white;
-      margin-top: 0;
+      margin-top: 30%;
       padding: 1rem;
 
       h1 {

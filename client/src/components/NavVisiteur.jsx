@@ -1,12 +1,13 @@
 import { Link } from "react-router-dom";
-
-import "./styles/NavVisiteur.scss";
+import { useAuth } from "../contexts/AuthContext";
 
 function NavVisiteur() {
+  const { auth } = useAuth();
+
   return (
-    <nav>
+    <nav className="nav-site">
       <ul className="nav-ul">
-        <Link to="/profil">
+        <Link to={`/profil/gestion/${auth.user.id}`}>
           <li className="nav-li">
             {" "}
             <svg
@@ -37,7 +38,7 @@ function NavVisiteur() {
                 fill="white"
               />
             </svg>
-            Réservation{" "}
+            Réservations{" "}
           </li>
         </Link>
         <Link to="/informations">
@@ -54,7 +55,7 @@ function NavVisiteur() {
                 fill="white"
               />
             </svg>
-            Informations{" "}
+            Actualités{" "}
           </li>
         </Link>
       </ul>

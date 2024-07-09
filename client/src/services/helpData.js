@@ -1,75 +1,65 @@
 const helpData = [
   {
     id: 1,
-    title: "Les avantages des voitures électriques",
+    title: "Comment puis-je localiser une borne de recharge à proximité ?",
     content:
-      "Les voitures électriques offrent de nombreux avantages, notamment des coûts de fonctionnement réduits, une empreinte carbone plus faible et une conduite silencieuse. Elles nécessitent également moins d'entretien qu'un véhicule à essence traditionnel.",
+      "Vous pouvez utiliser notre outil de géolocalisation sur le site ou l'application mobile. Entrez votre adresse ou utilisez la fonction de localisation pour trouver les bornes les plus proches de vous.",
   },
   {
     id: 2,
-    title: "Comment recharger votre voiture électrique",
+    title:
+      "Les bornes de recharge sont-elles compatibles avec tous les véhicules électriques ?",
     content:
-      "Il existe plusieurs méthodes pour recharger une voiture électrique, y compris à domicile avec une borne de recharge dédiée, sur des bornes publiques et sur des bornes de recharge rapide. La plupart des utilisateurs trouvent que recharger à domicile pendant la nuit est le plus pratique.",
+      "La plupart des bornes de recharge sont compatibles avec les véhicules électriques standard, mais il est important de vérifier la compatibilité de votre véhicule avec la borne avant de l'utiliser.",
   },
   {
     id: 3,
-    title: "Les coûts associés aux voitures électriques",
+    title: "Comment savoir si une borne de recharge est disponible ?",
     content:
-      "Bien que le coût initial d'une voiture électrique puisse être plus élevé, les économies réalisées sur le carburant et l'entretien peuvent compenser cette dépense. De plus, il existe souvent des incitations fiscales et des subventions disponibles pour les acheteurs de voitures électriques.",
+      "Notre outil de géolocalisation et l'application mobile montrent la disponibilité en temps réel des bornes de recharge. Les bornes occupées ou en panne sont également indiquées.",
   },
   {
     id: 4,
-    title: "Autonomie des voitures électriques",
+    title: "Comment démarrer une session de recharge ?",
     content:
-      "L'autonomie d'une voiture électrique dépend de plusieurs facteurs, dont la taille de la batterie, le style de conduite et les conditions météorologiques. Les modèles récents offrent souvent une autonomie suffisante pour les trajets quotidiens et des options de recharge rapide pour les longs voyages.",
+      "Pour démarrer une session de recharge, branchez votre véhicule à la borne, suivez les instructions affichées sur l'écran de la borne ou dans l'application, et sélectionnez votre mode de paiement.",
   },
   {
     id: 5,
-    title: "Impact environnemental des voitures électriques",
+    title: "Combien de temps faut-il pour recharger mon véhicule ?",
     content:
-      "Les voitures électriques sont généralement meilleures pour l'environnement que les voitures à essence, en particulier lorsque l'électricité utilisée pour les recharger provient de sources renouvelables. Elles ne produisent pas d'émissions directes et contribuent à réduire la pollution de l'air dans les zones urbaines.",
+      "Le temps de recharge varie en fonction du type de borne et de la capacité de la batterie de votre véhicule. Une borne rapide peut recharger une batterie jusqu'à 80% en environ 30 minutes, tandis qu'une borne standard peut prendre plusieurs heures.",
   },
   {
     id: 6,
-    title: "Choisir la bonne voiture électrique",
+    title: "Que faire si une borne de recharge ne fonctionne pas ?",
     content:
-      "Lorsque vous choisissez une voiture électrique, il est important de considérer des facteurs tels que l'autonomie, les options de recharge, les coûts et les caractéristiques de sécurité. Faire un essai routier et consulter des avis peut également aider à prendre une décision éclairée.",
+      "Si vous rencontrez un problème avec une borne de recharge, contactez le service d'assistance indiqué sur la borne ou sur notre site. Fournissez le numéro de la borne et une description du problème pour une assistance rapide.",
   },
   {
     id: 7,
-    title: "Les meilleures voitures électriques de 2024",
+    title: "Comment signaler une borne défectueuse ?",
     content:
-      "Découvrez notre sélection des meilleures voitures électriques de 2024, avec des modèles pour tous les budgets et besoins. Nous avons pris en compte l'autonomie, la performance, et les caractéristiques innovantes pour vous aider à faire le meilleur choix.",
+      "Utilisez l'application mobile ou le formulaire de contact sur notre site pour signaler une borne défectueuse. Fournissez autant de détails que possible pour faciliter la réparation.",
   },
   {
     id: 8,
-    title: "Entretien d'une voiture électrique",
+    title: " Puis-je réserver une borne de recharge à l'avance ?",
     content:
-      "L'entretien d'une voiture électrique est généralement plus simple et moins coûteux que celui d'un véhicule à combustion interne. Découvrez les principales tâches d'entretien et les intervalles recommandés pour garder votre voiture en parfait état de marche.",
+      "Certaines bornes permettent la réservation à l'avance via l'application mobile. Vérifiez cette option dans les paramètres de l'application ou sur notre site.",
   },
   {
     id: 9,
-    title: "Les infrastructures de recharge en Europe",
+    title: "Quels sont les horaires d'accès aux bornes de recharge ?",
     content:
-      "Les infrastructures de recharge pour les voitures électriques en Europe se développent rapidement. Cet article explore les réseaux de recharge disponibles, les coûts associés et les projets en cours pour améliorer la couverture et l'accessibilité.",
+      "Les horaires d'accès varient en fonction de la borne. Certaines bornes sont accessibles 24/7, tandis que d'autres peuvent avoir des horaires restreints. Consultez les détails de chaque borne sur notre site ou dans l'application.",
   },
   {
     id: 10,
-    title: "Les innovations technologiques des voitures électriques",
+    title:
+      "Est-il sécuritaire de recharger mon véhicule électrique sous la pluie ?",
     content:
-      "Les voitures électriques ne cessent d'innover avec des technologies telles que les batteries à haute densité, la conduite autonome et les systèmes de récupération d'énergie. Découvrez les dernières avancées qui rendent ces véhicules plus efficaces et agréables à conduire.",
-  },
-  {
-    id: 11,
-    title: "Les défis de la transition vers les voitures électriques",
-    content:
-      "La transition vers les voitures électriques présente plusieurs défis, notamment la production de batteries, l'infrastructure de recharge et l'acceptation du public. Cet article examine ces obstacles et les solutions potentielles pour les surmonter.",
-  },
-  {
-    id: 12,
-    title: "Les voitures électriques et le marché de l'occasion",
-    content:
-      "Le marché de l'occasion des voitures électriques est en pleine expansion. Découvrez les avantages et les points à vérifier lors de l'achat d'une voiture électrique d'occasion pour faire un bon investissement.",
+      "Les bornes de recharge sont conçues pour être utilisées en extérieur et sont généralement résistantes à l'eau. Toutefois, suivez toujours les consignes de sécurité affichées sur la borne et évitez d'utiliser une borne endommagée ou mal entretenue.",
   },
 ];
 

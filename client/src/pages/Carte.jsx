@@ -33,6 +33,8 @@ function LocateUser() {
   ) : null;
 }
 
+import NavVisiteur from "../components/NavVisiteur";
+
 function Carte() {
   const terminalData = useLoaderData();
   const icon = new Icon({
@@ -42,6 +44,8 @@ function Carte() {
   });
 
   return (
+      <>
+      <NavVisiteur />
     <MapContainer
       center={[48.866667, 2.333333]}
       zoom={5}
@@ -87,6 +91,7 @@ function Carte() {
       })}
       <LocateUser />
     </MapContainer>
+    </>
   );
 }
 

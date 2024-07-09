@@ -1,0 +1,72 @@
+.aide-List {
+  margin-top: 25px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  list-style-type: none;
+  gap: 1.2rem;
+
+  .aide-List-Items {
+    border: 1px variables.$secondary-color solid;
+    border-radius: 10px;
+    padding: 1.4rem;
+    display: block;
+
+    .aide-List-Header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 1rem;
+      text-align: left;
+
+      .aide-List-Icon {
+        min-width: 1.5rem;
+        margin-right: 0.5rem;
+      }
+
+      h3 {
+        font-size: 1.1rem;
+        margin: 0;
+        width: 100%;
+      }
+
+      a {
+        display: flex;
+        align-items: center;
+        text-decoration: none;
+        color: inherit;
+      }
+
+      button {
+        background: none;
+        border: none;
+        color: variables.$background-color;
+        cursor: pointer;
+        font-size: 1rem;
+        text-decoration: underline;
+        transition: color 0.3s;
+
+        &:hover {
+          text-decoration: none;
+        }
+      }
+    }
+
+    p {
+      font-size: 1rem;
+      color: variables.$font-color;
+      margin: 0.8rem 0 0 0;
+    }
+
+    &:hover {
+      background-color: variables.$secondary-color;
+      color: variables.$background-color;
+      p {
+        color: variables.$background-color;
+      }
+      svg {
+        fill: variables.$background-color;
+      }
+    }
+  }
+}

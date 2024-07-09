@@ -23,9 +23,16 @@ function App() {
     return false;
   }
 
+  function isMenu(path) {
+    if (path === "") {
+      return true;
+    }
+    return false;
+  }
+
   return (
     <main className="container">
-      <div className="menu">
+      <div className="menu" hidden={isMenu(page)}>
         <Menu />
       </div>
       <div

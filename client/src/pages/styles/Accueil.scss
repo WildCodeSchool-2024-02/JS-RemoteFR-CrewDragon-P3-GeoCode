@@ -1,9 +1,9 @@
 .accueil-section {
-  margin: 2rem;
-  background-color: variables.$fourth-color;
+  margin: 1rem;
   display: flex;
   flex-direction: column;
   align-items: center;
+  overflow-y: hidden;
 
   h1 {
     margin-bottom: 2rem;
@@ -21,10 +21,16 @@
       overflow-x: scroll;
       scroll-snap-type: x mandatory;
       -webkit-overflow-scrolling: touch;
+      -ms-overflow-style: none; /* for Internet Explorer, Edge */
+      scrollbar-width: none; /* for Firefox */
+      ::-webkit-scrollbar {
+        display: none; /* for Chrome, Safari, and Opera */
+      }
+
       .accueil-image {
         scroll-snap-align: start;
         height: auto;
-        width: 100%;
+        width: 60%;
 
         img {
           width: 100%;
@@ -35,21 +41,19 @@
       .accueil-buttons {
         display: flex;
         justify-content: space-around;
-        padding: 2rem 0 1rem;
         width: 100%;
 
-        .navigation-buttons {
+        .navigation-button {
           display: none;
         }
 
         .accueil-dots {
-          width: 70%;
           display: flex;
+          gap: 1rem;
           justify-content: space-around;
 
           .dot {
-            width: 15px;
-            height: 15px;
+            padding: 0.5rem;
             background-color: variables.$third-color;
             border-radius: 50%;
             border: solid 0.1rem variables.$third-color;
@@ -57,15 +61,15 @@
             transition: background-color 0.3s;
 
             &.active {
-              background-color: variables.$secondary-color;
-              border: solid 0.1rem variables.$secondary-color;
+              background-color: variables.$fifth-color;
+              border: solid 0.1rem variables.$fifth-color;
             }
           }
         }
       }
-
       .accueil-bottom-text {
-        padding: 1rem 0;
+        text-align: center;
+        margin: 0 1rem;
       }
     }
 
@@ -78,8 +82,7 @@
       .accueil-bottom-buttons-web {
         display: flex;
         flex-direction: column;
-        gap: 1rem;
-        padding: 1rem 0 1.5rem;
+        align-items: center;
 
         .accueil-connexion {
           background-color: variables.$secondary-color;
@@ -109,10 +112,12 @@
 // Styles responsives
 @media screen and (min-width: 768px) {
   .accueil-section {
+    height: 100%;
+    margin: 0;
     display: flex;
     flex-direction: column;
+    justify-content: center;
     align-items: center;
-    margin: 2.5rem;
 
     h1 {
       font-size: 3rem;
@@ -120,9 +125,8 @@
     }
 
     .accueil-container {
-      padding: 2rem 0 1rem;
       overflow-y: none;
-      height: 45vh;
+
       width: 45vh;
       .accueil-scroll {
         overflow-x: none;
@@ -136,18 +140,15 @@
           display: flex;
           align-items: center;
 
-          .navigation-buttons {
+          .navigation-button {
             display: block;
-            padding: 0.5rem;
-            border: none;
-            border-bottom: 0.1rem solid variables.$third-color;
-            background-color: transparent;
             cursor: pointer;
           }
         }
 
         .accueil-bottom-text {
           padding: 1rem 0;
+          margin: 0;
           font-size: 1.3rem;
         }
       }
