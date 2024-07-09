@@ -67,6 +67,12 @@ const router = createBrowserRouter([
       {
         path: "carte/bornes/:id",
         element: <Borne />,
+        loader: async ({ params }) => {
+          const response = await axios.get(
+            `${import.meta.env.VITE_API_URL}/api/terminals/${params.id}`
+          );
+          return response.data;
+        },
       },
       {
         path: "/inscription",
