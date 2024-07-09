@@ -3,6 +3,7 @@ import "leaflet/dist/leaflet.css"; // Importe les styles CSS de Leaflet
 import { useLoaderData } from "react-router-dom";
 import { Icon } from "leaflet";
 import { useEffect, useState } from "react";
+import NavVisiteur from "../components/NavVisiteur";
 
 function LocateUser() {
   const [position, setPosition] = useState(null);
@@ -33,7 +34,6 @@ function LocateUser() {
   ) : null;
 }
 
-import NavVisiteur from "../components/NavVisiteur";
 
 function Carte() {
   const terminalData = useLoaderData();
