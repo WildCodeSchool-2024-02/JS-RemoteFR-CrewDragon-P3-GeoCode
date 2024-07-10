@@ -71,7 +71,7 @@ function ClusterMarkers({ terminals }) {
           <p>${borne.chain_name}</p>
           <h3>accessibility :</h3>
           <p>${borne.accessibility}</p>
-          <a href="carte/bornes/${borne.id}">Réserver</a>
+          <a href="bornes/${borne.id}">Réserver</a>
         </div>
       `);
 

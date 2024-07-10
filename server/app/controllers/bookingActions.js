@@ -4,11 +4,11 @@ const tables = require("../../database/tables");
 // The B of BREAD - Browse (Read All) operation
 const browse = async (req, res, next) => {
   try {
-    // Fetch all users from the database
-    const users = await tables.user.readAll();
+    // Fetch all bookings from the database
+    const bookings = await tables.booking.readAll();
 
-    // Respond with the users in JSON format
-    res.json(users);
+    // Respond with the bookings in JSON format
+    res.json(bookings);
   } catch (err) {
     // Pass any errors to the error-handling middleware
     next(err);
@@ -18,15 +18,15 @@ const browse = async (req, res, next) => {
 // The R of BREAD - Read operation
 const read = async (req, res, next) => {
   try {
-    // Fetch a specific user from the database based on the provided ID
-    const user = await tables.user.read(req.params.id);
+    // Fetch a specific booking from the database based on the provided ID
+    const booking = await tables.booking.read(req.params.id);
 
-    // If the user is not found, respond with HTTP 404 (Not Found)
-    // Otherwise, respond with the user in JSON format
-    if (user == null) {
+    // If the booking is not found, respond with HTTP 404 (Not Found)
+    // Otherwise, respond with the booking in JSON format
+    if (booking == null) {
       res.sendStatus(404);
     } else {
-      res.json(user);
+      res.json(booking);
     }
   } catch (err) {
     // Pass any errors to the error-handling middleware
@@ -39,14 +39,15 @@ const read = async (req, res, next) => {
 
 // The A of BREAD - Add (Create) operation
 const add = async (req, res, next) => {
-  // Extract the user data from the request body
-  const user = req.body;
+  // Extract the booking data from the request body
+  const booking = req.body;
+  console.info("coucou controller booking", booking);
 
   try {
-    // Insert the user into the database
-    const insertId = await tables.user.create(user);
+    // Insert the booking into the database
+    const insertId = await tables.booking.create(booking);
 
-    // Respond with HTTP 201 (Created) and the ID of the newly inserted user
+    // Respond with HTTP 201 (Created) and the ID of the newly inserted booking
     res.status(201).json({ insertId });
   } catch (err) {
     // Pass any errors to the error-handling middleware

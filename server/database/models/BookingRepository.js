@@ -11,9 +11,11 @@ class BookingRepository extends AbstractRepository {
 
   async create(booking) {
     // Execute the SQL INSERT query to add a new booking to the "booking" table
+    console.info("coucou repo booking", booking);
+
     const [result] = await this.database.query(
-      `insert into ${this.table} (title, user_id) values (?, ?)`,
-      [booking.title, booking.user_id]
+      `insert into ${this.table} (date, slot, terminal_id, user_id ) values (?, ?, ?, ?)`,
+      [booking.date, booking.slot, booking.terminal_id, booking.user_id]
     );
 
     // Return the ID of the newly inserted booking
