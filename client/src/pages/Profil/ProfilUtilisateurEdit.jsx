@@ -1,10 +1,17 @@
-import { Form, useLoaderData } from "react-router-dom";
+import { Form, useLoaderData, Link } from "react-router-dom";
 
 function ProfilUtilisateurEdit() {
   const user = useLoaderData();
 
   return (
-    <div className="profil-user-edit-container">
+    <section className="profil-user-edit-container">
+      <Link to={`/profil/gestion/${user.id}/utilisateur`}>
+        <img
+          className="returnPreviousPage"
+          src="https://img.icons8.com/?size=100&id=11538&format=png&color=000000"
+          alt="retour"
+        />
+      </Link>
       <h1> Modifier mon profil </h1>
 
       <Form method="put">
@@ -80,16 +87,14 @@ function ProfilUtilisateurEdit() {
           </div>
         </div>
 
-        <button type="submit" className="profil-user-edit-button">
-          Modifier mes informations
-        </button>
+        <button type="submit">Modifier mes informations</button>
       </Form>
       <Form method="delete">
-        <button type="submit" className="profil-user-edit-button">
+        <button type="submit" className="btn-secondary">
           Supprimer mon profil
         </button>
       </Form>
-    </div>
+    </section>
   );
 }
 

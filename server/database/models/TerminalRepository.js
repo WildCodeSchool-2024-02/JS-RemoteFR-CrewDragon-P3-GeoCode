@@ -7,13 +7,31 @@ class TerminalRepository extends AbstractRepository {
     super({ table: "terminal" });
   }
 
+  // clear de la table terminal
+  async clear() {
+    // Execute the SQL INSERT query to add a new terminal to the "terminal" table
+    await this.database.query(`SET FOREIGN_KEY_CHECKS = 0`);
+    await this.database.query(`TRUNCATE TABLE ${this.table}`);
+    await this.database.query(`SET FOREIGN_KEY_CHECKS = 1`);
+
+    // Return the ID of the newly inserted terminal
+  }
   // The C of CRUD - Create operation
 
   async create(terminal) {
     // Execute the SQL INSERT query to add a new terminal to the "terminal" table
     const [result] = await this.database.query(
-      `insert into ${this.table} (title, terminal_id) values (?, ?)`,
-      [terminal.title, terminal.terminal_id]
+      `insert into ${this.table} (isBooked, name, address, cood, power, plug_type, chain_name, accessibility) values (?, ?, ?, ?, ?, ?, ?, ?)`,
+      [
+        terminal.isBooked,
+        terminal.name,
+        terminal.address,
+        terminal.cood,
+        terminal.power,
+        terminal.plug_type,
+        terminal.chain_name,
+        terminal.accessibility,
+      ]
     );
 
     // Return the ID of the newly inserted terminal

@@ -13,7 +13,9 @@ const {
   edit,
   add,
   destroy,
+  uploadCSVHandler,
 } = require("../../../controllers/terminalActions");
+const uploadCSV = require("../../../services/uploadCSV");
 
 // Route to get a list of items
 router.get("/", browse);
@@ -29,6 +31,8 @@ router.post("/", add);
 
 // Route to delete a specific item by ID
 router.delete("/:id", destroy);
+
+router.post("/upload-csv", uploadCSV.single("csvFile"), uploadCSVHandler);
 
 /* ************************************************************************* */
 

@@ -1,5 +1,26 @@
+const fs = require("fs");
+const csv = require("csv-parser");
+const path = require("path");
+
 // Import access to database tables
+
 const tables = require("../../database/tables");
+
+const clearDirectory = async (req, res, next) => {
+  try {
+    const folderPath = "uploads/";
+    const files = await fs.promises.readdir(folderPath);
+
+    const promises = files.map(async (file) => {
+      const filePath = path.join(folderPath, file);
+      await fs.promises.unlink(filePath);
+    });
+
+    await Promise.all(promises);
+  } catch (err) {
+    next(err);
+  }
+};
 
 // The B of BREAD - Browse (Read All) operation
 const browse = async (req, res, next) => {
@@ -38,7 +59,6 @@ const read = async (req, res, next) => {
 const edit = async (req, res, next) => {
   // Extract the terminal data from the request body and params
   const terminal = { ...req.body, id: req.params.id };
-  console.info(terminal);
   try {
     // Update the terminal in the database
     await tables.terminal.update(terminal);
@@ -58,6 +78,7 @@ const add = async (req, res, next) => {
 
   try {
     // Insert the terminal into the database
+
     const insertId = await tables.terminal.create(terminal);
 
     // Respond with HTTP 201 (Created) and the ID of the newly inserted terminal
@@ -85,6 +106,46 @@ const destroy = async (req, res, next) => {
   }
 };
 
+const uploadCSVHandler = async (req, res, next) => {
+  try {
+    await tables.terminal.clear();
+
+    const filePath = req.file.path;
+
+    const terminals = [];
+
+    fs.createReadStream(filePath)
+      .pipe(csv())
+      .on("data", (row) => {
+        terminals.push({
+          isBooked: row.isBooked === "true",
+          name: row.name,
+          address: row.address,
+          cood: row.cood,
+          power: row.power,
+          plug_type: row.plug_type,
+          chain_name: row.chain_name,
+          accessibility: row.accessibility,
+        });
+      })
+      .on("end", async () => {
+        try {
+          await Promise.all(
+            terminals.map(async (terminal) => {
+              await tables.terminal.create(terminal);
+            })
+          );
+          clearDirectory();
+          res.status(200).json({ message: "CSV processed successfully" });
+        } catch (err) {
+          next(err);
+        }
+      });
+  } catch (err) {
+    next(err);
+  }
+};
+
 // Ready to export the controller functions
 module.exports = {
   browse,
@@ -92,4 +153,5 @@ module.exports = {
   edit,
   add,
   destroy,
+  uploadCSVHandler,
 };

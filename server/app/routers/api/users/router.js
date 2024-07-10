@@ -15,6 +15,7 @@ const {
   destroy,
 } = require("../../../controllers/userActions");
 
+
 // Route to get a list of items
 router.get("/", browse);
 

@@ -19,10 +19,17 @@ function Content() {
 
   return (
     <section>
+      <Link to="/administrateur">
+        <img
+          className="returnPreviousPage"
+          src="https://img.icons8.com/?size=100&id=11538&format=png&color=000000"
+          alt="retour"
+        />
+      </Link>
       <HeaderSearchbar>
         {{
-          title: "Mes véhicules",
-          label: "Trouvez ci-dessous la liste de vos ",
+          title: "Les véhicules enregistrés",
+          label: "Trouvez ci-dessous la liste des ",
         }}
       </HeaderSearchbar>
 
@@ -40,7 +47,7 @@ function Content() {
               <p>{car.name}</p>
               <p>{car.id}</p>
             </div>
-            <Link to={`/administrateur/vehicules/${car.id}`}>
+            <Link to={`/administrateur/vehicules/${car.id}/edit`}>
               <svg
                 viewBox="0 0 24 24"
                 height={20}

@@ -1,4 +1,4 @@
-.help-List {
+.info-List {
   margin-top: 25px;
   width: 100%;
   display: grid;
@@ -13,7 +13,7 @@
     display: none; /* for Chrome, Safari, and Opera */
   }
 
-  .help-List-Items {
+  .info-List-Items {
     border: 1px variables.$secondary-color solid;
     border-radius: 10px;
     padding: 1.4rem;
@@ -24,13 +24,13 @@
     height: 100%;
     text-align: left;
 
-    .help-List-Icon {
+    .info-List-Icon {
       width: 1.5rem;
     }
 
     p {
       font-size: 1rem;
-      color: variables.$third-color;
+      color: variables.$font-color;
       margin: 0.8rem 0;
     }
 
@@ -40,7 +40,19 @@
     }
     &:hover {
       background-color: variables.$secondary-color;
-      color: variables.$background-color;
+      color: variables.$fourth-color;
+      p {
+        color: variables.$fourth-color;
+      }
+      svg {
+        fill: variables.$fourth-color;
+      }
     }
   }
+}
+
+.information-id-image {
+  border-radius: 1rem;
+  width: 100%;
+  margin-bottom: 1rem;
 }

@@ -6,9 +6,17 @@
 @import "../pages/styles/Inscription.scss";
 
 @import "../pages/Admin/styles/Admin.scss";
+@import "../pages/Admin/styles/AdminBornes.scss";
 @import "../pages/Admin/styles/AdminUtilisateurs.scss";
+@import "../pages/Admin/styles/AdminBornesAddCsv.scss";
+
 @import "../pages/Profil/styles/Profil.scss";
 @import "../pages/Profil/styles/ProfilUtilisateur.scss";
+
+@import "../components/styles/NavVisiteur.scss";
+@import "../components/styles/Menu.scss";
+
+@import "../pages/styles/Aides.scss";
 
 * {
   margin: 0;
@@ -25,17 +33,60 @@
     h1,
     h2,
     h3,
-    h4 {
+    h4,
+    details {
       font-family: variables.$font-title;
     }
 
     h1 {
       margin-bottom: 1.5rem;
+      margin-top: 0.5rem;
+    }
+
+    button {
+      background-color: variables.$secondary-color;
+      border: 0;
+      color: variables.$fourth-color;
+      font-size: 1rem;
+      padding: 0.5rem 1rem;
+      border-radius: 2rem;
+      margin: 1rem 0;
+
+      &:hover {
+        background-color: variables.$fourth-color;
+        color: variables.$secondary-color;
+        border: 1px variables.$third-color solid;
+        cursor: pointer;
+      }
+    }
+
+    summary {
+      margin-top: 0.5rem;
+      padding: 0.8rem;
+      background-color: #c8fffa;
+      border-radius: 5px;
+    }
+
+    .btn-secondary {
+      background-color: variables.$fourth-color;
+      border: 1px variables.$third-color solid;
+      color: variables.$secondary-color;
+      padding: 0.5rem 1rem;
+      border-radius: 2rem;
+      margin: 1rem 0;
+
+      &:hover {
+        background-color: variables.$secondary-color;
+        color: variables.$fourth-color;
+        border: 0;
+        cursor: pointer;
+      }
     }
 
     p {
       font-family: variables.$font-text;
       margin: 1.5rem 0;
+      line-height: 180%;
     }
 
     label {
@@ -73,14 +124,13 @@
     // Outlet
     .content {
       width: 100%;
-      height: 100vh;
-      overflow-x: scroll;
-      -ms-overflow-style: none; /* for Internet Explorer, Edge */
-      scrollbar-width: none; /* for Firefox */
+
       position: relative;
       z-index: 1;
+      border-radius: 1rem 1rem 0 0;
+
       background-color: white;
-      margin-top: 0;
+      margin-top: 30%;
       padding: 1rem;
 
       h1 {
@@ -105,6 +155,33 @@
           &:focus {
             border: 1px variables.$font-color solid;
             outline: none;
+          }
+
+          &:disabled {
+            background-color: #d6d1d1;
+            color: #d6d1d1;
+          }
+        }
+        textarea {
+          width: 100%;
+          height: 20vh;
+          border-radius: 1rem;
+          padding: 0.8rem;
+          font-size: 0.9rem;
+          border: 1px variables.$third-color solid;
+
+          &:hover {
+            border: 1px variables.$secondary-color solid;
+          }
+
+          &:focus {
+            border: 1px variables.$font-color solid;
+            outline: none;
+          }
+
+          &:disabled {
+            background-color: #d6d1d1;
+            color: #d6d1d1;
           }
         }
       }
@@ -152,5 +229,10 @@
         }
       }
     }
+  }
+  .returnPreviousPage {
+    width: 20px;
+    height: 20px;
+    margin-right: 10px;
   }
 }

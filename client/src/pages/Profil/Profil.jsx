@@ -8,7 +8,7 @@ function Profil() {
   return (
     <section className="profil-Content">
       <div className="profil-Header">
-        <h1>Page profil</h1>
+        <h1>Comment allez-vous {user.firstname} ?</h1>
       </div>
 
       <img src={user.avatar} alt="" className="profil-Avatar" />
@@ -20,14 +20,14 @@ function Profil() {
       </h2>
       <nav className="profil-nav">
         <ul className="profil-List">
-          <Link to={`/profil/utilisateur/${user.user_id}`}>
+          <Link to={`/profil/gestion/${user.user_id}/utilisateur`}>
             <li className="profil-List-Items">
               <img src={users} alt="" className="profil-List-Icon" />
               <h3>Mes informations</h3>
               <p>Retrouvez et modifiez ici toutes vos informations.</p>
             </li>
           </Link>
-          <Link to="/profil/vehicules">
+          <Link to={`/profil/gestion/${user.user_id}/vehicules`}>
             <li className="profil-List-Items">
               <img src={truck} alt="" className="profil-List-Icon" />
               <h3>Mes véhicules</h3>
@@ -36,7 +36,7 @@ function Profil() {
               </p>
             </li>
           </Link>
-          <Link to="/profil/reservations">
+          <Link to={`/profil/gestion/${user.user_id}/reservations`}>
             <li className="profil-List-Items">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -57,29 +57,6 @@ function Profil() {
               <p>
                 Retrouvez ici toutes les informations concernant vos
                 réservations
-              </p>
-            </li>
-          </Link>
-          <Link to="/">
-            <li className="profil-List-Items">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                strokeWidth={2}
-                stroke="currentColor"
-                className="profil-List-Icon"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M12 7.5h1.5m-1.5 3h1.5m-7.5 3h7.5m-7.5 3h7.5m3-9h3.375c.621 0 1.125.504 1.125 1.125V18a2.25 2.25 0 0 1-2.25 2.25M16.5 7.5V18a2.25 2.25 0 0 0 2.25 2.25M16.5 7.5V4.875c0-.621-.504-1.125-1.125-1.125H4.125C3.504 3.75 3 4.254 3 4.875V18a2.25 2.25 0 0 0 2.25 2.25h13.5M6 7.5h3v3H6v-3Z"
-                />
-              </svg>
-
-              <h3>Mes abonnements</h3>
-              <p>
-                Retrouvez ici toutes les informations concernant vos abonnements{" "}
               </p>
             </li>
           </Link>

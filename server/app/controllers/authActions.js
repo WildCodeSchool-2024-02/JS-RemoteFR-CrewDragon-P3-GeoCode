@@ -1,16 +1,61 @@
+const argon2 = require("argon2");
+const jwt = require("jsonwebtoken");
+
 // Import access to database tables
 const tables = require("../../database/tables");
 
 const login = async (req, res, next) => {
   try {
     // Fetch a specific user from the database based on the provided email
-    const user = await tables.user.readByEmail(req.body.email);
+    const user = await tables.user.readByEmailWithPassword(req.body.email);
 
-    if (user == null || user.password !== req.body.password) {
+    if (user == null) {
       res.sendStatus(422);
-    } else {
       // Respond with the user in JSON format (but without the hashed password)
-      res.json(user);
+      return;
+    }
+
+    const verified = await argon2.verify(
+      user.hashed_password,
+      req.body.password
+    );
+
+    if (verified) {
+      // Respond with the user in JSON format (but without the hashed password)
+      delete user.hashed_password;
+
+      // Generate JWT token
+      const token = jwt.sign(
+        {
+          sub: user.id,
+          role: user.role_id,
+          firstname: user.firstname,
+          lastname: user.firstname,
+          avatar: user.avatar,
+        },
+        process.env.APP_SECRET,
+        { expiresIn: "1h" }
+      );
+
+      const cookieData = {
+        user: {
+          id: user.id,
+          role: user.role_id,
+          email: user.email,
+          firstname: user.firstname,
+          lastname: user.lastname,
+          avatar: user.avatar,
+        },
+        token,
+      };
+
+      res.cookie("authData", cookieData, {
+        maxAge: 3600000,
+      });
+
+      res.sendStatus(200);
+    } else {
+      res.sendStatus(422);
     }
   } catch (err) {
     // Pass any errors to the error-handling middleware
@@ -21,6 +66,7 @@ const login = async (req, res, next) => {
 // The A of BREAD - Add (Create) operation
 const register = async (req, res, next) => {
   // Extract the user data from the request body
+
   const user = req.body;
   const car = {
     name: req.body.name,

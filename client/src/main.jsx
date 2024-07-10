@@ -1,4 +1,3 @@
-import React from "react";
 import axios from "axios";
 import ReactDOM from "react-dom/client";
 
@@ -7,6 +6,8 @@ import {
   redirect,
   RouterProvider,
 } from "react-router-dom";
+
+import { AuthProvider } from "./contexts/AuthContext";
 
 import "./styles/index.scss";
 
@@ -29,13 +30,21 @@ import ProfilReservations from "./pages/Profil/ProfilReservations";
 import Informations from "./pages/Informations";
 import InformationId from "./pages/InformationId";
 import Aides from "./pages/Aides";
-import AideId from "./pages/AideId";
 import App from "./App";
 import AdminUtilisateursEdit from "./pages/Admin/AdminUtilisateursEdit";
 import AdminVehiculesEdit from "./pages/Admin/AdminVehiculesEdit";
 import AdminBornesEdit from "./pages/Admin/AdminBornesEdit";
 import AdminBornesAddCsv from "./pages/Admin/AdminBornesAddCsv";
 import ProfilUtilisateurEdit from "./pages/Profil/ProfilUtilisateurEdit";
+import NotFound from "./pages/NotFound";
+import ProfilVehiculesEdit from "./pages/Profil/ProfilVehiculesEdit";
+
+// const withAuth = (Func) => async (Args) => {
+//   const auth = useAuth();
+
+//   await Func(Args, auth);
+//   return true;
+// };
 
 const router = createBrowserRouter([
   {
@@ -48,13 +57,29 @@ const router = createBrowserRouter([
       {
         path: "/carte",
         element: <Carte />,
+        loader: async () => {
+          const response = await axios.get(
+            `${import.meta.env.VITE_API_URL}/api/terminals`
+          );
+          return response.data;
+        },
+      },
+      {
+        path: "carte/bornes/:id",
+        element: <Borne />,
+        loader: async ({ params }) => {
+          const response = await axios.get(
+            `${import.meta.env.VITE_API_URL}/api/terminals/${params.id}`
+          );
+          return response.data;
+        },
       },
       {
         path: "/inscription",
         element: <Inscription />,
         loader: async () => {
           const response = await axios.get(
-            `${import.meta.env.VITE_API_URL}/api/brands`
+            `${import.meta.env.VITE_API_URL}/api/brands/`
           );
           return response.data;
         },
@@ -68,11 +93,7 @@ const router = createBrowserRouter([
         element: <Contact />,
       },
       {
-        path: "/borne/:id",
-        element: <Borne />,
-      },
-      {
-        path: "/profil/:id",
+        path: "/profil/gestion/:id",
         element: <Profil />,
         loader: async ({ params }) => {
           const response = await axios.get(
@@ -82,7 +103,7 @@ const router = createBrowserRouter([
         },
       },
       {
-        path: "/profil/utilisateur/:id",
+        path: "/profil/gestion/:id/utilisateur",
         element: <ProfilUtilisateur />,
         loader: async ({ params }) => {
           const response = await axios.get(
@@ -92,7 +113,7 @@ const router = createBrowserRouter([
         },
       },
       {
-        path: "/profil/utilisateur/edit/:id",
+        path: "/profil/gestion/:id/utilisateur/edit/",
         element: <ProfilUtilisateurEdit />,
         loader: async ({ params }) => {
           const response = await axios.get(
@@ -102,7 +123,6 @@ const router = createBrowserRouter([
         },
         action: async ({ request, params }) => {
           const formData = await request.formData();
-          console.info(formData);
 
           switch (request.method.toLowerCase()) {
             case "put": {
@@ -121,7 +141,7 @@ const router = createBrowserRouter([
               );
 
               return redirect(
-                `${import.meta.env.CLIENT_URL}profil/utilisateur/${params.id}`
+                `${import.meta.env.VITE_CLIENT_URL}/profil/gestion/${params.id}/utilisateur/`
               );
             }
 
@@ -130,7 +150,7 @@ const router = createBrowserRouter([
                 `${import.meta.env.VITE_API_URL}/api/users/${params.id}`
               );
 
-              return redirect(`${import.meta.env.CLIENT_URL}`);
+              return redirect(`${import.meta.env.VITE_CLIENT_URL}`);
             }
 
             default:
@@ -139,11 +159,63 @@ const router = createBrowserRouter([
         },
       },
       {
-        path: "/profil/vehicules",
+        path: "/profil/gestion/:id/vehicules/",
         element: <ProfilVehicules />,
+        loader: async () => {
+          const response = await axios.get(
+            `${import.meta.env.VITE_API_URL}/api/cars`
+          );
+          return response.data;
+        },
       },
       {
-        path: "/profil/reservations",
+        path: "/profil/gestion/:id/vehicules/edit",
+        element: <ProfilVehiculesEdit />,
+        loader: async ({ params }) => {
+          const [carResponse, brandsResponse] = await Promise.all([
+            axios.get(`${import.meta.env.VITE_API_URL}/api/cars/${params.id}`),
+            axios.get(`${import.meta.env.VITE_API_URL}/api/brands/`),
+          ]);
+          return {
+            vehicule: carResponse.data,
+            brandData: brandsResponse.data,
+          };
+        },
+        action: async ({ request, params }) => {
+          const formData = await request.formData();
+
+          switch (request.method.toLowerCase()) {
+            case "put": {
+              await axios.put(
+                `${import.meta.env.VITE_API_URL}/api/cars/${params.id}`,
+                {
+                  name: formData.get("name"),
+                  model_id: formData.get("model"),
+                }
+              );
+
+              return redirect(
+                `${import.meta.env.VITE_CLIENT_URL}/profil/gestion/${params.id}/vehicules/`
+              );
+            }
+
+            case "delete": {
+              await axios.delete(
+                `${import.meta.env.VITE_API_URL}/api/cars/${params.id}`
+              );
+
+              return redirect(
+                `${import.meta.env.VITE_CLIENT_URL}/administrateur/vehicules/`
+              );
+            }
+
+            default:
+              throw new Response("", { status: 405 });
+          }
+        },
+      },
+      {
+        path: "/profil/gestion/:id/reservations/",
         element: <ProfilReservations />,
       },
       {
@@ -162,10 +234,6 @@ const router = createBrowserRouter([
           return response.data;
         },
       },
-      {
-        path: "/aides/:id",
-        element: <AideId />,
-      },
 
       {
         path: "/administrateur",
@@ -180,35 +248,9 @@ const router = createBrowserRouter([
           );
           return response.data;
         },
-        action: async ({ request }) => {
-          const formData = await request.formData();
-
-          switch (request.method.toLowerCase()) {
-            case "post": {
-              await axios.post(`${import.meta.env.VITE_API_URL}/api/users/`, {
-                firstname: formData.get("firstname"),
-                lastname: formData.get("lastname"),
-                avatar: "vvvvv",
-                email: "michelle@michel.com",
-                password: "vvvvv",
-                address: "vvvvv",
-                zip_code: "vvvvv",
-                city: "vvvvv",
-                role_id: 3,
-              });
-
-              return redirect(
-                `${import.meta.env.CLIENT_URL}administrateur/utilisateurs/`
-              );
-            }
-
-            default:
-              throw new Response("", { status: 405 });
-          }
-        },
       },
       {
-        path: "/administrateur/utilisateurs/:id",
+        path: "/administrateur/utilisateurs/:id/edit",
         element: <AdminUtilisateursEdit />,
         loader: async ({ params }) => {
           const response = await axios.get(
@@ -226,22 +268,15 @@ const router = createBrowserRouter([
                 {
                   firstname: formData.get("firstname"),
                   lastname: formData.get("lastname"),
+                  email: formData.get("email"),
+                  address: formData.get("address"),
+                  zip_code: formData.get("zip_code"),
+                  city: formData.get("city"),
                 }
               );
 
               return redirect(
-                `${import.meta.env.CLIENT_URL}administrateur/utilisateurs/${params.id}`
-              );
-            }
-
-            case "post": {
-              await axios.post(`${import.meta.env.VITE_API_URL}/api/users/`, {
-                firstname: formData.get("firstname"),
-                lastname: formData.get("lastname"),
-              });
-
-              return redirect(
-                `${import.meta.env.CLIENT_URL}administrateur/utilisateurs/${params.id}`
+                `${import.meta.env.VITE_CLIENT_URL}/administrateur/utilisateurs`
               );
             }
 
@@ -251,7 +286,7 @@ const router = createBrowserRouter([
               );
 
               return redirect(
-                `${import.meta.env.CLIENT_URL}administrateur/utilisateurs/`
+                `${import.meta.env.VITE_CLIENT_URL}/administrateur/utilisateurs`
               );
             }
 
@@ -271,17 +306,20 @@ const router = createBrowserRouter([
         },
       },
       {
-        path: "/administrateur/vehicules/:id",
+        path: "/administrateur/vehicules/:id/edit",
         element: <AdminVehiculesEdit />,
         loader: async ({ params }) => {
-          const response = await axios.get(
-            `${import.meta.env.VITE_API_URL}/api/cars/${params.id}`
-          );
-          return response.data;
+          const [carResponse, brandsResponse] = await Promise.all([
+            axios.get(`${import.meta.env.VITE_API_URL}/api/cars/${params.id}`),
+            axios.get(`${import.meta.env.VITE_API_URL}/api/brands/`),
+          ]);
+          return {
+            vehicule: carResponse.data,
+            brandData: brandsResponse.data,
+          };
         },
         action: async ({ request, params }) => {
           const formData = await request.formData();
-          console.info(formData);
 
           switch (request.method.toLowerCase()) {
             case "put": {
@@ -289,11 +327,12 @@ const router = createBrowserRouter([
                 `${import.meta.env.VITE_API_URL}/api/cars/${params.id}`,
                 {
                   name: formData.get("name"),
+                  model_id: formData.get("model"),
                 }
               );
 
               return redirect(
-                `${import.meta.env.CLIENT_URL}administrateur/vehicules/${params.id}`
+                `${import.meta.env.VITE_CLIENT_URL}/administrateur/vehicules/`
               );
             }
 
@@ -303,7 +342,7 @@ const router = createBrowserRouter([
               );
 
               return redirect(
-                `${import.meta.env.CLIENT_URL}administrateur/vehicules/`
+                `${import.meta.env.VITE_CLIENT_URL}/administrateur/vehicules/`
               );
             }
 
@@ -333,7 +372,6 @@ const router = createBrowserRouter([
         },
         action: async ({ request, params }) => {
           const formData = await request.formData();
-          console.info(formData);
 
           switch (request.method.toLowerCase()) {
             case "put": {
@@ -345,7 +383,7 @@ const router = createBrowserRouter([
               );
 
               return redirect(
-                `${import.meta.env.CLIENT_URL}administrateur/bornes/${params.id}`
+                `${import.meta.env.VITE_CLIENT_URL}/administrateur/bornes/${params.id}`
               );
             }
 
@@ -355,7 +393,7 @@ const router = createBrowserRouter([
               );
 
               return redirect(
-                `${import.meta.env.CLIENT_URL}administrateur/bornes/`
+                `${import.meta.env.VITE_CLIENT_URL}/administrateur/bornes/`
               );
             }
 
@@ -367,20 +405,15 @@ const router = createBrowserRouter([
       {
         path: "/administrateur/bornes/import",
         element: <AdminBornesAddCsv />,
-        action: async ({ request }) => {
-          const formData = await request.formData();
-          console.info(formData);
-
-          const file = formData.get("file");
-
-          await axios.post("/api/terminals", { file });
-          return false; // test mode
-        },
       },
 
       {
         path: "/administrateur/reservations",
         element: <AdminReservations />,
+      },
+      {
+        path: "*",
+        element: <NotFound />,
       },
     ],
   },
@@ -389,7 +422,7 @@ const router = createBrowserRouter([
 const root = ReactDOM.createRoot(document.getElementById("root"));
 
 root.render(
-  <React.StrictMode>
+  <AuthProvider>
     <RouterProvider router={router} />
-  </React.StrictMode>
+  </AuthProvider>
 );

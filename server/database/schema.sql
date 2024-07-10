@@ -8,7 +8,7 @@ create table user (
   id INT unsigned PRIMARY KEY auto_increment NOT NULL,
   avatar VARCHAR(255) NOT NULL,
   email VARCHAR(255) NOT NULL unique,
-  password VARCHAR(255) NOT NULL, 
+  hashed_password VARCHAR(255) NOT NULL,
   firstname VARCHAR(255) NOT NULL,
   lastname VARCHAR(255) NOT NULL,
   birthday DATE, 
@@ -48,8 +48,7 @@ create table terminal (
   isBooked BOOLEAN NOT NULL,
   name VARCHAR(255) NOT NULL,
   address VARCHAR(255) NOT NULL,
-  xlongitude FLOAT NOT NULL,
-  ylatitude FLOAT NOT NULL,
+  cood VARCHAR(255),
   power VARCHAR(80),
   plug_type VARCHAR(255) NOT NULL,
   chain_name VARCHAR(255),
@@ -83,6 +82,31 @@ INSERT INTO role (id, name) VALUES
 (1, 'User'),
 (2, 'Admin');
 
+INSERT INTO user (
+  avatar,
+  email,
+  hashed_password,
+  firstname,
+  lastname,
+  birthday,
+  address,
+  zip_code,
+  city,
+  role_id
+) VALUES (
+  'https://avatar.iran.liara.run/public/47',
+  'admin123@example.com',
+  '$argon2id$v=19$m=19456,t=2,p=1$YuTUonvj6kDs1gtygYcjpg$fDUntM/0R/oJyXsNf0z0r+jepTG58vMfGkf7Bsjwqig',
+  'Anthony',
+  'Gorski',
+  '1985-07-15',
+  '13 Rue du Stade Vélodrome',
+  '13000',
+  'Marseille',
+  2
+);
+
+
 
 INSERT INTO model (name, plug_type, brand_id) VALUES 
 ('Model S', 'Type 2', 1),
@@ -114,3 +138,15 @@ INSERT INTO model (name, plug_type, brand_id) VALUES
 ('Soul EV', 'CCS', 10),
 ('Niro EV', 'CCS', 10),
 ('EV6', 'CCS', 10);
+
+INSERT INTO car (
+  user_id,
+  model_id,
+  image,
+  name
+) VALUES (
+  1,
+  20,
+  'https://avatar.iran.liara.run/username?username=Bob+Lemon',
+  'Bob Lemon'
+);
