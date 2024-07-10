@@ -163,9 +163,9 @@ const router = createBrowserRouter([
       {
         path: "/profil/gestion/:id/vehicules/",
         element: <ProfilVehicules />,
-        loader: async () => {
+        loader: async ({ params }) => {
           const response = await axios.get(
-            `${import.meta.env.VITE_API_URL}/api/cars`
+            `${import.meta.env.VITE_API_URL}/api/cars/${params.id}`
           );
           return response.data;
         },

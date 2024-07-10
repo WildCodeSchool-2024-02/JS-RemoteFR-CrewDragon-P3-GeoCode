@@ -1,9 +1,8 @@
 import { useLoaderData, Link } from "react-router-dom";
 
 // Déclaration d'un composant Content CAR, on a besoin de items pour le state init du filteredItems (qui est dans le context). On peut ainsi l'appeler avec useSearch sans undefined.
-function AdminUtilisateur() {
+function ProfilVehicules() {
   const items = useLoaderData(); // Récupération des items via le loader dans main.jsx
-  console.info(items);
 
   return (
     <section>
@@ -45,4 +44,4 @@ function AdminUtilisateur() {
   );
 }
 
-export default AdminUtilisateur;
+export default ProfilVehicules;
