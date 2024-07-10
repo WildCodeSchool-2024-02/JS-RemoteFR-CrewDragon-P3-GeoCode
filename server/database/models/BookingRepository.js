@@ -25,9 +25,13 @@ class BookingRepository extends AbstractRepository {
   // The Rs of CRUD - Read operations
 
   async read(id) {
-    // Execute the SQL SELECT query to retrieve a specific booking by its ID
+    // Execute the SQL SELECT query to retrieve a specific car by its ID
     const [rows] = await this.database.query(
-      `select * from ${this.table} where id = ?`,
+      `SELECT booking.* 
+     FROM ${this.table} AS booking 
+     JOIN terminal ON booking.terminal_id = terminal.id
+     JOIN user ON booking.user_id = user.id 
+     WHERE booking.id = ?`,
       [id]
     );
 

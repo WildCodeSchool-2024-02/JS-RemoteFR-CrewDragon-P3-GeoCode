@@ -185,7 +185,6 @@ const router = createBrowserRouter([
         },
         action: async ({ request, params }) => {
           const formData = await request.formData();
-
           switch (request.method.toLowerCase()) {
             case "put": {
               await axios.put(
@@ -219,6 +218,12 @@ const router = createBrowserRouter([
       {
         path: "/profil/gestion/:id/reservations/",
         element: <ProfilReservations />,
+        loader: async ({ params }) => {
+          const response = await axios.get(
+            `${import.meta.env.VITE_API_URL}/api/bookings/${params.id}`
+          );
+          return response.data;
+        },
       },
       {
         path: "/informations",
