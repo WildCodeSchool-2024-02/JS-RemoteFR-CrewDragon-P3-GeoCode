@@ -1,26 +1,9 @@
 const fs = require("fs");
 const csv = require("csv-parser");
-const path = require("path");
 
 // Import access to database tables
 
 const tables = require("../../database/tables");
-
-const clearDirectory = async (req, res, next) => {
-  try {
-    const folderPath = "uploads/";
-    const files = await fs.promises.readdir(folderPath);
-
-    const promises = files.map(async (file) => {
-      const filePath = path.join(folderPath, file);
-      await fs.promises.unlink(filePath);
-    });
-
-    await Promise.all(promises);
-  } catch (err) {
-    next(err);
-  }
-};
 
 // The B of BREAD - Browse (Read All) operation
 const browse = async (req, res, next) => {
@@ -135,7 +118,7 @@ const uploadCSVHandler = async (req, res, next) => {
               await tables.terminal.create(terminal);
             })
           );
-          clearDirectory();
+
           res.status(200).json({ message: "CSV processed successfully" });
         } catch (err) {
           next(err);

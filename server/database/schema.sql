@@ -58,8 +58,7 @@ create table terminal (
 create table booking (
 id INT unsigned PRIMARY KEY auto_increment NOT NULL, 
 date DATE NOT NULL, 
-starting_hour TIME NOT NULL, 
-end_hour TIME NOT NULL, 
+slot VARCHAR(255) NOT NULL, 
 terminal_id INT UNSIGNED NOT NULL,
 FOREIGN KEY(terminal_id) REFERENCES terminal(id) ON DELETE CASCADE,
 user_id INT UNSIGNED NOT NULL,

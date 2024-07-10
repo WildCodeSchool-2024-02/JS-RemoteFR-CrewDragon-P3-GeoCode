@@ -34,7 +34,7 @@ function AdminBornesAddCsv() {
         setStatusAlert("failed");
       }
     } catch (error) {
-      console.error("Error:", error);
+      console.error("Post Error:", error);
     }
   };
 

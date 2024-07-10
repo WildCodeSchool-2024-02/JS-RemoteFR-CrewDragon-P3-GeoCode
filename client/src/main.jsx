@@ -71,6 +71,7 @@ const router = createBrowserRouter([
           const response = await axios.get(
             `${import.meta.env.VITE_API_URL}/api/terminals/${params.id}`
           );
+
           return response.data;
         },
       },
@@ -92,6 +93,7 @@ const router = createBrowserRouter([
         path: "/contact",
         element: <Contact />,
       },
+
       {
         path: "/profil/gestion/:id",
         element: <Profil />,
