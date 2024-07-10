@@ -64,9 +64,18 @@ class TerminalRepository extends AbstractRepository {
     // Execute the SQL UPDATE query to update a specific terminal
 
     const [result] = await this.database.query(
-      `update ${this.table} set name = ? where id = ?`,
+      `update ${this.table} set name = ?, address = ?, cood = ?, power = ?, plug_type = ?, chain_name = ?, accessibility = ? where id = ?`,
 
-      [terminal.name, terminal.id]
+      [
+        terminal.name,
+        terminal.address,
+        terminal.cood,
+        terminal.power,
+        terminal.plug_type,
+        terminal.chain_name,
+        terminal.accessibility,
+        terminal.id,
+      ]
     );
 
     // Return how many rows were affected

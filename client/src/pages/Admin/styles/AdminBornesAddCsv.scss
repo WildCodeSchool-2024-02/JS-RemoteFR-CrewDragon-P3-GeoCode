@@ -1,9 +1,3 @@
-.statusAlertOk {
-  color: green;
-}
-.statusAlertFailed {
-  color: rgb(128, 0, 0);
-}
 .adminUploadContainer {
   display: flex;
   flex-direction: column;
@@ -35,9 +29,8 @@
 }
 
 .buttonUpload {
-  padding: 5px;
-  margin-top: 25px;
   margin-left: 7px;
+  margin-top: 25px;
   width: 88px;
   height: 35px;
   background-color: #338876;
@@ -47,4 +40,36 @@
     color: #000000;
     background-color: #39c55c;
   }
+}
+.statusAlertOk {
+  font-size: 15px;
+  color: green;
+}
+.statusAlertChargement {
+  font-size: 15px;
+  color: orange;
+}
+.statusAlertFailed {
+  font-size: 15px;
+  color: red;
+}
+
+@keyframes rotating {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+.statusAlertChargementImg {
+  animation: rotating 2s linear infinite;
+}
+
+.statusAlertImg {
+  width: 30px;
+  height: 30px;
+  margin-left: 10px;
+  margin-right: 10px;
+  margin-bottom: -7px;
 }
