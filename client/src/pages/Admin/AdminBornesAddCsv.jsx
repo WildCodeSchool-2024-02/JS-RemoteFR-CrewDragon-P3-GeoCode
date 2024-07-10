@@ -37,7 +37,7 @@ function AdminBornesAddCsv() {
         );
       }
     } catch (error) {
-      console.error("Error:", error);
+      console.error("Post Error:", error);
     }
   };
 
