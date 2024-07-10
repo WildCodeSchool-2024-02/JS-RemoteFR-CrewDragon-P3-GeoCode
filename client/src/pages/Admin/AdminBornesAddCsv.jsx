@@ -1,10 +1,11 @@
+/* eslint-disable no-nested-ternary */
 import { useState } from "react";
 import axios from "axios";
 import { Form, Link } from "react-router-dom";
 
 function AdminBornesAddCsv() {
   const [file, setFile] = useState(null);
-  const [statusAlert, setstatusAlert] = useState("");
+  const [statusAlert, setStatusAlert] = useState("");
 
   const handleFileChange = (e) => {
     setFile(e.target.files[0]);
@@ -12,6 +13,7 @@ function AdminBornesAddCsv() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setStatusAlert("loading");
 
     const formData = new FormData();
     formData.append("csvFile", file);
@@ -26,15 +28,10 @@ function AdminBornesAddCsv() {
           },
         }
       );
-
       if (response.status === 200) {
-        setstatusAlert(
-          <p className="statusAlertOk">Le fichier est upload. DB update.</p>
-        );
+        setStatusAlert("success");
       } else {
-        setstatusAlert(
-          <p className="statusAlertFailed">Erreur lord de l'upload.</p>
-        );
+        setStatusAlert("failed");
       }
     } catch (error) {
       console.error("Error:", error);
@@ -58,10 +55,41 @@ function AdminBornesAddCsv() {
         onChange={handleFileChange}
         required
       />
-      <button type="submit" className="buttonUpload">
-        Upload CSV
-      </button>
-      {statusAlert}
+      <div className="btnUploadCsvImg">
+        <button type="submit" className="buttonUpload">
+          Upload
+        </button>
+        {statusAlert === "loading" ? (
+          <img
+            className="statusAlertChargementImg statusAlertImg"
+            src="https://img.icons8.com/?size=100&id=102555&format=png&color=000000"
+            alt="loading"
+          />
+        ) : statusAlert === "success" ? (
+          <img
+            className="statusAlertImg"
+            src="https://img.icons8.com/?size=100&id=21068&format=png&color=000000"
+            alt="loading"
+          />
+        ) : statusAlert === "failed" ? (
+          <img
+            className="statusAlertImg"
+            src="https://img.icons8.com/?size=100&id=63688&format=png&color=000000"
+            alt="loading"
+          />
+        ) : null}
+      </div>
+      {statusAlert === "loading" ? (
+        <p className="statusAlertChargement">
+          Le fichier est en cour de chargement.
+        </p>
+      ) : statusAlert === "success" ? (
+        <p className="statusAlertOk">
+          Fichier chargé avec succès, la base de données est mise à jour.
+        </p>
+      ) : statusAlert === "failed" ? (
+        <p className="statusAlertFailed">Erreur lord de l'upload.</p>
+      ) : null}
     </Form>
   );
 }

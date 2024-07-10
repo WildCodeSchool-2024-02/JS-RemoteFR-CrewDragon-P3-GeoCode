@@ -379,6 +379,12 @@ const router = createBrowserRouter([
                 `${import.meta.env.VITE_API_URL}/api/terminals/${params.id}`,
                 {
                   name: formData.get("name"),
+                  address: formData.get("address"),
+                  cood: formData.get("cood"),
+                  power: formData.get("power"),
+                  plug_type: formData.get("plug_type"),
+                  chain_name: formData.get("chain_name"),
+                  accessibility: formData.get("accessibility"),
                 }
               );
 
