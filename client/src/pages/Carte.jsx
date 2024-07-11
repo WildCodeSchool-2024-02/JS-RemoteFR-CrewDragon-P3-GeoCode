@@ -8,6 +8,8 @@ import "leaflet.markercluster/dist/MarkerCluster.Default.css";
 import { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import NavVisiteur from "../components/NavVisiteur";
+import coffee from "../assets/images/icons/easterCofffee.png";
+import bdr from "../assets/images/icons/bdr.png";
 
 function LocateUser() {
   const [position, setPosition] = useState(null);
@@ -25,14 +27,19 @@ function LocateUser() {
 
   if (position === null) return null;
 
-  const userIcon = new Icon({
-    iconUrl:
-      "https://img.icons8.com/?size=100&id=66411&format=png&color=000000",
-    iconSize: [25, 25],
+  // const userIconDefault = new Icon({
+  //   iconUrl:
+  //     "https://img.icons8.com/?size=100&id=66411&format=png&color=000000",
+  //   iconSize: [25, 25],
+  // });
+
+  const userIconCoffe = new Icon({
+    iconUrl: coffee,
+    iconSize: [50, 50],
   });
 
   return position ? (
-    <Marker position={position} icon={userIcon}>
+    <Marker position={position} icon={userIconCoffe}>
       <Popup>Vous êtes ici</Popup>
     </Marker>
   ) : null;
@@ -54,8 +61,9 @@ function ClusterMarkers({ terminals }) {
 
       const icon = new Icon({
         iconUrl:
-          "https://img.icons8.com/?size=100&id=15366&format=png&color=000000",
-        iconSize: [25, 25],
+          // "https://img.icons8.com/?size=100&id=15366&format=png&color=000000",
+          bdr,
+        iconSize: [50, 50],
       });
 
       // eslint-disable-next-line no-undef

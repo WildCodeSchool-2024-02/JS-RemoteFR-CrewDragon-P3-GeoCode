@@ -63,19 +63,19 @@ function AdminBornesAddCsv() {
           <img
             className="statusAlertChargementImg statusAlertImg"
             src="https://img.icons8.com/?size=100&id=102555&format=png&color=000000"
-            alt="loading"
+            alt="O"
           />
         ) : statusAlert === "success" ? (
           <img
             className="statusAlertImg"
             src="https://img.icons8.com/?size=100&id=21068&format=png&color=000000"
-            alt="loading"
+            alt="success"
           />
         ) : statusAlert === "failed" ? (
           <img
             className="statusAlertImg"
             src="https://img.icons8.com/?size=100&id=63688&format=png&color=000000"
-            alt="loading"
+            alt="failed"
           />
         ) : null}
       </div>
