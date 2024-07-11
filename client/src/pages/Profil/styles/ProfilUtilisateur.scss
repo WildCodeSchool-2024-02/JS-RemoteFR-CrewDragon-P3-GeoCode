@@ -9,6 +9,8 @@
   }
   .profil-user-avatar {
     width: 8rem;
+    height: 8rem;
+    object-fit: cover;
     margin: 0 0 1rem;
     border-radius: 50%;
   }
