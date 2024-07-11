@@ -1,5 +1,4 @@
 import { Navigate } from "react-router-dom";
-// eslint-disable-next-line import/no-extraneous-dependencies
 import { jwtDecode } from "jwt-decode";
 import Cookies from "js-cookie";
 import PropTypes from "prop-types";
@@ -11,11 +10,9 @@ function ProtectedRoute({ children, requiredRole }) {
     return <Navigate to="/connexion" />;
   }
 
-
   try {
     const decodedToken = jwtDecode(authData);
     const userRole = decodedToken.role;
-    console.info(typeof userRole, userRole);
 
     if (userRole !== parseInt(requiredRole, 10)) {
       return <Navigate to="/unauthorized" />;
