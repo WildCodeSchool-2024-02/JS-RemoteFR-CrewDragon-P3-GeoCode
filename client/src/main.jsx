@@ -148,6 +148,7 @@ const router = createBrowserRouter([
                   address: formData.get("address"),
                   zip_code: formData.get("zipcode"),
                   city: formData.get("city"),
+                  avatar: formData.get("avatar"),
                 }
               );
 
