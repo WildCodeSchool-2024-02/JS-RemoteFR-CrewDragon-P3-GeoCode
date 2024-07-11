@@ -1,15 +1,22 @@
 import { Link } from "react-router-dom";
-import { useAuth } from "../contexts/AuthContext";
+import Cookies from "js-cookie";
+import { jwtDecode } from "jwt-decode";
 
 function NavVisiteur() {
-  const { auth } = useAuth();
+  const authData = Cookies.get("authData");
+  let sub = null;
+
+  if (authData) {
+    const authDecoded = jwtDecode(authData);
+    sub = authDecoded.sub;
+  }
 
   return (
     <nav className="nav-site">
       <ul className="nav-ul">
-        {auth ? (
+        {sub ? (
           <>
-            <Link to={`/profil/gestion/${auth?.sub}`}>
+            <Link to={`/profil/gestion/${sub}`}>
               <li className="nav-li">
                 {" "}
                 <svg
@@ -26,7 +33,7 @@ function NavVisiteur() {
                 Profil{" "}
               </li>{" "}
             </Link>
-            <Link to="/profil/reservations">
+            <Link to={`/profil/gestion/${sub}/reservations`}>
               <li className="nav-li">
                 {" "}
                 <svg

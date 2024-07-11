@@ -1,6 +1,4 @@
 import Cookies from "js-cookie";
-import { jwtDecode } from "jwt-decode";
-
 import { useRef } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { useAuth } from "../contexts/AuthContext";
@@ -37,7 +35,7 @@ function Connexion() {
       // Redirection vers la page de connexion si la création réussit
       if (response.status === 200) {
         const authData = await Cookies.get("authData");
-        setAuth(jwtDecode(authData));
+        setAuth(authData);
 
         navigate("/carte");
       } else {

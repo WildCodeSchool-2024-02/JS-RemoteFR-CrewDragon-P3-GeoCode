@@ -1,35 +1,48 @@
 import { Link } from "react-router-dom";
+import Cookies from "js-cookie";
+import { jwtDecode } from "jwt-decode";
 
-import { useAuth } from "../../contexts/AuthContext";
 import truck from "../../assets/images/icons/truck.svg";
 import users from "../../assets/images/icons/users.svg";
 
 function Profil() {
-  const { auth } = useAuth();
+  const authData = Cookies.get("authData");
+  let firstname = null;
+  let sub = null;
+  let lastname = null;
+  let avatar = null;
+
+  if (authData) {
+    const authDecoded = jwtDecode(authData);
+    firstname = authDecoded.firstname;
+    lastname = authDecoded.lastname;
+    sub = authDecoded.sub;
+    avatar = authDecoded.avatar;
+  }
 
   return (
     <section className="profil-Content">
       <div className="profil-Header">
-        <h1>Comment allez-vous {auth?.firstname} ?</h1>
+        <h1>Comment allez-vous {firstname} ?</h1>
       </div>
 
-      <img src={auth?.avatar} alt="" className="profil-Avatar" />
+      <img src={avatar} alt="" className="profil-Avatar" />
 
       <h2 className="profil-Title">
         <p>
-          {auth?.firstname} {auth?.lastname}
+          {firstname} {lastname}
         </p>
       </h2>
       <nav className="profil-nav">
         <ul className="profil-List">
-          <Link to={`/profil/gestion/${auth?.sub}/utilisateur`}>
+          <Link to={`/profil/gestion/${sub}/utilisateur`}>
             <li className="profil-List-Items">
               <img src={users} alt="" className="profil-List-Icon" />
               <h3>Mes informations</h3>
               <p>Retrouvez et modifiez ici toutes vos informations.</p>
             </li>
           </Link>
-          <Link to={`/profil/gestion/${auth?.sub}/vehicules`}>
+          <Link to={`/profil/gestion/${sub}/vehicules`}>
             <li className="profil-List-Items">
               <img src={truck} alt="" className="profil-List-Icon" />
               <h3>Mes véhicules</h3>
@@ -38,7 +51,7 @@ function Profil() {
               </p>
             </li>
           </Link>
-          <Link to={`/profil/gestion/${auth?.sub}/reservations`}>
+          <Link to={`/profil/gestion/${sub}/reservations`}>
             <li className="profil-List-Items">
               <svg
                 xmlns="http://www.w3.org/2000/svg"

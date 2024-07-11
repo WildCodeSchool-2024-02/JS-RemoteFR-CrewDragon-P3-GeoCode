@@ -1,7 +1,6 @@
 import { useState, createContext, useContext, useMemo, useEffect } from "react";
 import PropTypes from "prop-types";
 import Cookies from "js-cookie";
-import { jwtDecode } from "jwt-decode";
 
 const AuthContext = createContext();
 
@@ -10,15 +9,10 @@ export function AuthProvider({ children }) {
 
   useEffect(() => {
     const authData = Cookies.get("authData");
-    if (authData) {
-      try {
-        const authDecoded = jwtDecode(authData);
-        setAuth(authDecoded);
-      } catch (error) {
-        console.error("Failed to decode auth token:", error);
-        Cookies.remove("authData");
-      }
+    if (!authData) {
+      setAuth(null);
     }
+    setAuth(authData);
   }, []);
 
   const contextValue = useMemo(
