@@ -7,7 +7,7 @@ function NavVisiteur() {
   return (
     <nav className="nav-site">
       <ul className="nav-ul">
-        <Link to={`/profil/gestion/${auth.user.id}`}>
+        <Link to={`/profil/gestion/${auth.sub}`}>
           <li className="nav-li">
             {" "}
             <svg

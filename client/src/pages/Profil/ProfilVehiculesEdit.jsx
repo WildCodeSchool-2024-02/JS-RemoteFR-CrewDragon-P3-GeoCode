@@ -1,10 +1,12 @@
 import { Form, Link, useLoaderData } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
+import { useAuth } from "../../contexts/AuthContext";
 
 function ProfilVehiculesEdit() {
   const { vehicule, brandData } = useLoaderData();
   const { trigger, watch, register } = useForm();
+  const { auth } = useAuth();
 
   const watchBrand = watch("brand");
   const [selectedBrand, setSelectedBrand] = useState(null);
@@ -16,7 +18,7 @@ function ProfilVehiculesEdit() {
 
   return (
     <>
-      <Link to={`/profil/gestion/${vehicule.user_id}/vehicules`}>
+      <Link to={`/profil/gestion/${auth.sub}/vehicules`}>
         <img
           className="returnPreviousPage"
           src="https://img.icons8.com/?size=100&id=11538&format=png&color=000000"

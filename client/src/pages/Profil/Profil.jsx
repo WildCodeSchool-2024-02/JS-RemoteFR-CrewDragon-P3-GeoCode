@@ -1,33 +1,35 @@
-import { Link, useLoaderData } from "react-router-dom";
+import { Link } from "react-router-dom";
+
+import { useAuth } from "../../contexts/AuthContext";
 import truck from "../../assets/images/icons/truck.svg";
 import users from "../../assets/images/icons/users.svg";
 
 function Profil() {
-  const user = useLoaderData();
+  const { auth } = useAuth();
 
   return (
     <section className="profil-Content">
       <div className="profil-Header">
-        <h1>Comment allez-vous {user.firstname} ?</h1>
+        <h1>Comment allez-vous {auth.firstname} ?</h1>
       </div>
 
-      <img src={user.avatar} alt="" className="profil-Avatar" />
+      <img src={auth.avatar} alt="" className="profil-Avatar" />
 
       <h2 className="profil-Title">
         <p>
-          {user.firstname} {user.lastname}
+          {auth.firstname} {auth.lastname}
         </p>
       </h2>
       <nav className="profil-nav">
         <ul className="profil-List">
-          <Link to={`/profil/gestion/${user.user_id}/utilisateur`}>
+          <Link to={`/profil/gestion/${auth.sub}/utilisateur`}>
             <li className="profil-List-Items">
               <img src={users} alt="" className="profil-List-Icon" />
               <h3>Mes informations</h3>
               <p>Retrouvez et modifiez ici toutes vos informations.</p>
             </li>
           </Link>
-          <Link to={`/profil/gestion/${user.user_id}/vehicules`}>
+          <Link to={`/profil/gestion/${auth.sub}/vehicules`}>
             <li className="profil-List-Items">
               <img src={truck} alt="" className="profil-List-Icon" />
               <h3>Mes véhicules</h3>
@@ -36,7 +38,7 @@ function Profil() {
               </p>
             </li>
           </Link>
-          <Link to={`/profil/gestion/${user.user_id}/reservations`}>
+          <Link to={`/profil/gestion/${auth.sub}/reservations`}>
             <li className="profil-List-Items">
               <svg
                 xmlns="http://www.w3.org/2000/svg"

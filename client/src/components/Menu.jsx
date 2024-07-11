@@ -52,7 +52,7 @@ function Menu() {
         </button>
       </div>
       <ul className={`styledMenu ${open ? "open" : ""}`}>
-        {auth.user.role === 2 && (
+        {auth.role === 2 && (
           <Link to="/administrateur" onClick={toggleMenu}>
             <li className="menu-li">
               {" "}
@@ -71,7 +71,7 @@ function Menu() {
             </li>
           </Link>
         )}
-        {auth.token === "" ? (
+        {auth.token ? (
           <>
             <Link onClick={toggleMenu} to="/connexion">
               <li className="menu-li">
@@ -110,7 +110,7 @@ function Menu() {
           </>
         ) : (
           <>
-            <Link onClick={toggleMenu} to={`/profil/gestion/${auth.user.id}`}>
+            <Link onClick={toggleMenu} to={`/profil/gestion/${auth.sub}`}>
               <li className="menu-li">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"

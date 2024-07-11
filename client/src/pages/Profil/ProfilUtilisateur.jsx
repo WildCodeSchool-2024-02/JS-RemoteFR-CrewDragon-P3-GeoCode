@@ -1,10 +1,13 @@
 import { useLoaderData, Link } from "react-router-dom";
+import { useAuth } from "../../contexts/AuthContext";
 
 function ProfilUtilisateur() {
   const user = useLoaderData();
+  const { auth } = useAuth();
+
   return (
     <section className="profil-user-container">
-      <Link to={`/profil/gestion/${user.id}/`}>
+      <Link to={`/profil/gestion/${auth.sub}/`}>
         <img
           className="returnPreviousPage"
           src="https://img.icons8.com/?size=100&id=11538&format=png&color=000000"
@@ -93,7 +96,7 @@ function ProfilUtilisateur() {
       </div>
       <Link
         className="profil-user-button"
-        to={`/profil/gestion/${user.user_id}/utilisateur/edit`}
+        to={`/profil/gestion/${auth.sub}/utilisateur/edit`}
       >
         Modifier mon profil
       </Link>
@@ -115,7 +118,7 @@ function ProfilUtilisateur() {
       </div>
       <Link
         className="profil-user-button"
-        to={`/profil/gestion/${user.user_id}/vehicules/edit`}
+        to={`/profil/gestion/${auth.sub}/vehicules/edit`}
       >
         Modifier mes véhicules
       </Link>

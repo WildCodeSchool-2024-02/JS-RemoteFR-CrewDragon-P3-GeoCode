@@ -35,14 +35,9 @@ function Connexion() {
 
       // Redirection vers la page de connexion si la création réussit
       if (response.status === 200) {
-        let authData = await Cookies.get("authData");
+        const authData = await Cookies.get("authData");
 
-        if (authData.startsWith("j:")) {
-          authData = authData.slice(2);
-        }
-
-        const auth = JSON.parse(authData);
-        setAuth(auth);
+        setAuth(authData);
         navigate("/carte");
       } else {
         // Log des détails de la réponse en cas d'échec

@@ -37,7 +37,10 @@ import AdminBornesEdit from "./pages/Admin/AdminBornesEdit";
 import AdminBornesAddCsv from "./pages/Admin/AdminBornesAddCsv";
 import ProfilUtilisateurEdit from "./pages/Profil/ProfilUtilisateurEdit";
 import NotFound from "./pages/NotFound";
+import Unauthorized from "./pages/Unauthorized";
 import ProfilVehiculesEdit from "./pages/Profil/ProfilVehiculesEdit";
+import ProtectedRoute from "./utilitaires/ProtectedRoute";
+import UserProtectedRoute from "./utilitaires/ProtectedUser";
 
 // const withAuth = (Func) => async (Args) => {
 //   const auth = useAuth();
@@ -96,17 +99,19 @@ const router = createBrowserRouter([
 
       {
         path: "/profil/gestion/:id",
-        element: <Profil />,
-        loader: async ({ params }) => {
-          const response = await axios.get(
-            `${import.meta.env.VITE_API_URL}/api/users/${params.id}`
-          );
-          return response.data;
-        },
+        element: (
+          <UserProtectedRoute>
+            <Profil />
+          </UserProtectedRoute>
+        ),
       },
       {
         path: "/profil/gestion/:id/utilisateur",
-        element: <ProfilUtilisateur />,
+        element: (
+          <UserProtectedRoute>
+            <ProfilUtilisateur />
+          </UserProtectedRoute>
+        ),
         loader: async ({ params }) => {
           const response = await axios.get(
             `${import.meta.env.VITE_API_URL}/api/users/${params.id}`
@@ -116,7 +121,11 @@ const router = createBrowserRouter([
       },
       {
         path: "/profil/gestion/:id/utilisateur/edit/",
-        element: <ProfilUtilisateurEdit />,
+        element: (
+          <UserProtectedRoute>
+            <ProfilUtilisateurEdit />
+          </UserProtectedRoute>
+        ),
         loader: async ({ params }) => {
           const response = await axios.get(
             `${import.meta.env.VITE_API_URL}/api/users/${params.id}`
@@ -162,7 +171,12 @@ const router = createBrowserRouter([
       },
       {
         path: "/profil/gestion/:id/vehicules/",
-        element: <ProfilVehicules />,
+        element: (
+          <UserProtectedRoute>
+            <ProfilVehicules />
+          </UserProtectedRoute>
+        ),
+
         loader: async ({ params }) => {
           const response = await axios.get(
             `${import.meta.env.VITE_API_URL}/api/cars/${params.id}`
@@ -172,7 +186,11 @@ const router = createBrowserRouter([
       },
       {
         path: "/profil/gestion/:id/vehicules/edit",
-        element: <ProfilVehiculesEdit />,
+        element: (
+          <UserProtectedRoute>
+            <ProfilVehiculesEdit />
+          </UserProtectedRoute>
+        ),
         loader: async ({ params }) => {
           const [carResponse, brandsResponse] = await Promise.all([
             axios.get(`${import.meta.env.VITE_API_URL}/api/cars/${params.id}`),
@@ -217,7 +235,11 @@ const router = createBrowserRouter([
       },
       {
         path: "/profil/gestion/:id/reservations/",
-        element: <ProfilReservations />,
+        element: (
+          <UserProtectedRoute>
+            <ProfilReservations />
+          </UserProtectedRoute>
+        ),
         loader: async ({ params }) => {
           const response = await axios.get(
             `${import.meta.env.VITE_API_URL}/api/bookings/${params.id}`
@@ -244,11 +266,20 @@ const router = createBrowserRouter([
 
       {
         path: "/administrateur",
-        element: <Admin />,
+        element: (
+          <ProtectedRoute requiredRole="2">
+            <Admin />
+          </ProtectedRoute>
+        ),
       },
       {
         path: "/administrateur/utilisateurs",
-        element: <AdminUtilisateurs />,
+        element: (
+          <ProtectedRoute requiredRole="2">
+            <AdminUtilisateurs />
+          </ProtectedRoute>
+        ),
+
         loader: async () => {
           const response = await axios.get(
             `${import.meta.env.VITE_API_URL}/api/users`
@@ -258,7 +289,11 @@ const router = createBrowserRouter([
       },
       {
         path: "/administrateur/utilisateurs/:id/edit",
-        element: <AdminUtilisateursEdit />,
+        element: (
+          <ProtectedRoute requiredRole="2">
+            <AdminUtilisateursEdit />
+          </ProtectedRoute>
+        ),
         loader: async ({ params }) => {
           const response = await axios.get(
             `${import.meta.env.VITE_API_URL}/api/users/${params.id}`
@@ -304,7 +339,11 @@ const router = createBrowserRouter([
       },
       {
         path: "/administrateur/vehicules",
-        element: <AdminVehicules />,
+        element: (
+          <ProtectedRoute requiredRole="2">
+            <AdminVehicules />
+          </ProtectedRoute>
+        ),
         loader: async () => {
           const response = await axios.get(
             `${import.meta.env.VITE_API_URL}/api/cars`
@@ -314,7 +353,11 @@ const router = createBrowserRouter([
       },
       {
         path: "/administrateur/vehicules/:id/edit",
-        element: <AdminVehiculesEdit />,
+        element: (
+          <ProtectedRoute requiredRole="2">
+            <AdminVehiculesEdit />
+          </ProtectedRoute>
+        ),
         loader: async ({ params }) => {
           const [carResponse, brandsResponse] = await Promise.all([
             axios.get(`${import.meta.env.VITE_API_URL}/api/cars/${params.id}`),
@@ -360,7 +403,11 @@ const router = createBrowserRouter([
       },
       {
         path: "/administrateur/bornes",
-        element: <AdminBornes />,
+        element: (
+          <ProtectedRoute requiredRole="2">
+            <AdminBornes />
+          </ProtectedRoute>
+        ),
         loader: async () => {
           const response = await axios.get(
             `${import.meta.env.VITE_API_URL}/api/terminals`
@@ -370,7 +417,11 @@ const router = createBrowserRouter([
       },
       {
         path: "/administrateur/bornes/:id",
-        element: <AdminBornesEdit />,
+        element: (
+          <ProtectedRoute requiredRole="2">
+            <AdminBornesEdit />
+          </ProtectedRoute>
+        ),
         loader: async ({ params }) => {
           const response = await axios.get(
             `${import.meta.env.VITE_API_URL}/api/terminals/${params.id}`
@@ -417,16 +468,28 @@ const router = createBrowserRouter([
       },
       {
         path: "/administrateur/bornes/import",
-        element: <AdminBornesAddCsv />,
+        element: (
+          <ProtectedRoute requiredRole="2">
+            <AdminBornesAddCsv />
+          </ProtectedRoute>
+        ),
       },
 
       {
         path: "/administrateur/reservations",
-        element: <AdminReservations />,
+        element: (
+          <ProtectedRoute requiredRole="2">
+            <AdminReservations />
+          </ProtectedRoute>
+        ),
       },
       {
         path: "*",
         element: <NotFound />,
+      },
+      {
+        path: "/unauthorized",
+        element: <Unauthorized />,
       },
     ],
   },
