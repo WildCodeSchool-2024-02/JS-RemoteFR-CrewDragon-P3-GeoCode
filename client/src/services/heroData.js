@@ -1,9 +1,9 @@
-import random from "../assets/images/heros/default.svg";
-import administrateur from "../assets/images/heros/administrateur.svg";
-import connexion from "../assets/images/heros/connexion.svg";
-import profil from "../assets/images/heros/profil.svg";
-import aides from "../assets/images/heros/aides.svg";
-import informations from "../assets/images/heros/informations.svg";
+import random from "../assets/images/heros/default.png";
+import administrateur from "../assets/images/heros/administrateur.png";
+import connexion from "../assets/images/heros/connexion.png";
+import profil from "../assets/images/heros/profil.png";
+import aides from "../assets/images/heros/aides.png";
+import informations from "../assets/images/heros/informations.png";
 
 const heroData = [
   {

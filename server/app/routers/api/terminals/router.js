@@ -33,7 +33,12 @@ router.post("/", verifyToken, add);
 // Route to delete a specific item by ID
 router.delete("/:id", verifyToken, destroy);
 
-router.post("/upload-csv", verifyToken, uploadCSV.single("csvFile"), uploadCSVHandler);
+router.post(
+  "/upload-csv",
+  verifyToken,
+  uploadCSV.single("csvFile"),
+  uploadCSVHandler
+);
 
 /* ************************************************************************* */
 

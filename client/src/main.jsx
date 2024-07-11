@@ -1,4 +1,5 @@
 import axios from "axios";
+import { lazy, Suspense } from "react";
 import ReactDOM from "react-dom/client";
 import Cookies from "js-cookie";
 import {
@@ -11,13 +12,11 @@ import "./styles/index.scss";
 
 // Import des pages
 import Accueil from "./pages/Accueil";
-import Carte from "./pages/Carte";
 import Inscription from "./pages/Inscription";
 import Connexion from "./pages/Connexion";
 import Contact from "./pages/Contact";
 import Borne from "./pages/Borne";
 import Admin from "./pages/Admin/Admin";
-import AdminBornes from "./pages/Admin/AdminBornes";
 import AdminUtilisateurs from "./pages/Admin/AdminUtilisateurs";
 import AdminVehicules from "./pages/Admin/AdminVehicules";
 import AdminReservations from "./pages/Admin/AdminReservations";
@@ -39,6 +38,10 @@ import Unauthorized from "./pages/Unauthorized";
 import ProfilVehiculesEdit from "./pages/Profil/ProfilVehiculesEdit";
 import ProtectedRoute from "./utilitaires/ProtectedRoute";
 import UserProtectedRoute from "./utilitaires/ProtectedUser";
+import Loading from "./utilitaires/Loading";
+
+const Carte = lazy(() => import("./pages/Carte"));
+const AdminBornes = lazy(() => import("./pages/Admin/AdminBornes"));
 
 const withAuth =
   (Func) =>
@@ -54,6 +57,7 @@ const withAuth =
 const router = createBrowserRouter([
   {
     element: <App />,
+
     children: [
       {
         path: "/",
@@ -61,7 +65,12 @@ const router = createBrowserRouter([
       },
       {
         path: "/carte",
-        element: <Carte />,
+
+        element: (
+          <Suspense fallback={<Loading />}>
+            <Carte />
+          </Suspense>
+        ),
         loader: async () => {
           const response = await axios.get(
             `${import.meta.env.VITE_API_URL}/api/terminals`
@@ -461,7 +470,9 @@ const router = createBrowserRouter([
         path: "/administrateur/bornes",
         element: (
           <ProtectedRoute requiredRole="2">
-            <AdminBornes />
+            <Suspense fallback={<Loading />}>
+              <AdminBornes />
+            </Suspense>
           </ProtectedRoute>
         ),
         loader: withAuth(async (args, auth) => {

@@ -42,6 +42,7 @@ function App() {
         className="hero"
         style={{
           backgroundImage: `url(${isCurrentPage(heroData, page)})`,
+          filter: "blur(3px)",
         }}
       />
       <div
