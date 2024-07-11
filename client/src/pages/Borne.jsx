@@ -3,9 +3,12 @@ import { useForm } from "react-hook-form";
 import { useState } from "react";
 import timeData from "../services/timeData";
 import borne from "../assets/images/bornes/borne.svg";
+import { useAuth } from "../contexts/AuthContext";
 
 function Borne() {
   const terminal = useLoaderData();
+  const { auth } = useAuth();
+
   const navigate = useNavigate();
   const {
     register,
@@ -32,13 +35,16 @@ function Borne() {
         `${import.meta.env.VITE_API_URL}/api/bookings`, // change road register
         {
           method: "post",
-          headers: { "Content-Type": "application/json" },
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${auth.token}`,
+          },
           body: JSON.stringify({
             // Data for user table
             date: data.date,
             slot: slotData,
             terminal_id: terminal.id,
-            user_id: 1,
+            user_id: auth.sub,
           }),
         }
       );

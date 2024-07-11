@@ -16,7 +16,6 @@ export function AuthProvider({ children }) {
         setAuth(authDecoded);
       } catch (error) {
         console.error("Failed to decode auth token:", error);
-        // Optionally clear the cookie if it's invalid
         Cookies.remove("authData");
       }
     }

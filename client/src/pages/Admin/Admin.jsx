@@ -12,14 +12,14 @@ function Admin() {
   return (
     <section className="admin-Content">
       <div className="admin-Header">
-        <h1>Bonjour {auth.firstname} !</h1>
+        <h1>Bonjour {auth?.firstname} !</h1>
       </div>
 
-      <img src={auth.avatar} alt="" className="admin-Avatar" />
+      <img src={auth?.avatar} alt="" className="admin-Avatar" />
 
       <h2 className="admin-Title">
         <Link to="/administrateur">
-          {auth.firstname} {auth.lastname}
+          {auth?.firstname} {auth?.lastname}
         </Link>
       </h2>
       <nav className="admin-nav">

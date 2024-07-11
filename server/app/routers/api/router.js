@@ -2,6 +2,8 @@ const express = require("express");
 
 const router = express.Router();
 
+const { verifyToken } = require("../../services/auth");
+
 /* ************************************************************************* */
 // Import And Use Routers Here
 /* ************************************************************************* */
@@ -10,6 +12,27 @@ const router = express.Router();
 const itemsRouter = require("./items/router");
 
 router.use("/items", itemsRouter);
+
+// Terminals
+
+const terminalsRouter = require("./terminals/router");
+
+router.use("/terminals", terminalsRouter);
+
+// Auths
+
+const authsRouter = require("./auths/router");
+
+router.use("/auths", authsRouter);
+
+// Brands
+
+const brandsRouter = require("./brands/router");
+
+router.use("/brands", brandsRouter);
+
+// middleware
+router.use(verifyToken);
 
 // Users
 const usersRouter = require("./users/router");
@@ -34,29 +57,11 @@ const modelsRouter = require("./models/router");
 
 router.use("/models", modelsRouter);
 
-// Brands
-
-const brandsRouter = require("./brands/router");
-
-router.use("/brands", brandsRouter);
-
 // Bookings
 
 const bookingsRouter = require("./bookings/router");
 
 router.use("/bookings", bookingsRouter);
-
-// Terminals
-
-const terminalsRouter = require("./terminals/router");
-
-router.use("/terminals", terminalsRouter);
-
-// Auths
-
-const authsRouter = require("./auths/router");
-
-router.use("/auths", authsRouter);
 
 /* ************************************************************************* */
 
