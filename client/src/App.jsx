@@ -5,6 +5,7 @@ import heroData from "./services/heroData";
 function App() {
   const location = useLocation();
 
+
   const page = location.pathname.replaceAll("/", "");
   /* eslint no-plusplus: ["error", { "allowForLoopAfterthoughts": true }] */
   function isCurrentPage(Data, path) {
