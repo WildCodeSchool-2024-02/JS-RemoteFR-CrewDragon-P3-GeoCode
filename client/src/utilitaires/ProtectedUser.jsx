@@ -1,5 +1,4 @@
 import { Navigate, useParams } from "react-router-dom";
-// eslint-disable-next-line import/no-extraneous-dependencies
 import { jwtDecode } from "jwt-decode";
 import Cookies from "js-cookie";
 import PropTypes from "prop-types";

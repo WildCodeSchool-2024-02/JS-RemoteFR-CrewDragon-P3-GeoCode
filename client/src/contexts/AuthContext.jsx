@@ -1,7 +1,6 @@
 import { useState, createContext, useContext, useMemo, useEffect } from "react";
 import PropTypes from "prop-types";
 import Cookies from "js-cookie";
-// eslint-disable-next-line import/no-extraneous-dependencies
 import { jwtDecode } from "jwt-decode";
 
 const AuthContext = createContext();
