@@ -7,15 +7,19 @@ import { jwtDecode } from "jwt-decode";
 const AuthContext = createContext();
 
 export function AuthProvider({ children }) {
-  const [auth, setAuth] = useState({ user: {}, token: "" });
+  const [auth, setAuth] = useState(null);
 
   useEffect(() => {
     const authData = Cookies.get("authData");
-    if (authData === undefined) {
-      setAuth({ user: {}, token: "" });
-    } else {
-      const authDecoded = jwtDecode(authData);
-      setAuth(authDecoded);
+    if (authData) {
+      try {
+        const authDecoded = jwtDecode(authData);
+        setAuth(authDecoded);
+      } catch (error) {
+        console.error("Failed to decode auth token:", error);
+        // Optionally clear the cookie if it's invalid
+        Cookies.remove("authData");
+      }
     }
   }, []);
 

@@ -14,7 +14,7 @@ function Menu() {
 
   const clearCookies = () => {
     Cookies.remove("authData");
-    setAuth({ user: {}, token: "" });
+    setAuth(null);
   };
 
   return (
@@ -52,7 +52,7 @@ function Menu() {
         </button>
       </div>
       <ul className={`styledMenu ${open ? "open" : ""}`}>
-        {auth.role === 2 && (
+        {auth?.role === 2 && (
           <Link to="/administrateur" onClick={toggleMenu}>
             <li className="menu-li">
               {" "}
@@ -71,7 +71,7 @@ function Menu() {
             </li>
           </Link>
         )}
-        {auth.token ? (
+        {!auth ? (
           <>
             <Link onClick={toggleMenu} to="/connexion">
               <li className="menu-li">
