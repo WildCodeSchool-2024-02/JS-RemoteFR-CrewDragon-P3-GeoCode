@@ -1,11 +1,13 @@
 import { Form, useLoaderData, Link } from "react-router-dom";
+import { useAuth } from "../../contexts/AuthContext";
 
 function ProfilUtilisateurEdit() {
   const user = useLoaderData();
+  const { auth } = useAuth();
 
   return (
-    <section className="profil-user-edit-container">
-      <Link to={`/profil/gestion/${user.id}/utilisateur`}>
+    <section className="profil-user-container">
+      <Link to={`/profil/gestion/${auth.sub}/utilisateur`}>
         <img
           className="returnPreviousPage"
           src="https://img.icons8.com/?size=100&id=11538&format=png&color=000000"

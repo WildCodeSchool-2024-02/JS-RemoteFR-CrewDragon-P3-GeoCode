@@ -16,10 +16,10 @@ const browse = async (req, res, next) => {
 };
 
 // The R of BREAD - Read operation
-const read = async (req, res, next) => {
+const readByUser = async (req, res, next) => {
   try {
     // Fetch a specific car from the database based on the provided ID
-    const car = await tables.car.read(req.params.id);
+    const car = await tables.car.readByUser(req.params.id);
 
     // If the car is not found, respond with HTTP 404 (Not Found)
     // Otherwise, respond with the car in JSON format
@@ -87,7 +87,7 @@ const destroy = async (req, res, next) => {
 // Ready to export the controller functions
 module.exports = {
   browse,
-  read,
+  readByUser,
   edit,
   add,
   destroy,
