@@ -30,26 +30,14 @@ const login = async (req, res, next) => {
           sub: user.id,
           role: user.role_id,
           firstname: user.firstname,
-          lastname: user.firstname,
+          lastname: user.lastname,
           avatar: user.avatar,
         },
         process.env.APP_SECRET,
         { expiresIn: "1h" }
       );
 
-      const cookieData = {
-        user: {
-          id: user.id,
-          role: user.role_id,
-          email: user.email,
-          firstname: user.firstname,
-          lastname: user.lastname,
-          avatar: user.avatar,
-        },
-        token,
-      };
-
-      res.cookie("authData", cookieData, {
+      res.cookie("authData", token, {
         maxAge: 3600000,
       });
 

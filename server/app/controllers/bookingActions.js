@@ -16,10 +16,10 @@ const browse = async (req, res, next) => {
 };
 
 // The R of BREAD - Read operation
-const read = async (req, res, next) => {
+const readByUser = async (req, res, next) => {
   try {
     // Fetch a specific booking from the database based on the provided ID
-    const booking = await tables.booking.read(req.params.id);
+    const booking = await tables.booking.readByUser(req.params.id);
 
     // If the booking is not found, respond with HTTP 404 (Not Found)
     // Otherwise, respond with the booking in JSON format
@@ -41,8 +41,6 @@ const read = async (req, res, next) => {
 const add = async (req, res, next) => {
   // Extract the booking data from the request body
   const booking = req.body;
-  console.info("coucou controller booking", booking);
-
   try {
     // Insert the booking into the database
     const insertId = await tables.booking.create(booking);
@@ -61,7 +59,7 @@ const add = async (req, res, next) => {
 // Ready to export the controller functions
 module.exports = {
   browse,
-  read,
+  readByUser,
   // edit,
   add,
   // destroy,
