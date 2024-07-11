@@ -5,12 +5,14 @@ import heroData from "./services/heroData";
 function App() {
   const location = useLocation();
 
-
   const page = location.pathname.replaceAll("/", "");
   /* eslint no-plusplus: ["error", { "allowForLoopAfterthoughts": true }] */
   function isCurrentPage(Data, path) {
     for (let i = 0; i < Data.length; i++) {
-      if (Data[i].img.includes(path)) {
+      if (
+        Data[i].img.includes(path) ||
+        Data[i].img.startsWith(path.slice(0, 4))
+      ) {
         return Data[i].img;
       }
     }
