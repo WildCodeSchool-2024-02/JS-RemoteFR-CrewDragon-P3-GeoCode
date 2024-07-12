@@ -2,6 +2,8 @@ import axios from "axios";
 import { lazy, Suspense } from "react";
 import ReactDOM from "react-dom/client";
 import Cookies from "js-cookie";
+import { jwtDecode } from "jwt-decode";
+
 import {
   createBrowserRouter,
   redirect,
@@ -153,6 +155,9 @@ const router = createBrowserRouter([
         }),
         action: withAuth(async ({ request, params }, auth) => {
           const formData = await request.formData();
+          const authDecoded = jwtDecode(auth);
+          const roleId = authDecoded.role;
+          const id = authDecoded.sub;
           const headers = {
             headers: {
               Authorization: `Bearer ${auth}`,
@@ -172,6 +177,8 @@ const router = createBrowserRouter([
                   zip_code: formData.get("zipcode"),
                   city: formData.get("city"),
                   avatar: formData.get("avatar"),
+                  role_id: roleId,
+                  sub: id,
                 },
                 {
                   headers: {

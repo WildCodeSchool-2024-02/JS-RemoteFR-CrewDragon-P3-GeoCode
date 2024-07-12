@@ -14,6 +14,7 @@ function Menu() {
 
   if (authData) {
     const authDecoded = jwtDecode(authData);
+    console.info(authDecoded);
     role = authDecoded.role;
     sub = authDecoded.sub;
   }
