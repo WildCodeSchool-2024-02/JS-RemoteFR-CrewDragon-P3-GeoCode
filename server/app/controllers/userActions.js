@@ -44,7 +44,6 @@ const edit = async (req, res, next) => {
     // Update the user in the database
     await tables.user.update(user);
     // Respond with HTTP 204 (No Content)
-    console.info("coucou from edit controller", user);
 
     const token = jwt.sign(
       {
