@@ -173,8 +173,12 @@ const router = createBrowserRouter([
                   city: formData.get("city"),
                   avatar: formData.get("avatar"),
                 },
-                headers
-
+                {
+                  headers: {
+                    Authorization: `Bearer ${auth}`,
+                  },
+                  withCredentials: true, // Cela inclut les cookies dans la requête
+                }
               );
 
               return redirect(
@@ -241,6 +245,7 @@ const router = createBrowserRouter([
               Authorization: `Bearer ${auth}`,
             },
           };
+
           switch (request.method.toLowerCase()) {
             case "put": {
               await axios.put(
@@ -248,6 +253,7 @@ const router = createBrowserRouter([
                 {
                   name: formData.get("name"),
                   model_id: formData.get("model"),
+                  image: formData.get("image"),
                 },
                 headers
               );

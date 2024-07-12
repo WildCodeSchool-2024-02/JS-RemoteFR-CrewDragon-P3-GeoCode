@@ -26,7 +26,7 @@ function AdminBornesAddCsv() {
         formData,
         {
           headers: {
-            "Content-Type": "application/json",
+            "Content-Type": "multipart/form-data",
             Authorization: `Bearer ${auth}`,
           },
         }
@@ -50,7 +50,7 @@ function AdminBornesAddCsv() {
           alt="retour"
         />
       </Link>
-      <h1>Upload CSV</h1>
+      <h1>Téléchargez votre fichier csv</h1>
       <input
         type="file"
         accept=".csv"
@@ -59,9 +59,7 @@ function AdminBornesAddCsv() {
         required
       />
       <div className="btnUploadCsvImg">
-        <button type="submit" className="buttonUpload">
-          Upload
-        </button>
+        <button type="submit">Téléchargement</button>
         {statusAlert === "loading" ? (
           <img
             className="statusAlertChargementImg statusAlertImg"
@@ -84,14 +82,14 @@ function AdminBornesAddCsv() {
       </div>
       {statusAlert === "loading" ? (
         <p className="statusAlertChargement">
-          Le fichier est en cour de chargement.
+          Le fichier est en cours de chargement.
         </p>
       ) : statusAlert === "success" ? (
         <p className="statusAlertOk">
           Fichier chargé avec succès, la base de données est mise à jour.
         </p>
       ) : statusAlert === "failed" ? (
-        <p className="statusAlertFailed">Erreur lord de l'upload.</p>
+        <p className="statusAlertFailed">Erreur lors du téléchargement.</p>
       ) : null}
     </Form>
   );

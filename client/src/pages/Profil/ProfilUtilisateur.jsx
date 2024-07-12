@@ -1,3 +1,5 @@
+import { jwtDecode } from "jwt-decode";
+
 import { useLoaderData, Link } from "react-router-dom";
 import { useAuth } from "../../contexts/AuthContext";
 
@@ -5,9 +7,16 @@ function ProfilUtilisateur() {
   const user = useLoaderData();
   const { auth } = useAuth();
 
+  let sub = null;
+
+  if (auth) {
+    const authDecoded = jwtDecode(auth);
+    sub = authDecoded.sub;
+  }
+
   return (
     <section className="profil-user-container">
-      <Link to={`/profil/gestion/${auth.sub}/`}>
+      <Link to={`/profil/gestion/${sub}/`}>
         <img
           className="returnPreviousPage"
           src="https://img.icons8.com/?size=100&id=11538&format=png&color=000000"
@@ -96,7 +105,7 @@ function ProfilUtilisateur() {
       </div>
       <Link
         className="profil-user-button"
-        to={`/profil/gestion/${auth.sub}/utilisateur/edit`}
+        to={`/profil/gestion/${sub}/utilisateur/edit`}
       >
         Modifier mon profil
       </Link>
@@ -118,7 +127,7 @@ function ProfilUtilisateur() {
       </div>
       <Link
         className="profil-user-button"
-        to={`/profil/gestion/${auth.sub}/vehicules/edit`}
+        to={`/profil/gestion/${sub}/vehicules/edit`}
       >
         Modifier mes véhicules
       </Link>

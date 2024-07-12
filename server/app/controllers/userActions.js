@@ -1,4 +1,5 @@
 // Import access to database tables
+
 const tables = require("../../database/tables");
 
 // The B of BREAD - Browse (Read All) operation
@@ -42,7 +43,7 @@ const edit = async (req, res, next) => {
     // Update the user in the database
     await tables.user.update(user);
     // Respond with HTTP 204 (No Content)
-    res.sendStatus(204);
+    res.clearCookie("authData").sendStatus(204);
   } catch (err) {
     // Pass any errors to the error-handling middleware
     res.sendStatus(520);
