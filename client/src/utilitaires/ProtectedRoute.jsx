@@ -3,7 +3,6 @@ import { jwtDecode } from "jwt-decode";
 import Cookies from "js-cookie";
 import PropTypes from "prop-types";
 
-
 function ProtectedRoute({ children, requiredRole }) {
   const authData = Cookies.get("authData");
   if (!authData) {

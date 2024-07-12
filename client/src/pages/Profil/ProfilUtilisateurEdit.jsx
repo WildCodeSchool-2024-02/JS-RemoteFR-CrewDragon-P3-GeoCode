@@ -1,20 +1,27 @@
 import { Form, useLoaderData, Link } from "react-router-dom";
-import { useAuth } from "../../contexts/AuthContext";
+import Cookies from "js-cookie";
+import { jwtDecode } from "jwt-decode";
 
 function ProfilUtilisateurEdit() {
   const user = useLoaderData();
-  const { auth } = useAuth();
+ const authData = Cookies.get("authData");
+ let sub = null;
 
-  return (
-    <section className="profil-user-container">
-      <Link to={`/profil/gestion/${auth.sub}/utilisateur`}>
-        <img
-          className="returnPreviousPage"
-          src="https://img.icons8.com/?size=100&id=11538&format=png&color=000000"
-          alt="retour"
-        />
-      </Link>
-      <h1> Modifier mon profil </h1>
+ if (authData) {
+   const authDecoded = jwtDecode(authData);
+   sub = authDecoded.sub;
+ }
+
+ return (
+   <section>
+     <Link to={`/profil/gestion/${sub}/`}>
+       <img
+         className="returnPreviousPage"
+         src="https://img.icons8.com/?size=100&id=11538&format=png&color=000000"
+         alt="retour"
+       />
+     </Link>
+     <h1> Modifier mon profil </h1>
 
       <Form method="put">
         <div className="profil-user-container">
@@ -100,16 +107,15 @@ function ProfilUtilisateurEdit() {
             <input type="text" id="city" name="city" defaultValue={user.city} />
           </div>
         </div>
-
-        <button type="submit">Modifier mes informations</button>
-      </Form>
-      <Form method="delete">
-        <button type="submit" className="btn-secondary">
-          Supprimer mon profil
-        </button>
-      </Form>
-    </section>
-  );
+       <button type="submit">Modifier mes informations</button>
+     </Form>
+     <Form method="delete">
+       <button type="submit" className="btn-secondary">
+         Supprimer mon profil
+       </button>
+     </Form>
+   </section>
+ );
 }
 
 export default ProfilUtilisateurEdit;

@@ -1,5 +1,4 @@
 import Cookies from "js-cookie";
-
 import { useRef } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { useAuth } from "../contexts/AuthContext";
@@ -36,8 +35,8 @@ function Connexion() {
       // Redirection vers la page de connexion si la création réussit
       if (response.status === 200) {
         const authData = await Cookies.get("authData");
-
         setAuth(authData);
+
         navigate("/carte");
       } else {
         // Log des détails de la réponse en cas d'échec

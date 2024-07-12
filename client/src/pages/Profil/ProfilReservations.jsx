@@ -1,14 +1,22 @@
 import { useLoaderData, Link } from "react-router-dom";
-import { useAuth } from "../../contexts/AuthContext";
+import Cookies from "js-cookie";
+import { jwtDecode } from "jwt-decode";
 
 // Déclaration d'un composant Content CAR, on a besoin de items pour le state init du filteredItems (qui est dans le context). On peut ainsi l'appeler avec useSearch sans undefined.
 function ProfilReservation() {
   const items = useLoaderData(); // Récupération des items via le loader dans main.jsx
-  const { auth } = useAuth();
+
+  const authData = Cookies.get("authData");
+  let sub = null;
+
+  if (authData) {
+    const authDecoded = jwtDecode(authData);
+    sub = authDecoded.sub;
+  }
 
   return (
     <section>
-      <Link to={`/profil/gestion/${auth.sub}/`}>
+      <Link to={`/profil/gestion/${sub}/`}>
         <img
           className="returnPreviousPage"
           src="https://img.icons8.com/?size=100&id=11538&format=png&color=000000"

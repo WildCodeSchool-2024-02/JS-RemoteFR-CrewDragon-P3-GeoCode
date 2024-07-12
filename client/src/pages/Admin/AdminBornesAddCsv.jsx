@@ -2,8 +2,10 @@
 import { useState } from "react";
 import axios from "axios";
 import { Form, Link } from "react-router-dom";
+import { useAuth } from "../../contexts/AuthContext";
 
 function AdminBornesAddCsv() {
+  const { auth } = useAuth();
   const [file, setFile] = useState(null);
   const [statusAlert, setStatusAlert] = useState("");
 
@@ -24,7 +26,8 @@ function AdminBornesAddCsv() {
         formData,
         {
           headers: {
-            "Content-Type": "multipart/form-data",
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${auth}`,
           },
         }
       );

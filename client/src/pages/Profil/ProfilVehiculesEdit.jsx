@@ -1,12 +1,20 @@
 import { Form, Link, useLoaderData } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
-import { useAuth } from "../../contexts/AuthContext";
+import Cookies from "js-cookie";
+import { jwtDecode } from "jwt-decode";
 
 function ProfilVehiculesEdit() {
   const { vehicule, brandData } = useLoaderData();
   const { trigger, watch, register } = useForm();
-  const { auth } = useAuth();
+
+  const authData = Cookies.get("authData");
+  let sub = null;
+
+  if (authData) {
+    const authDecoded = jwtDecode(authData);
+    sub = authDecoded.sub;
+  }
 
   const watchBrand = watch("brand");
   const [selectedBrand, setSelectedBrand] = useState(null);
@@ -17,8 +25,8 @@ function ProfilVehiculesEdit() {
   }, [watchBrand]);
 
   return (
-    <>
-      <Link to={`/profil/gestion/${auth.sub}/vehicules`}>
+    <section>
+      <Link to={`/profil/gestion/${sub}/`}>
         <img
           className="returnPreviousPage"
           src="https://img.icons8.com/?size=100&id=11538&format=png&color=000000"
@@ -90,7 +98,7 @@ function ProfilVehiculesEdit() {
       <Form method="delete">
         <button type="submit">Supprimer</button>
       </Form>
-    </>
+    </section>
   );
 }
 
