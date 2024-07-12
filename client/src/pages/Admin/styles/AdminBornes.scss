@@ -8,3 +8,34 @@
     background-color: variables.$alert-color;
   }
 }
+.admin-terminals-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  overflow-y: hidden;
+
+  .admin-terminals-item {
+    display: flex;
+    justify-content: space-between;
+    gap: 2rem;
+    border: 1px variables.$third-color solid;
+    border-radius: 1.5rem;
+    padding: 1.5rem;
+
+    img {
+      width: 2vw;
+    }
+
+    .admin-terminals-infos {
+      display: flex;
+      flex: 1;
+      flex-direction: row;
+      gap: 0.2rem;
+
+      p {
+        margin: 0;
+        font-weight: bold;
+      }
+    }
+  }
+}

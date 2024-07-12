@@ -1,20 +1,41 @@
 import { Form, useLoaderData, Link } from "react-router-dom";
+import Cookies from "js-cookie";
+import { jwtDecode } from "jwt-decode";
 
 function ProfilUtilisateurEdit() {
   const user = useLoaderData();
+ const authData = Cookies.get("authData");
+ let sub = null;
 
-  return (
-    <section className="profil-user-edit-container">
-      <Link to={`/profil/gestion/${user.id}/utilisateur`}>
-        <img
-          className="returnPreviousPage"
-          src="https://img.icons8.com/?size=100&id=11538&format=png&color=000000"
-          alt="retour"
-        />
-      </Link>
-      <h1> Modifier mon profil </h1>
+ if (authData) {
+   const authDecoded = jwtDecode(authData);
+   sub = authDecoded.sub;
+ }
+
+ return (
+   <section>
+     <Link to={`/profil/gestion/${sub}/`}>
+       <img
+         className="returnPreviousPage"
+         src="https://img.icons8.com/?size=100&id=11538&format=png&color=000000"
+         alt="retour"
+       />
+     </Link>
+     <h1> Modifier mon profil </h1>
 
       <Form method="put">
+        <div className="profil-user-container">
+          <img src={user.avatar} alt="" className="profil-user-avatar" />
+        </div>
+        <div className="form-group">
+          <label htmlFor="avatar"> Avatar </label>{" "}
+          <input
+            type="text"
+            id="avatar"
+            name="avatar"
+            defaultValue={user.avatar}
+          />
+        </div>
         <div className="form-group-50-50">
           <div className="form-group">
             <label htmlFor="firstname">Prénom</label>{" "}
@@ -86,16 +107,15 @@ function ProfilUtilisateurEdit() {
             <input type="text" id="city" name="city" defaultValue={user.city} />
           </div>
         </div>
-
-        <button type="submit">Modifier mes informations</button>
-      </Form>
-      <Form method="delete">
-        <button type="submit" className="btn-secondary">
-          Supprimer mon profil
-        </button>
-      </Form>
-    </section>
-  );
+       <button type="submit">Modifier mes informations</button>
+     </Form>
+     <Form method="delete">
+       <button type="submit" className="btn-secondary">
+         Supprimer mon profil
+       </button>
+     </Form>
+   </section>
+ );
 }
 
 export default ProfilUtilisateurEdit;

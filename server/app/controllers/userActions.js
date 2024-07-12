@@ -1,4 +1,6 @@
 // Import access to database tables
+const jwt = require("jsonwebtoken");
+
 const tables = require("../../database/tables");
 
 // The B of BREAD - Browse (Read All) operation
@@ -37,11 +39,30 @@ const read = async (req, res, next) => {
 //  The E of BREAD - Edit (Update) operation
 const edit = async (req, res, next) => {
   // Extract the user data from the request body and params
-  const user = { ...req.body, id: req.params.id };
+  const user = { ...req.body, id: req.body.sub };
   try {
     // Update the user in the database
     await tables.user.update(user);
     // Respond with HTTP 204 (No Content)
+
+    const token = jwt.sign(
+      {
+        sub: user.id,
+        role: user.role_id,
+        firstname: user.firstname,
+        lastname: user.lastname,
+        avatar: user.avatar,
+      },
+      process.env.APP_SECRET,
+      { expiresIn: "1h" }
+    );
+
+    res.clearCookie("authData");
+
+    res.cookie("authData", token, {
+      maxAge: 3600000,
+    });
+
     res.sendStatus(204);
   } catch (err) {
     // Pass any errors to the error-handling middleware

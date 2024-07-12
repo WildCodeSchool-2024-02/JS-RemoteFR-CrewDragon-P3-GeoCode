@@ -22,6 +22,8 @@
 
   .profil-Avatar {
     width: 8rem;
+    height: 8rem;
+    object-fit: cover;
     margin: 4rem 0 1rem;
     border-radius: 50%;
   }
@@ -52,7 +54,7 @@
 
         p {
           font-size: 1rem;
-          color: variables.$third-color;
+          color: variables.$font-color;
           margin: 0.8rem 0;
         }
 
@@ -63,6 +65,13 @@
         &:hover {
           background-color: variables.$secondary-color;
           color: variables.$background-color;
+
+          p {
+            color: variables.$fourth-color;
+          }
+          svg {
+            fill: variables.$fourth-color;
+          }
         }
       }
     }

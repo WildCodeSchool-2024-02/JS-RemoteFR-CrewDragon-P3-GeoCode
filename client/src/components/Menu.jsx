@@ -1,12 +1,22 @@
 import Cookies from "js-cookie";
-
+import { jwtDecode } from "jwt-decode";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { useAuth } from "../contexts/AuthContext";
 
 function Menu() {
-  const { auth, setAuth } = useAuth();
+  const { setAuth } = useAuth();
   const [open, setOpen] = useState(false);
+
+  const authData = Cookies.get("authData");
+  let role = null;
+  let sub = null;
+
+  if (authData) {
+    const authDecoded = jwtDecode(authData);
+    role = authDecoded.role;
+    sub = authDecoded.sub;
+  }
 
   const toggleMenu = () => {
     setOpen(!open);
@@ -14,7 +24,7 @@ function Menu() {
 
   const clearCookies = () => {
     Cookies.remove("authData");
-    setAuth({ user: {}, token: "" });
+    setAuth(null);
   };
 
   return (
@@ -52,7 +62,7 @@ function Menu() {
         </button>
       </div>
       <ul className={`styledMenu ${open ? "open" : ""}`}>
-        {auth.user.role === 2 && (
+        {role === 2 && (
           <Link to="/administrateur" onClick={toggleMenu}>
             <li className="menu-li">
               {" "}
@@ -71,7 +81,7 @@ function Menu() {
             </li>
           </Link>
         )}
-        {auth.token === "" ? (
+        {!sub ? (
           <>
             <Link onClick={toggleMenu} to="/connexion">
               <li className="menu-li">
@@ -110,7 +120,7 @@ function Menu() {
           </>
         ) : (
           <>
-            <Link onClick={toggleMenu} to={`/profil/gestion/${auth.user.id}`}>
+            <Link onClick={toggleMenu} to={`/profil/gestion/${sub}`}>
               <li className="menu-li">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"

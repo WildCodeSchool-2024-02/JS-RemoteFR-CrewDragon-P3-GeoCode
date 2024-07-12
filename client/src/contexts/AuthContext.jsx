@@ -5,18 +5,14 @@ import Cookies from "js-cookie";
 const AuthContext = createContext();
 
 export function AuthProvider({ children }) {
-  const [auth, setAuth] = useState({ user: {}, token: "" });
+  const [auth, setAuth] = useState(null);
 
   useEffect(() => {
-    let authData = Cookies.get("authData");
-    if (authData === undefined) {
-      setAuth({ user: {}, token: "" });
+    const authData = Cookies.get("authData");
+    if (!authData) {
+      setAuth(null);
     } else {
-      if (authData.startsWith("j:")) {
-        authData = authData.slice(2);
-      }
-      const authParsed = JSON.parse(authData);
-      setAuth(authParsed);
+      setAuth(authData);
     }
   }, []);
 

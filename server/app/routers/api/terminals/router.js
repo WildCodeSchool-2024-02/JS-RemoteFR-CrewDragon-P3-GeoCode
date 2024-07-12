@@ -16,6 +16,7 @@ const {
   uploadCSVHandler,
 } = require("../../../controllers/terminalActions");
 const uploadCSV = require("../../../services/uploadCSV");
+const { verifyToken } = require("../../../services/auth");
 
 // Route to get a list of items
 router.get("/", browse);
@@ -24,15 +25,20 @@ router.get("/", browse);
 router.get("/:id", read);
 
 // Route to edit a specific item by ID
-router.put("/:id", edit);
+router.put("/:id", verifyToken, edit);
 
 // Route to add a new item
-router.post("/", add);
+router.post("/", verifyToken, add);
 
 // Route to delete a specific item by ID
-router.delete("/:id", destroy);
+router.delete("/:id", verifyToken, destroy);
 
-router.post("/upload-csv", uploadCSV.single("csvFile"), uploadCSVHandler);
+router.post(
+  "/upload-csv",
+  verifyToken,
+  uploadCSV.single("csvFile"),
+  uploadCSVHandler
+);
 
 /* ************************************************************************* */
 

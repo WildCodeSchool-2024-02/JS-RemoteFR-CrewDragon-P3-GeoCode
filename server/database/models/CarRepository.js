@@ -22,18 +22,18 @@ class CarRepository extends AbstractRepository {
 
   // The Rs of CRUD - Read operations
 
-  async read(id) {
+  async readByUser(userId) {
     // Execute the SQL SELECT query to retrieve a specific car by its ID
     const [rows] = await this.database.query(
       `SELECT car.*, model.name m_name, brand.name b_name from ${this.table} AS car 
       JOIN model ON car.model_id = model.id
       JOIN brand on model.brand_id = brand.id 
-      where car.id = ?`,
-      [id]
+      where car.user_id = ?`,
+      [userId]
     );
 
     // Return the first row of the result, which represents the car
-    return rows[0];
+    return rows;
   }
 
   async readAll() {
@@ -53,9 +53,9 @@ class CarRepository extends AbstractRepository {
     // Execute the SQL UPDATE query to update a specific car
 
     const [result] = await this.database.query(
-      `update ${this.table} set name = ?, model_id = ? where id = ?`,
+      `update ${this.table} set name = ?, model_id = ?, image = ? where id = ?`,
 
-      [car.name, car.model_id, car.id]
+      [car.name, car.model_id, car.image, car.id]
     );
 
     // Return how many rows were affected

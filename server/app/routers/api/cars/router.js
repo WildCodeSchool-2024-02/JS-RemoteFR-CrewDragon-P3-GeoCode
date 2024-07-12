@@ -9,7 +9,7 @@ const router = express.Router();
 // Import item-related actions
 const {
   browse,
-  read,
+  readByUser,
   add,
   edit,
   destroy,
@@ -19,7 +19,7 @@ const {
 router.get("/", browse);
 
 // Route to get a specific item by ID
-router.get("/:id", read);
+router.get("/:id", readByUser);
 
 // Route to edit a specific item by ID
 router.put("/:id", edit);

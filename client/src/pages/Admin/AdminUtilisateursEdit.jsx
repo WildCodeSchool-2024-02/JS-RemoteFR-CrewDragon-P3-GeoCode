@@ -12,7 +12,6 @@ function AdminUtilisateursEdit() {
 
   return (
     <>
-
       <Link to="/administrateur/utilisateurs">
         <img
           className="returnPreviousPage"

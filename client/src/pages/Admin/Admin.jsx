@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
-import { useAuth } from "../../contexts/AuthContext";
+import Cookies from "js-cookie";
+import { jwtDecode } from "jwt-decode";
 
 import truck from "../../assets/images/icons/truck.svg";
 import users from "../../assets/images/icons/users.svg";
@@ -7,19 +8,29 @@ import lightening from "../../assets/images/icons/lightening.svg";
 import chart from "../../assets/images/icons/chart.svg";
 
 function Admin() {
-  const { auth } = useAuth();
+  const authData = Cookies.get("authData");
+  let firstname = null;
+  let lastname = null;
+  let avatar = null;
+
+  if (authData) {
+    const authDecoded = jwtDecode(authData);
+    firstname = authDecoded.firstname;
+    lastname = authDecoded.lastname;
+    avatar = authDecoded.avatar;
+  }
 
   return (
     <section className="admin-Content">
       <div className="admin-Header">
-        <h1>Bonjour {auth.user.firstname} !</h1>
+        <h1>Bonjour {firstname} !</h1>
       </div>
 
-      <img src={auth.user.avatar} alt="" className="admin-Avatar" />
+      <img src={avatar} alt="" className="admin-Avatar" />
 
       <h2 className="admin-Title">
         <Link to="/administrateur">
-          {auth.user.firstname} {auth.user.lastname}
+          {firstname} {lastname}
         </Link>
       </h2>
       <nav className="admin-nav">

@@ -17,6 +17,7 @@
 @import "../components/styles/Menu.scss";
 
 @import "../pages/styles/Aides.scss";
+@import "../utilitaires//styles//loading.scss";
 
 * {
   margin: 0;
@@ -128,7 +129,6 @@
       position: relative;
       z-index: 1;
       border-radius: 1rem 1rem 0 0;
-
       background-color: white;
       margin-top: 30%;
       padding: 1rem;
@@ -201,12 +201,66 @@
 
       [role="alert"] {
         background-color: variables.$alert-color;
-        color: variables.$font-color solid;
+        color: variables.$font-color;
         line-height: 1.6rem;
         padding: 10px;
         font-size: 0.8rem;
         border-radius: 0.3rem;
         margin: 0.8rem 0 0;
+      }
+
+      .info {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        background-color: variables.$info-color;
+        color: variables.$font-color;
+        line-height: 1.6rem;
+        padding: 0.8rem;
+        font-size: 0.8rem;
+        border-radius: 0.3rem;
+        p {
+          text-decoration: underline;
+          margin: 0.8rem 0;
+        }
+      }
+
+      .time-label {
+        margin-top: 1.5rem;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: flex-start;
+        gap: 1rem;
+
+        .time-label-btn {
+          background-color: variables.$fourth-color;
+          border: 1px variables.$third-color solid;
+          color: variables.$font-color;
+          border-radius: 1rem;
+          padding: 0;
+          margin: 0;
+          width: 3rem;
+          text-align: center;
+          p {
+            font-size: 1rem;
+            line-height: 0;
+          }
+          &:hover {
+            border: 1px variables.$secondary-color solid;
+          }
+
+          &:focus {
+            background-color: variables.$secondary-color;
+            border: 1px variables.$fourth-color solid;
+            color: variables.$fourth-color;
+            outline: none;
+          }
+
+          &:disabled {
+            background-color: #d6d1d1;
+            color: #d6d1d1;
+          }
+        }
       }
     }
 

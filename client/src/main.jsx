@@ -1,25 +1,24 @@
 import axios from "axios";
+import { lazy, Suspense } from "react";
 import ReactDOM from "react-dom/client";
+import Cookies from "js-cookie";
+import { jwtDecode } from "jwt-decode";
 
 import {
   createBrowserRouter,
   redirect,
   RouterProvider,
 } from "react-router-dom";
-
 import { AuthProvider } from "./contexts/AuthContext";
-
 import "./styles/index.scss";
 
 // Import des pages
 import Accueil from "./pages/Accueil";
-import Carte from "./pages/Carte";
 import Inscription from "./pages/Inscription";
 import Connexion from "./pages/Connexion";
 import Contact from "./pages/Contact";
 import Borne from "./pages/Borne";
 import Admin from "./pages/Admin/Admin";
-import AdminBornes from "./pages/Admin/AdminBornes";
 import AdminUtilisateurs from "./pages/Admin/AdminUtilisateurs";
 import AdminVehicules from "./pages/Admin/AdminVehicules";
 import AdminReservations from "./pages/Admin/AdminReservations";
@@ -37,18 +36,30 @@ import AdminBornesEdit from "./pages/Admin/AdminBornesEdit";
 import AdminBornesAddCsv from "./pages/Admin/AdminBornesAddCsv";
 import ProfilUtilisateurEdit from "./pages/Profil/ProfilUtilisateurEdit";
 import NotFound from "./pages/NotFound";
+import Unauthorized from "./pages/Unauthorized";
 import ProfilVehiculesEdit from "./pages/Profil/ProfilVehiculesEdit";
+import ProtectedRoute from "./utilitaires/ProtectedRoute";
+import UserProtectedRoute from "./utilitaires/ProtectedUser";
+import Loading from "./utilitaires/Loading";
 
-// const withAuth = (Func) => async (Args) => {
-//   const auth = useAuth();
+const Carte = lazy(() => import("./pages/Carte"));
+const AdminBornes = lazy(() => import("./pages/Admin/AdminBornes"));
 
-//   await Func(Args, auth);
-//   return true;
-// };
+const withAuth =
+  (Func) =>
+  async (Args = {}) => {
+    const authData = Cookies.get("authData");
+    if (!authData) {
+      throw new Response("Unauthorized", { status: 401 });
+    }
+    // eslint-disable-next-line no-return-await
+    return await Func(Args, authData);
+  };
 
 const router = createBrowserRouter([
   {
     element: <App />,
+
     children: [
       {
         path: "/",
@@ -56,7 +67,12 @@ const router = createBrowserRouter([
       },
       {
         path: "/carte",
-        element: <Carte />,
+
+        element: (
+          <Suspense fallback={<Loading />}>
+            <Carte />
+          </Suspense>
+        ),
         loader: async () => {
           const response = await axios.get(
             `${import.meta.env.VITE_API_URL}/api/terminals`
@@ -94,36 +110,59 @@ const router = createBrowserRouter([
       },
       {
         path: "/profil/gestion/:id",
-        element: <Profil />,
-        loader: async ({ params }) => {
-          const response = await axios.get(
-            `${import.meta.env.VITE_API_URL}/api/users/${params.id}`
-          );
-          return response.data;
-        },
+        element: (
+          <UserProtectedRoute>
+            <Profil />
+          </UserProtectedRoute>
+        ),
       },
       {
         path: "/profil/gestion/:id/utilisateur",
-        element: <ProfilUtilisateur />,
-        loader: async ({ params }) => {
+        element: (
+          <UserProtectedRoute>
+            <ProfilUtilisateur />
+          </UserProtectedRoute>
+        ),
+        loader: withAuth(async ({ params }, auth) => {
           const response = await axios.get(
-            `${import.meta.env.VITE_API_URL}/api/users/${params.id}`
+            `${import.meta.env.VITE_API_URL}/api/users/${params.id}/`,
+            {
+              headers: {
+                Authorization: `Bearer ${auth}`,
+              },
+            }
           );
           return response.data;
-        },
+        }),
       },
       {
         path: "/profil/gestion/:id/utilisateur/edit/",
-        element: <ProfilUtilisateurEdit />,
-        loader: async ({ params }) => {
+        element: (
+          <UserProtectedRoute>
+            <ProfilUtilisateurEdit />
+          </UserProtectedRoute>
+        ),
+        loader: withAuth(async ({ params }, auth) => {
           const response = await axios.get(
-            `${import.meta.env.VITE_API_URL}/api/users/${params.id}`
+            `${import.meta.env.VITE_API_URL}/api/users/${params.id}/`,
+            {
+              headers: {
+                Authorization: `Bearer ${auth}`,
+              },
+            }
           );
           return response.data;
-        },
-        action: async ({ request, params }) => {
+        }),
+        action: withAuth(async ({ request, params }, auth) => {
           const formData = await request.formData();
-
+          const authDecoded = jwtDecode(auth);
+          const roleId = authDecoded.role;
+          const id = authDecoded.sub;
+          const headers = {
+            headers: {
+              Authorization: `Bearer ${auth}`,
+            },
+          };
           switch (request.method.toLowerCase()) {
             case "put": {
               await axios.put(
@@ -137,6 +176,15 @@ const router = createBrowserRouter([
                   address: formData.get("address"),
                   zip_code: formData.get("zipcode"),
                   city: formData.get("city"),
+                  avatar: formData.get("avatar"),
+                  role_id: roleId,
+                  sub: id,
+                },
+                {
+                  headers: {
+                    Authorization: `Bearer ${auth}`,
+                  },
+                  withCredentials: true, // Cela inclut les cookies dans la requête
                 }
               );
 
@@ -144,45 +192,66 @@ const router = createBrowserRouter([
                 `${import.meta.env.VITE_CLIENT_URL}/profil/gestion/${params.id}/utilisateur/`
               );
             }
-
             case "delete": {
               await axios.delete(
-                `${import.meta.env.VITE_API_URL}/api/users/${params.id}`
+                `${import.meta.env.VITE_API_URL}/api/users/${params.id}`,
+                headers
               );
 
               return redirect(`${import.meta.env.VITE_CLIENT_URL}`);
             }
-
             default:
               throw new Response("", { status: 405 });
           }
-        },
+        }),
       },
       {
         path: "/profil/gestion/:id/vehicules/",
-        element: <ProfilVehicules />,
-        loader: async () => {
+        element: (
+          <UserProtectedRoute>
+            <ProfilVehicules />
+          </UserProtectedRoute>
+        ),
+        loader: withAuth(async ({ params }, auth) => {
           const response = await axios.get(
-            `${import.meta.env.VITE_API_URL}/api/cars`
+            `${import.meta.env.VITE_API_URL}/api/cars/${params.id}/`,
+            {
+              headers: {
+                Authorization: `Bearer ${auth}`,
+              },
+            }
           );
           return response.data;
-        },
+        }),
       },
       {
         path: "/profil/gestion/:id/vehicules/edit",
-        element: <ProfilVehiculesEdit />,
-        loader: async ({ params }) => {
+        element: (
+          <UserProtectedRoute>
+            <ProfilVehiculesEdit />
+          </UserProtectedRoute>
+        ),
+        loader: withAuth(async ({ params }, auth) => {
           const [carResponse, brandsResponse] = await Promise.all([
-            axios.get(`${import.meta.env.VITE_API_URL}/api/cars/${params.id}`),
+            axios.get(`${import.meta.env.VITE_API_URL}/api/cars/${params.id}`, {
+              headers: {
+                Authorization: `Bearer ${auth}`,
+              },
+            }),
             axios.get(`${import.meta.env.VITE_API_URL}/api/brands/`),
           ]);
           return {
             vehicule: carResponse.data,
             brandData: brandsResponse.data,
           };
-        },
-        action: async ({ request, params }) => {
+        }),
+        action: withAuth(async ({ request, params }, auth) => {
           const formData = await request.formData();
+          const headers = {
+            headers: {
+              Authorization: `Bearer ${auth}`,
+            },
+          };
 
           switch (request.method.toLowerCase()) {
             case "put": {
@@ -191,32 +260,48 @@ const router = createBrowserRouter([
                 {
                   name: formData.get("name"),
                   model_id: formData.get("model"),
-                }
+                  image: `https://avatar.iran.liara.run/username?username=${formData.get("name").split(" ").join("+")}`,
+                },
+                headers
               );
 
               return redirect(
                 `${import.meta.env.VITE_CLIENT_URL}/profil/gestion/${params.id}/vehicules/`
               );
             }
-
             case "delete": {
               await axios.delete(
-                `${import.meta.env.VITE_API_URL}/api/cars/${params.id}`
+                `${import.meta.env.VITE_API_URL}/api/cars/${params.id}`,
+                headers
               );
 
               return redirect(
                 `${import.meta.env.VITE_CLIENT_URL}/administrateur/vehicules/`
               );
             }
-
             default:
               throw new Response("", { status: 405 });
           }
-        },
+        }),
       },
       {
         path: "/profil/gestion/:id/reservations/",
-        element: <ProfilReservations />,
+        element: (
+          <UserProtectedRoute>
+            <ProfilReservations />
+          </UserProtectedRoute>
+        ),
+        loader: withAuth(async ({ params }, auth) => {
+          const response = await axios.get(
+            `${import.meta.env.VITE_API_URL}/api/bookings/${params.id}/`,
+            {
+              headers: {
+                Authorization: `Bearer ${auth}`,
+              },
+            }
+          );
+          return response.data;
+        }),
       },
       {
         path: "/informations",
@@ -234,33 +319,58 @@ const router = createBrowserRouter([
           return response.data;
         },
       },
-
       {
         path: "/administrateur",
-        element: <Admin />,
+        element: (
+          <ProtectedRoute requiredRole="2">
+            <Admin />
+          </ProtectedRoute>
+        ),
       },
       {
         path: "/administrateur/utilisateurs",
-        element: <AdminUtilisateurs />,
-        loader: async () => {
+        element: (
+          <ProtectedRoute requiredRole="2">
+            <AdminUtilisateurs />
+          </ProtectedRoute>
+        ),
+        loader: withAuth(async (args, auth) => {
           const response = await axios.get(
-            `${import.meta.env.VITE_API_URL}/api/users`
+            `${import.meta.env.VITE_API_URL}/api/users/`,
+            {
+              headers: {
+                Authorization: `Bearer ${auth}`,
+              },
+            }
           );
           return response.data;
-        },
+        }),
       },
       {
-        path: "/administrateur/utilisateurs/:id/edit",
-        element: <AdminUtilisateursEdit />,
-        loader: async ({ params }) => {
+        path: "/administrateur/utilisateurs/edit/:id",
+        element: (
+          <ProtectedRoute requiredRole="2">
+            <AdminUtilisateursEdit />
+          </ProtectedRoute>
+        ),
+        loader: withAuth(async ({ params }, auth) => {
           const response = await axios.get(
-            `${import.meta.env.VITE_API_URL}/api/users/${params.id}`
+            `${import.meta.env.VITE_API_URL}/api/users/${params.id}/`,
+            {
+              headers: {
+                Authorization: `Bearer ${auth}`,
+              },
+            }
           );
           return response.data;
-        },
-        action: async ({ request, params }) => {
+        }),
+        action: withAuth(async ({ request, params }, auth) => {
           const formData = await request.formData();
-
+          const headers = {
+            headers: {
+              Authorization: `Bearer ${auth}`,
+            },
+          };
           switch (request.method.toLowerCase()) {
             case "put": {
               await axios.put(
@@ -269,58 +379,78 @@ const router = createBrowserRouter([
                   firstname: formData.get("firstname"),
                   lastname: formData.get("lastname"),
                   email: formData.get("email"),
+                  password: formData.get("password"),
+                  birthday: formData.get("birthday"),
                   address: formData.get("address"),
                   zip_code: formData.get("zip_code"),
                   city: formData.get("city"),
-                }
+                },
+                headers
               );
 
               return redirect(
                 `${import.meta.env.VITE_CLIENT_URL}/administrateur/utilisateurs`
               );
             }
-
             case "delete": {
               await axios.delete(
-                `${import.meta.env.VITE_API_URL}/api/users/${params.id}`
+                `${import.meta.env.VITE_API_URL}/api/users/${params.id}`,
+                headers
               );
 
               return redirect(
                 `${import.meta.env.VITE_CLIENT_URL}/administrateur/utilisateurs`
               );
             }
-
             default:
               throw new Response("", { status: 405 });
           }
-        },
+        }),
       },
       {
         path: "/administrateur/vehicules",
-        element: <AdminVehicules />,
-        loader: async () => {
+        element: (
+          <ProtectedRoute requiredRole="2">
+            <AdminVehicules />
+          </ProtectedRoute>
+        ),
+        loader: withAuth(async (args, auth) => {
           const response = await axios.get(
-            `${import.meta.env.VITE_API_URL}/api/cars`
+            `${import.meta.env.VITE_API_URL}/api/cars/`,
+            {
+              headers: {
+                Authorization: `Bearer ${auth}`,
+              },
+            }
           );
           return response.data;
-        },
+        }),
       },
       {
-        path: "/administrateur/vehicules/:id/edit",
-        element: <AdminVehiculesEdit />,
-        loader: async ({ params }) => {
-          const [carResponse, brandsResponse] = await Promise.all([
-            axios.get(`${import.meta.env.VITE_API_URL}/api/cars/${params.id}`),
-            axios.get(`${import.meta.env.VITE_API_URL}/api/brands/`),
-          ]);
-          return {
-            vehicule: carResponse.data,
-            brandData: brandsResponse.data,
-          };
-        },
-        action: async ({ request, params }) => {
+        path: "/administrateur/vehicules/edit/:id",
+        element: (
+          <ProtectedRoute requiredRole="2">
+            <AdminVehiculesEdit />
+          </ProtectedRoute>
+        ),
+        loader: withAuth(async ({ params }, auth) => {
+          const response = await axios.get(
+            `${import.meta.env.VITE_API_URL}/api/cars/${params.id}`,
+            {
+              headers: {
+                Authorization: `Bearer ${auth}`,
+              },
+            }
+          );
+          return response.data;
+        }),
+        action: withAuth(async ({ request, params }, auth) => {
           const formData = await request.formData();
-
+          const headers = {
+            headers: {
+              Authorization: `Bearer ${auth}`,
+            },
+          };
           switch (request.method.toLowerCase()) {
             case "put": {
               await axios.put(
@@ -328,100 +458,146 @@ const router = createBrowserRouter([
                 {
                   name: formData.get("name"),
                   model_id: formData.get("model"),
-                }
+                },
+                headers
               );
 
               return redirect(
-                `${import.meta.env.VITE_CLIENT_URL}/administrateur/vehicules/`
+                `${import.meta.env.VITE_CLIENT_URL}/administrateur/vehicules`
               );
             }
-
             case "delete": {
               await axios.delete(
-                `${import.meta.env.VITE_API_URL}/api/cars/${params.id}`
+                `${import.meta.env.VITE_API_URL}/api/cars/${params.id}`,
+                headers
               );
 
               return redirect(
-                `${import.meta.env.VITE_CLIENT_URL}/administrateur/vehicules/`
+                `${import.meta.env.VITE_CLIENT_URL}/administrateur/vehicules`
               );
             }
-
             default:
               throw new Response("", { status: 405 });
           }
-        },
+        }),
       },
       {
         path: "/administrateur/bornes",
-        element: <AdminBornes />,
-        loader: async () => {
+        element: (
+          <ProtectedRoute requiredRole="2">
+            <Suspense fallback={<Loading />}>
+              <AdminBornes />
+            </Suspense>
+          </ProtectedRoute>
+        ),
+        loader: withAuth(async (args, auth) => {
           const response = await axios.get(
-            `${import.meta.env.VITE_API_URL}/api/terminals`
+            `${import.meta.env.VITE_API_URL}/api/terminals/`,
+            {
+              headers: {
+                Authorization: `Bearer ${auth}`,
+              },
+            }
           );
           return response.data;
-        },
+        }),
       },
       {
-        path: "/administrateur/bornes/:id",
-        element: <AdminBornesEdit />,
-        loader: async ({ params }) => {
+        path: "/administrateur/bornes/edit/:id",
+        element: (
+          <ProtectedRoute requiredRole="2">
+            <AdminBornesEdit />
+          </ProtectedRoute>
+        ),
+        loader: withAuth(async ({ params }, auth) => {
           const response = await axios.get(
-            `${import.meta.env.VITE_API_URL}/api/terminals/${params.id}`
+            `${import.meta.env.VITE_API_URL}/api/terminals/${params.id}/`,
+            {
+              headers: {
+                Authorization: `Bearer ${auth}`,
+              },
+            }
           );
           return response.data;
-        },
-        action: async ({ request, params }) => {
+        }),
+        action: withAuth(async ({ request, params }, auth) => {
           const formData = await request.formData();
-
+          const headers = {
+            headers: {
+              Authorization: `Bearer ${auth}`,
+            },
+          };
           switch (request.method.toLowerCase()) {
             case "put": {
               await axios.put(
                 `${import.meta.env.VITE_API_URL}/api/terminals/${params.id}`,
                 {
-                  name: formData.get("name"),
-                }
+                  city: formData.get("city"),
+                  address: formData.get("address"),
+                  zip_code: formData.get("zip_code"),
+                },
+                headers
               );
 
               return redirect(
-                `${import.meta.env.VITE_CLIENT_URL}/administrateur/bornes/${params.id}`
+                `${import.meta.env.VITE_CLIENT_URL}/administrateur/bornes`
               );
             }
-
             case "delete": {
               await axios.delete(
-                `${import.meta.env.VITE_API_URL}/api/terminals/${params.id}`
+                `${import.meta.env.VITE_API_URL}/api/terminals/${params.id}`,
+                headers
               );
 
               return redirect(
-                `${import.meta.env.VITE_CLIENT_URL}/administrateur/bornes/`
+                `${import.meta.env.VITE_CLIENT_URL}/administrateur/bornes`
               );
             }
-
             default:
               throw new Response("", { status: 405 });
           }
-        },
+        }),
       },
       {
-        path: "/administrateur/bornes/import",
-        element: <AdminBornesAddCsv />,
+        path: "/administrateur/bornes/csv",
+        element: (
+          <ProtectedRoute requiredRole="2">
+            <AdminBornesAddCsv />
+          </ProtectedRoute>
+        ),
       },
-
       {
         path: "/administrateur/reservations",
-        element: <AdminReservations />,
+        element: (
+          <ProtectedRoute requiredRole="2">
+            <AdminReservations />
+          </ProtectedRoute>
+        ),
+        loader: withAuth(async (args, auth) => {
+          const response = await axios.get(
+            `${import.meta.env.VITE_API_URL}/api/bookings/`,
+            {
+              headers: {
+                Authorization: `Bearer ${auth}`,
+              },
+            }
+          );
+          return response.data;
+        }),
       },
       {
         path: "*",
         element: <NotFound />,
       },
+      {
+        path: "/unauthorized",
+        element: <Unauthorized />,
+      },
     ],
   },
 ]);
 
-const root = ReactDOM.createRoot(document.getElementById("root"));
-
-root.render(
+ReactDOM.createRoot(document.getElementById("root")).render(
   <AuthProvider>
     <RouterProvider router={router} />
   </AuthProvider>
