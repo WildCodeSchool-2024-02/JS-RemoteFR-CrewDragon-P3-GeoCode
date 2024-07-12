@@ -13,6 +13,7 @@ const {
   edit,
   add,
   destroy,
+  editUser,
 } = require("../../../controllers/userActions");
 
 // Route to get a list of items
@@ -23,6 +24,9 @@ router.get("/:id", read);
 
 // Route to edit a specific item by ID
 router.put("/:id", edit);
+
+// Route to edit a specific item by ID
+router.put("/:id/user", editUser);
 
 // Route to add a new item
 router.post("/", add);

@@ -6,6 +6,8 @@ function AdminVehiculesEdit() {
   const { vehicule, brandData } = useLoaderData();
   const { trigger, watch, register } = useForm();
 
+  console.info(vehicule);
+
   const watchBrand = watch("brand");
   const [selectedBrand, setSelectedBrand] = useState(null);
 
@@ -23,7 +25,7 @@ function AdminVehiculesEdit() {
           alt="retour"
         />
       </Link>
-      <h1> Modifier {vehicule.name} </h1>
+      <h1> Modifier {vehicule[0].name} </h1>
 
       <Form method="put">
         {/* eslint-disable react/jsx-props-no-spreading */}
@@ -32,7 +34,7 @@ function AdminVehiculesEdit() {
           <input
             id="name"
             name="name"
-            defaultValue={vehicule.name}
+            defaultValue={vehicule[0].name}
             // Validation au moment de la perte du focus
             onBlur={() => trigger("name")}
           />
@@ -51,7 +53,7 @@ function AdminVehiculesEdit() {
                 <option
                   key={brand.id}
                   value={brand.id}
-                  selected={brand.name === vehicule.b_name ? "selected" : ""}
+                  selected={brand.name === vehicule[0].b_name ? "selected" : ""}
                 >
                   {brand.name}
                 </option>
@@ -72,7 +74,9 @@ function AdminVehiculesEdit() {
                   <option
                     key={model.id}
                     value={model.id}
-                    selected={model.name === vehicule.m_name ? "selected" : ""}
+                    selected={
+                      model.name === vehicule[0].m_name ? "selected" : ""
+                    }
                   >
                     {model.name}
                   </option>

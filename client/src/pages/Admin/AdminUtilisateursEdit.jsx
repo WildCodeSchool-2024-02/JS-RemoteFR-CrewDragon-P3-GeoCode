@@ -26,6 +26,18 @@ function AdminUtilisateursEdit() {
 
       <Form method="put">
         {/* eslint-disable react/jsx-props-no-spreading */}
+        <div className="profil-user-container">
+          <img src={user.avatar} alt="" className="profil-user-avatar" />
+        </div>
+        <div className="form-group">
+          <label htmlFor="avatar"> Avatar </label>{" "}
+          <input
+            type="text"
+            id="avatar"
+            name="avatar"
+            defaultValue={user.avatar}
+          />
+        </div>
         <div className="form-group-50-50">
           <div className="form-group">
             <label htmlFor="firstname">Prénom</label>{" "}

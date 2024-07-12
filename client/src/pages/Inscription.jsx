@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
+import "react-toastify/dist/ReactToastify.css";
+import { ToastContainer, toast } from "react-toastify";
 import { Link, useNavigate, useLoaderData } from "react-router-dom";
 
 function Inscription() {
@@ -76,10 +78,32 @@ function Inscription() {
       );
       // Redirection vers la page de connexion si la création réussit
       if (response.status === 201) {
-        navigate("/connexion");
+        toast.success("🚗 Inscription réussie !", {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        });
+        setTimeout(() => {
+          navigate("/connexion");
+        }, 1500); // Adjust the delay as needed
       } else {
         // Log des détails de la réponse en cas d'échec
         console.info(response);
+        toast.error("🚗 Erreur lors de l'inscription!", {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        });
       }
     } catch (err) {
       // Log des erreurs possibles
@@ -89,6 +113,18 @@ function Inscription() {
 
   return (
     <section>
+      <ToastContainer
+        position="top-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+      />
       <h1>Rejoignez la communauté ! </h1>
 
       <form onSubmit={handleSubmit(onSubmit)}>

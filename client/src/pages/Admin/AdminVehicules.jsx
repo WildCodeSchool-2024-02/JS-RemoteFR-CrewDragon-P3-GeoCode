@@ -47,7 +47,7 @@ function Content() {
               <p>{car.name}</p>
               <p>{car.id}</p>
             </div>
-            <Link to={`/administrateur/vehicules/${car.id}/edit`}>
+            <Link to={`/administrateur/vehicules/edit/${car.id}`}>
               <svg
                 viewBox="0 0 24 24"
                 height={20}

@@ -83,6 +83,18 @@ function Menu() {
         )}
         {!sub ? (
           <>
+            <Link to="/" onClick={toggleMenu}>
+              <li className="menu-li">
+                {" "}
+                <svg width="24" height="24" xmlns="http://www.w3.org/2000/svg">
+                  <path
+                    d="M14 22h-5v-2h3v-5h6v5h2v-7.178l-5.029-4.22-7.769 6.606-2.398-2.521-2.804 2.176v7.137l-2-.001v-7.999l4.989-4.02 2.359 2.481 7.618-6.478 7.034 5.912v10.105h-6v-5h-2v5zm-6-1v1h-5v-1h5zm-5-2h5v1h-5v-1zm0-2h5v1h-5v-1zm12-15l9 7.655-1.338 1.494-7.677-6.489-7.569 6.456-1.428-1.465 9.012-7.651z"
+                    fill="white"
+                  />
+                </svg>
+                Accueil
+              </li>
+            </Link>
             <Link onClick={toggleMenu} to="/connexion">
               <li className="menu-li">
                 {" "}
@@ -156,18 +168,6 @@ function Menu() {
           </>
         )}
 
-        <Link to="/" onClick={toggleMenu}>
-          <li className="menu-li">
-            {" "}
-            <svg width="24" height="24" xmlns="http://www.w3.org/2000/svg">
-              <path
-                d="M14 22h-5v-2h3v-5h6v5h2v-7.178l-5.029-4.22-7.769 6.606-2.398-2.521-2.804 2.176v7.137l-2-.001v-7.999l4.989-4.02 2.359 2.481 7.618-6.478 7.034 5.912v10.105h-6v-5h-2v5zm-6-1v1h-5v-1h5zm-5-2h5v1h-5v-1zm0-2h5v1h-5v-1zm12-15l9 7.655-1.338 1.494-7.677-6.489-7.569 6.456-1.428-1.465 9.012-7.651z"
-                fill="white"
-              />
-            </svg>
-            Accueil
-          </li>
-        </Link>
         <Link to="/carte" onClick={toggleMenu}>
           <li className="menu-li">
             <svg

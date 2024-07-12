@@ -364,8 +364,10 @@ const router = createBrowserRouter([
           );
           return response.data;
         }),
-        action: withAuth(async ({ request, params }, auth) => {
+        action: withAuth(async ({ request, params: { id } }, auth) => {
           const formData = await request.formData();
+          const authDecoded = jwtDecode(auth);
+          const roleId = authDecoded.role;
           const headers = {
             headers: {
               Authorization: `Bearer ${auth}`,
@@ -374,7 +376,10 @@ const router = createBrowserRouter([
           switch (request.method.toLowerCase()) {
             case "put": {
               await axios.put(
-                `${import.meta.env.VITE_API_URL}/api/users/${params.id}`,
+                // eslint-disable-next-line spaced-comment
+                /*Modifiction du endpoint ?*/
+
+                `${import.meta.env.VITE_API_URL}/api/users/${id}/user`,
                 {
                   firstname: formData.get("firstname"),
                   lastname: formData.get("lastname"),
@@ -384,8 +389,16 @@ const router = createBrowserRouter([
                   address: formData.get("address"),
                   zip_code: formData.get("zip_code"),
                   city: formData.get("city"),
+                  avatar: formData.get("avatar"),
+                  role_id: roleId,
+                  sub: id,
                 },
-                headers
+                {
+                  headers: {
+                    Authorization: `Bearer ${auth}`,
+                  },
+                  withCredentials: true, // Cela inclut les cookies dans la requête
+                }
               );
 
               return redirect(
@@ -394,7 +407,7 @@ const router = createBrowserRouter([
             }
             case "delete": {
               await axios.delete(
-                `${import.meta.env.VITE_API_URL}/api/users/${params.id}`,
+                `${import.meta.env.VITE_API_URL}/api/users/${id}`,
                 headers
               );
 

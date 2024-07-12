@@ -53,7 +53,7 @@
 
         p {
           font-size: 1rem;
-          color: variables.$third-color;
+          color: variables.$font-color;
           margin: 0.8rem 0;
         }
 
@@ -64,6 +64,14 @@
         &:hover {
           background-color: variables.$secondary-color;
           color: variables.$background-color;
+
+          p {
+            color: variables.$fourth-color;
+          }
+
+          svg {
+            fill: variables.$fourth-color;
+          }
         }
       }
     }
