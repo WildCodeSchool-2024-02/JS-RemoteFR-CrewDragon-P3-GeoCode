@@ -35,7 +35,7 @@ function AdminBornes() {
 
       <form onSubmit={(e) => e.preventDefault()}>
         <label htmlFor="site-search">
-          <Link to="/administrateur/bornes/import">
+          <Link to="/administrateur/bornes/csv">
             <p className="btnBornesImport"> Importer des bornes </p>
           </Link>
           Trouvez ci-dessous la liste de nos bornes.

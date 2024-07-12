@@ -58,7 +58,7 @@ function Inscription() {
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
             // Data for user table
-            avatar: "https://avatar.iran.liara.run/public/",
+            avatar: `https://avatar.iran.liara.run/public/${Math.floor(Math.random() * 30)}`,
             email: data.email,
             birthday: data.birthday,
             password: data.password,

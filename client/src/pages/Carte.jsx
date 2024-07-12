@@ -3,16 +3,28 @@ import "leaflet/dist/leaflet.css"; // Importe les styles CSS de Leaflet
 import { useLoaderData } from "react-router-dom";
 import { Icon } from "leaflet";
 import "leaflet.markercluster";
+
 import "leaflet.markercluster/dist/MarkerCluster.css";
 import "leaflet.markercluster/dist/MarkerCluster.Default.css";
 import { useEffect, useState } from "react";
+import Cookies from "js-cookie";
+import { jwtDecode } from "jwt-decode";
 import PropTypes from "prop-types";
 import NavVisiteur from "../components/NavVisiteur";
 import coffee from "../assets/images/icons/easterCofffee.png";
 import bdr from "../assets/images/icons/bdr.png";
+import borneimg from "../assets/images/bornes/borne.svg";
 
 function LocateUser() {
-  const [position, setPosition] = useState(null);
+  const authData = Cookies.get("authData");
+  let firstname = null;
+
+  if (authData) {
+    const authDataNameDecoded = jwtDecode(authData);
+    firstname = authDataNameDecoded.firstname;
+  }
+
+  const [position, setPosition] = useState([48.8566, 2.3522]);
   const map = useMap();
 
   useEffect(() => {
@@ -27,11 +39,11 @@ function LocateUser() {
 
   if (position === null) return null;
 
-  // const userIconDefault = new Icon({
-  //   iconUrl:
-  //     "https://img.icons8.com/?size=100&id=66411&format=png&color=000000",
-  //   iconSize: [25, 25],
-  // });
+  const userIconDefault = new Icon({
+    iconUrl:
+      "https://img.icons8.com/?size=100&id=103779&format=png&color=000000",
+    iconSize: [75, 75],
+  });
 
   const userIconCoffe = new Icon({
     iconUrl: coffee,
@@ -39,8 +51,11 @@ function LocateUser() {
   });
 
   return position ? (
-    <Marker position={position} icon={userIconCoffe}>
-      <Popup>Vous êtes ici</Popup>
+    <Marker
+      position={position}
+      icon={firstname === "Anthony" ? userIconCoffe : userIconDefault}
+    >
+      <Popup>Vous êtes ici, {firstname}</Popup>
     </Marker>
   ) : null;
 }
@@ -60,26 +75,20 @@ function ClusterMarkers({ terminals }) {
         .map((coord) => parseFloat(coord.trim()));
 
       const icon = new Icon({
-        iconUrl:
-          // "https://img.icons8.com/?size=100&id=15366&format=png&color=000000",
-          bdr,
+        iconUrl: bdr,
         iconSize: [50, 50],
       });
 
       // eslint-disable-next-line no-undef
       const marker = L.marker([longi, lati], { icon }).bindPopup(`
-        <div class="popupTerminal">
-          <h1>Borne :</h1>
-          <p>${borne.name}</p>
+        <div>
+         <img src=${borneimg} alt="" />
+          <h1>Borne : ${borne.name}</h1>
           <p>${borne.address}</p>
-          ${borne.isBooked === 1 ? "<p>Borne déjà réservé</p>" : "<p>Borne Disponible</p>"}
-          <h3>Prise :</h3>
-          <p>${borne.plug_type}</p>
-          <h3>chain_name :</h3>
-          <p>${borne.chain_name}</p>
-          <h3>accessibility :</h3>
-          <p>${borne.accessibility}</p>
-          <a href="bornes/${borne.id}">Réserver</a>
+          <p><strong> Prise :</strong> ${borne.plug_type}</p>
+          <p><strong>Enseigne :</strong> ${borne.chain_name}</p>
+          <p><strong>Ouverture :</strong> ${borne.accessibility}</p>
+          <button type="button"> <a href="carte/bornes/${borne.id}" style="color: white; text-decoration: none;" >Réserver</a></button>
         </div>
       `);
 

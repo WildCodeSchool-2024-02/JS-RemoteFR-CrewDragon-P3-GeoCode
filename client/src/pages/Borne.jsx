@@ -1,13 +1,21 @@
 import { useLoaderData, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { useState } from "react";
+import Cookies from "js-cookie";
+import { jwtDecode } from "jwt-decode";
 import timeData from "../services/timeData";
 import borne from "../assets/images/bornes/borne.svg";
-import { useAuth } from "../contexts/AuthContext";
 
 function Borne() {
   const terminal = useLoaderData();
-  const { auth } = useAuth();
+
+  const authData = Cookies.get("authData");
+  let sub = null;
+
+  if (authData) {
+    const authDecoded = jwtDecode(authData);
+    sub = authDecoded.sub;
+  }
 
   const navigate = useNavigate();
   const {
@@ -37,14 +45,14 @@ function Borne() {
           method: "post",
           headers: {
             "Content-Type": "application/json",
-            Authorization: `Bearer ${auth.token}`,
+            Authorization: `Bearer ${authData}`,
           },
           body: JSON.stringify({
             // Data for user table
             date: data.date,
             slot: slotData,
             terminal_id: terminal.id,
-            user_id: auth.sub,
+            user_id: sub,
           }),
         }
       );

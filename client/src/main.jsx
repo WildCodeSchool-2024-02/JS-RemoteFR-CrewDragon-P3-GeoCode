@@ -2,6 +2,8 @@ import axios from "axios";
 import { lazy, Suspense } from "react";
 import ReactDOM from "react-dom/client";
 import Cookies from "js-cookie";
+import { jwtDecode } from "jwt-decode";
+
 import {
   createBrowserRouter,
   redirect,
@@ -153,6 +155,9 @@ const router = createBrowserRouter([
         }),
         action: withAuth(async ({ request, params }, auth) => {
           const formData = await request.formData();
+          const authDecoded = jwtDecode(auth);
+          const roleId = authDecoded.role;
+          const id = authDecoded.sub;
           const headers = {
             headers: {
               Authorization: `Bearer ${auth}`,
@@ -172,9 +177,15 @@ const router = createBrowserRouter([
                   zip_code: formData.get("zipcode"),
                   city: formData.get("city"),
                   avatar: formData.get("avatar"),
+                  role_id: roleId,
+                  sub: id,
                 },
-                headers
-
+                {
+                  headers: {
+                    Authorization: `Bearer ${auth}`,
+                  },
+                  withCredentials: true, // Cela inclut les cookies dans la requête
+                }
               );
 
               return redirect(
@@ -241,6 +252,7 @@ const router = createBrowserRouter([
               Authorization: `Bearer ${auth}`,
             },
           };
+
           switch (request.method.toLowerCase()) {
             case "put": {
               await axios.put(
@@ -248,6 +260,7 @@ const router = createBrowserRouter([
                 {
                   name: formData.get("name"),
                   model_id: formData.get("model"),
+                  image: `https://avatar.iran.liara.run/username?username=${formData.get("name").split(" ").join("+")}`,
                 },
                 headers
               );

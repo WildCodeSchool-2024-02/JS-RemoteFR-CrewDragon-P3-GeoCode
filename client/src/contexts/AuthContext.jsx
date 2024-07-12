@@ -11,8 +11,9 @@ export function AuthProvider({ children }) {
     const authData = Cookies.get("authData");
     if (!authData) {
       setAuth(null);
+    } else {
+      setAuth(authData);
     }
-    setAuth(authData);
   }, []);
 
   const contextValue = useMemo(

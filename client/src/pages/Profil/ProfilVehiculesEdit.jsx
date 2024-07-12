@@ -33,16 +33,28 @@ function ProfilVehiculesEdit() {
           alt="retour"
         />
       </Link>
-      <h1> Modifier {vehicule.name} </h1>
+      <h1> Modifier {vehicule[0].name} </h1>
 
       <Form method="put">
         {/* eslint-disable react/jsx-props-no-spreading */}
+        <div className="profil-user-container">
+          <img src={vehicule[0].image} alt="" className="profil-user-avatar" />
+        </div>
+        <div className="form-group">
+          <label htmlFor="image"> Image </label>{" "}
+          <input
+            type="text"
+            id="image"
+            name="image"
+            defaultValue={vehicule[0].image}
+          />
+        </div>
         <div className="form-group">
           <label htmlFor="name">Nom de la voiture</label>
           <input
             id="name"
             name="name"
-            defaultValue={vehicule.name}
+            defaultValue={vehicule[0].name}
             // Validation au moment de la perte du focus
             onBlur={() => trigger("name")}
           />
@@ -61,7 +73,7 @@ function ProfilVehiculesEdit() {
                 <option
                   key={brand.id}
                   value={brand.id}
-                  selected={brand.name === vehicule.b_name ? "selected" : ""}
+                  selected={brand.name === vehicule[0].b_name ? "selected" : ""}
                 >
                   {brand.name}
                 </option>
@@ -82,7 +94,9 @@ function ProfilVehiculesEdit() {
                   <option
                     key={model.id}
                     value={model.id}
-                    selected={model.name === vehicule.m_name ? "selected" : ""}
+                    selected={
+                      model.name === vehicule[0].m_name ? "selected" : ""
+                    }
                   >
                     {model.name}
                   </option>
@@ -92,7 +106,11 @@ function ProfilVehiculesEdit() {
           )}
         </div>
 
-        <button type="submit">Send</button>
+        <button type="submit">Envoyer</button>
+      </Form>
+
+      <Form method="delete">
+        <button type="submit">Supprimer</button>
       </Form>
 
       <Form method="delete">
