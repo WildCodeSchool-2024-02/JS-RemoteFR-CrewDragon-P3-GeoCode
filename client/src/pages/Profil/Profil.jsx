@@ -11,7 +11,6 @@ function Profil() {
 
   if (authData) {
     const authDecoded = jwtDecode(authData);
-    console.info(authDecoded);
     firstname = authDecoded.firstname;
     lastname = authDecoded.lastname;
     sub = authDecoded.sub;
