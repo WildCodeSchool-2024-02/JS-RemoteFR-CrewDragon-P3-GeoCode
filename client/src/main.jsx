@@ -260,7 +260,7 @@ const router = createBrowserRouter([
                 {
                   name: formData.get("name"),
                   model_id: formData.get("model"),
-                  image: formData.get("image"),
+                  image: `https://avatar.iran.liara.run/username?username=${formData.get("name").split(" ").join("+")}`,
                 },
                 headers
               );
