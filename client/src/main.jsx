@@ -447,15 +447,18 @@ const router = createBrowserRouter([
           </ProtectedRoute>
         ),
         loader: withAuth(async ({ params }, auth) => {
-          const response = await axios.get(
-            `${import.meta.env.VITE_API_URL}/api/cars/${params.id}`,
-            {
+          const [carResponse, brandsResponse] = await Promise.all([
+            axios.get(`${import.meta.env.VITE_API_URL}/api/cars/${params.id}`, {
               headers: {
                 Authorization: `Bearer ${auth}`,
               },
-            }
-          );
-          return response.data;
+            }),
+            axios.get(`${import.meta.env.VITE_API_URL}/api/brands/`),
+          ]);
+          return {
+            vehicule: carResponse.data,
+            brandData: brandsResponse.data,
+          };
         }),
         action: withAuth(async ({ request, params }, auth) => {
           const formData = await request.formData();
@@ -471,6 +474,7 @@ const router = createBrowserRouter([
                 {
                   name: formData.get("name"),
                   model_id: formData.get("model"),
+                  image: formData.get("image"),
                 },
                 headers
               );

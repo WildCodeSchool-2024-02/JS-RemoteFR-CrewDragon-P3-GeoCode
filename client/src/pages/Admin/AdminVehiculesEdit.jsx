@@ -6,7 +6,7 @@ function AdminVehiculesEdit() {
   const { vehicule, brandData } = useLoaderData();
   const { trigger, watch, register } = useForm();
 
-  console.info(vehicule);
+  console.info(vehicule, brandData);
 
   const watchBrand = watch("brand");
   const [selectedBrand, setSelectedBrand] = useState(null);
@@ -29,6 +29,18 @@ function AdminVehiculesEdit() {
 
       <Form method="put">
         {/* eslint-disable react/jsx-props-no-spreading */}
+        <div className="profil-user-container">
+          <img src={vehicule[0].image} alt="" className="profil-user-avatar" />
+        </div>
+        <div className="form-group">
+          <label htmlFor="image"> Image </label>{" "}
+          <input
+            type="text"
+            id="image"
+            name="image"
+            defaultValue={vehicule[0].image}
+          />
+        </div>
         <div className="form-group">
           <label htmlFor="name">Nom de la voiture</label>
           <input
