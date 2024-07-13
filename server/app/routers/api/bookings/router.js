@@ -11,6 +11,7 @@ const {
   browse,
   readByUser,
   add,
+  destroy,
 } = require("../../../controllers/bookingActions");
 
 // Route to get a list of items
@@ -21,6 +22,9 @@ router.get("/:id", readByUser);
 
 // Route to add a new item
 router.post("/", add);
+
+// Route to delete a specific item by ID
+router.delete("/:id", destroy);
 
 /* ************************************************************************* */
 

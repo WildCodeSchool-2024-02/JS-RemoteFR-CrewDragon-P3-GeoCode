@@ -56,9 +56,8 @@ function Borne() {
           }),
         }
       );
-      // Redirection vers la page de connexion si la création réussit
       if (response.status === 201) {
-        navigate("/connexion");
+        navigate(`/profil/gestion/${sub}/reservations/`);
       } else {
         // Log des détails de la réponse en cas d'échec
         console.info(response);

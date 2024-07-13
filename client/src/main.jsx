@@ -302,6 +302,26 @@ const router = createBrowserRouter([
           );
           return response.data;
         }),
+        action: withAuth(async ({ request, params }, auth) => {
+          const headers = {
+            headers: {
+              Authorization: `Bearer ${auth}`,
+            },
+          };
+
+          switch (request.method.toLowerCase()) {
+            case "delete": {
+              await axios.delete(
+                `${import.meta.env.VITE_API_URL}/api/bookings/${params.id}/`,
+                headers
+              );
+
+              return redirect(`/`);
+            }
+            default:
+              throw new Response("", { status: 405 });
+          }
+        }),
       },
       {
         path: "/informations",

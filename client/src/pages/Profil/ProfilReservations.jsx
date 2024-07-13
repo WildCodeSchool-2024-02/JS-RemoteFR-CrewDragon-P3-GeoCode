@@ -1,10 +1,12 @@
-import { useLoaderData, Link } from "react-router-dom";
+import { Form, useLoaderData, Link } from "react-router-dom";
 import Cookies from "js-cookie";
 import { jwtDecode } from "jwt-decode";
 
 // Déclaration d'un composant Content CAR, on a besoin de items pour le state init du filteredItems (qui est dans le context). On peut ainsi l'appeler avec useSearch sans undefined.
 function ProfilReservation() {
   const items = useLoaderData(); // Récupération des items via le loader dans main.jsx
+
+  console.info(items);
 
   const authData = Cookies.get("authData");
   let sub = null;
@@ -27,26 +29,18 @@ function ProfilReservation() {
 
       <ul className="admin-users-list">
         {items.map((reservation) => (
-          <Link
-            to={`/profil/gestion/${reservation.id}/edit`}
-            key={reservation.id}
-          >
-            <li className="admin-users-item">
-              <div className="admin-users-infos">
-                <p>{reservation.date}</p>
-                <p>{reservation.slot}</p>
-                <p>{reservation.terminal_id}</p>
-              </div>
-              <svg
-                viewBox="0 0 24 24"
-                height={20}
-                width={20}
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path d="m4.481 15.659c-1.334 3.916-1.48 4.232-1.48 4.587 0 .528.46.749.749.749.352 0 .668-.137 4.574-1.492zm1.06-1.061 3.846 3.846 11.321-11.311c.195-.195.293-.45.293-.707 0-.255-.098-.51-.293-.706-.692-.691-1.742-1.74-2.435-2.432-.195-.195-.451-.293-.707-.293-.254 0-.51.098-.706.293z" />
-              </svg>
-            </li>
-          </Link>
+          <li className="admin-users-item" key={reservation.id}>
+            <div className="admin-users-infos">
+              <p>{reservation.date}</p>
+              <p>{reservation.slot}</p>
+              <p>{reservation.terminal_id}</p>
+            </div>
+            <Form method="delete">
+              <button type="submit" className="btn-secondary">
+                Annuler ma réservation
+              </button>
+            </Form>
+          </li>
         ))}
       </ul>
     </section>
