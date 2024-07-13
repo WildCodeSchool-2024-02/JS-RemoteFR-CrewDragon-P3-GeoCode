@@ -549,9 +549,13 @@ const router = createBrowserRouter([
               await axios.put(
                 `${import.meta.env.VITE_API_URL}/api/terminals/${params.id}`,
                 {
-                  city: formData.get("city"),
+                  name: formData.get("name"),
                   address: formData.get("address"),
-                  zip_code: formData.get("zip_code"),
+                  cood: formData.get("cood"),
+                  power: formData.get("power"),
+                  plug_type: formData.get("plug_type"),
+                  chain_name: formData.get("chain_name"),
+                  accessibility: formData.get("accessibility"),
                 },
                 headers
               );
