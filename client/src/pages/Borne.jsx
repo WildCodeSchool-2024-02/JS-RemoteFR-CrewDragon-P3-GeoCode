@@ -36,6 +36,11 @@ function Borne() {
     setIsOpen(!isOpen);
   };
 
+  let formattedDate = "";
+  if (selectedDate) {
+    formattedDate = selectedDate.split("-").reverse().join("-");
+  }
+
   const onSubmit = async (data) => {
     try {
       // Appel à l'API pour créer un nouvel utilisateur
@@ -137,10 +142,14 @@ function Borne() {
               ))}
           </details>
         )}
+        <h2>Récapitulatif de la réservation</h2>
+        <p>
+          Vous vous apprêtez à faire une réservation pour le{" "}
+          <strong>{formattedDate}</strong> sur le créneau suivant :{" "}
+          <strong> {slotData} </strong>{" "}
+        </p>
         <button type="submit">Réserver</button>
       </form>
-
-      <h2>Récapitulatif de commande</h2>
     </>
   );
 }

@@ -1,0 +1,24 @@
+.admin-users-item {
+  align-items: center;
+  .terminal {
+    display: none;
+  }
+  .admin-bornes-infos {
+    display: flex;
+    flex-direction: column;
+    p {
+      margin: 0;
+    }
+  }
+}
+
+// media queries desktop
+@media screen and (min-width: 768px) {
+  .admin-users-item {
+    .terminal {
+      display: block;
+      height: 100%;
+      width: auto;
+    }
+  }
+}
