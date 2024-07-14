@@ -51,6 +51,7 @@ function Inscription() {
   }, [watchBrand]);
 
   const onSubmit = async (data) => {
+    console.info(data);
     try {
       // Appel à l'API pour créer un nouvel utilisateur
       const response = await fetch(
@@ -174,7 +175,15 @@ function Inscription() {
           </div>
           <div className="form-group">
             <label htmlFor="birthday">Date de naissance</label>{" "}
-            <input type="date" id="birthday" name="birthday" />
+            <input
+              type="date"
+              id="birthday"
+              {...register("birthday", {
+                required: "Vous avez oublié votre date de naissance ? 🤭",
+              })}
+              onBlur={() => trigger("birthday")}
+            />
+            {errors.birthday && <p role="alert">{errors.birthday.message}</p>}
           </div>
 
           <div className="form-group">
