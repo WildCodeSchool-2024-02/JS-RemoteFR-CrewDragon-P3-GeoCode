@@ -6,8 +6,6 @@ function AdminVehiculesEdit() {
   const { vehicule, brandData } = useLoaderData();
   const { trigger, watch, register } = useForm();
 
-  console.info(vehicule, brandData);
-
   const watchBrand = watch("brand");
   const [selectedBrand, setSelectedBrand] = useState(null);
 
@@ -25,12 +23,12 @@ function AdminVehiculesEdit() {
           alt="retour"
         />
       </Link>
-      <h1> Modifier {vehicule[0].name} </h1>
+      <h1> Modifier {vehicule.name} </h1>
 
       <Form method="put">
         {/* eslint-disable react/jsx-props-no-spreading */}
         <div className="profil-user-container">
-          <img src={vehicule[0].image} alt="" className="profil-user-avatar" />
+          <img src={vehicule.image} alt="" className="profil-user-avatar" />
         </div>
         <div className="form-group">
           <label htmlFor="image"> Image </label>{" "}
@@ -38,7 +36,7 @@ function AdminVehiculesEdit() {
             type="text"
             id="image"
             name="image"
-            defaultValue={vehicule[0].image}
+            defaultValue={vehicule.image}
           />
         </div>
         <div className="form-group">
@@ -46,7 +44,7 @@ function AdminVehiculesEdit() {
           <input
             id="name"
             name="name"
-            defaultValue={vehicule[0].name}
+            defaultValue={vehicule.name}
             // Validation au moment de la perte du focus
             onBlur={() => trigger("name")}
           />
@@ -65,7 +63,7 @@ function AdminVehiculesEdit() {
                 <option
                   key={brand.id}
                   value={brand.id}
-                  selected={brand.name === vehicule[0].b_name ? "selected" : ""}
+                  selected={brand.name === vehicule.b_name ? "selected" : ""}
                 >
                   {brand.name}
                 </option>
@@ -86,9 +84,7 @@ function AdminVehiculesEdit() {
                   <option
                     key={model.id}
                     value={model.id}
-                    selected={
-                      model.name === vehicule[0].m_name ? "selected" : ""
-                    }
+                    selected={model.name === vehicule.m_name ? "selected" : ""}
                   >
                     {model.name}
                   </option>

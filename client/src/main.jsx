@@ -213,19 +213,54 @@ const router = createBrowserRouter([
           </UserProtectedRoute>
         ),
         loader: withAuth(async ({ params }, auth) => {
-          const response = await axios.get(
-            `${import.meta.env.VITE_API_URL}/api/cars/${params.id}/`,
-            {
-              headers: {
-                Authorization: `Bearer ${auth}`,
-              },
+          const [carResponse, brandsResponse] = await Promise.all([
+            axios.get(
+              `${import.meta.env.VITE_API_URL}/api/cars/user/${params.id}`,
+              {
+                headers: {
+                  Authorization: `Bearer ${auth}`,
+                },
+              }
+            ),
+            axios.get(`${import.meta.env.VITE_API_URL}/api/brands/`),
+          ]);
+          return {
+            vehicules: carResponse.data,
+            brandData: brandsResponse.data,
+          };
+        }),
+        action: withAuth(async ({ request, params }, auth) => {
+          const formData = await request.formData();
+          const headers = {
+            headers: {
+              Authorization: `Bearer ${auth}`,
+            },
+          };
+
+          switch (request.method.toLowerCase()) {
+            case "post": {
+              await axios.post(
+                `${import.meta.env.VITE_API_URL}/api/cars/`,
+                {
+                  name: formData.get("name"),
+                  model_id: formData.get("model"),
+                  image: `https://avatar.iran.liara.run/username?username=${formData.get("name").split(" ").join("+")}`,
+                  user_id: params.id,
+                },
+                headers
+              );
+
+              return redirect(
+                `${import.meta.env.VITE_CLIENT_URL}/profil/gestion/${params.id}/vehicules/`
+              );
             }
-          );
-          return response.data;
+            default:
+              throw new Response("", { status: 405 });
+          }
         }),
       },
       {
-        path: "/profil/gestion/:id/vehicules/edit",
+        path: "/profil/gestion/:id/vehicules/:car/edit",
         element: (
           <UserProtectedRoute>
             <ProfilVehiculesEdit />
@@ -233,11 +268,14 @@ const router = createBrowserRouter([
         ),
         loader: withAuth(async ({ params }, auth) => {
           const [carResponse, brandsResponse] = await Promise.all([
-            axios.get(`${import.meta.env.VITE_API_URL}/api/cars/${params.id}`, {
-              headers: {
-                Authorization: `Bearer ${auth}`,
-              },
-            }),
+            axios.get(
+              `${import.meta.env.VITE_API_URL}/api/cars/${params.car}`,
+              {
+                headers: {
+                  Authorization: `Bearer ${auth}`,
+                },
+              }
+            ),
             axios.get(`${import.meta.env.VITE_API_URL}/api/brands/`),
           ]);
           return {
@@ -256,7 +294,7 @@ const router = createBrowserRouter([
           switch (request.method.toLowerCase()) {
             case "put": {
               await axios.put(
-                `${import.meta.env.VITE_API_URL}/api/cars/${params.id}`,
+                `${import.meta.env.VITE_API_URL}/api/cars/${params.car}`,
                 {
                   name: formData.get("name"),
                   model_id: formData.get("model"),
@@ -271,7 +309,7 @@ const router = createBrowserRouter([
             }
             case "delete": {
               await axios.delete(
-                `${import.meta.env.VITE_API_URL}/api/cars/${params.id}`,
+                `${import.meta.env.VITE_API_URL}/api/cars/${params.car}`,
                 headers
               );
 
@@ -448,11 +486,14 @@ const router = createBrowserRouter([
         ),
         loader: withAuth(async ({ params }, auth) => {
           const [carResponse, brandsResponse] = await Promise.all([
-            axios.get(`${import.meta.env.VITE_API_URL}/api/cars/${params.id}`, {
-              headers: {
-                Authorization: `Bearer ${auth}`,
-              },
-            }),
+            axios.get(
+              `${import.meta.env.VITE_API_URL}/api/cars/${params.id}/`,
+              {
+                headers: {
+                  Authorization: `Bearer ${auth}`,
+                },
+              }
+            ),
             axios.get(`${import.meta.env.VITE_API_URL}/api/brands/`),
           ]);
           return {
