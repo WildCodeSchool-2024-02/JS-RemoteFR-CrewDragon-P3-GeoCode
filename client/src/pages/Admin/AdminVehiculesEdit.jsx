@@ -1,10 +1,34 @@
 import { Form, Link, useLoaderData } from "react-router-dom";
+import axios from "axios";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
+import { useAuth } from "../../contexts/AuthContext";
 
 function AdminVehiculesEdit() {
+  const [cars, setCars] = useState([]);
   const { vehicule, brandData } = useLoaderData();
+  const { auth } = useAuth();
   const { trigger, watch, register } = useForm();
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get(
+          `${import.meta.env.VITE_API_URL}/api/users/${vehicule.user_id}/`,
+          {
+            headers: {
+              Authorization: `Bearer ${auth}`,
+            },
+          }
+        );
+        setCars(response.data.cars);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
+
+    fetchData();
+  }, []);
 
   const watchBrand = watch("brand");
   const [selectedBrand, setSelectedBrand] = useState(null);
@@ -93,13 +117,15 @@ function AdminVehiculesEdit() {
             </div>
           )}
         </div>
-
         <button type="submit">Modifier</button>
       </Form>
-
-      <Form method="delete">
-        <button type="submit">Supprimer</button>
-      </Form>
+      {cars.length > 1 ? (
+        <Form method="delete">
+          <button type="submit">Supprimer</button>
+        </Form>
+      ) : (
+        ""
+      )}
     </>
   );
 }

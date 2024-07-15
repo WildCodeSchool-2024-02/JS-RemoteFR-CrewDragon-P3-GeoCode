@@ -101,6 +101,7 @@ function ProfilUtilisateurEdit() {
         </div>
         <button type="submit">Modifier mes informations</button>
       </Form>
+
       <Form method="delete">
         <button type="submit" className="btn-secondary">
           Supprimer mon profil
