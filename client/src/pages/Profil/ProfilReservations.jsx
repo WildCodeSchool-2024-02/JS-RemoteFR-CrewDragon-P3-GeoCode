@@ -53,7 +53,6 @@ function ProfilReservation() {
             <img
               src="https://img.icons8.com/?size=100&id=112235&format=png&color=000000"
               alt="terminal icon"
-              className=""
             />
             <div className="admin-bornes-infos">
               <p>

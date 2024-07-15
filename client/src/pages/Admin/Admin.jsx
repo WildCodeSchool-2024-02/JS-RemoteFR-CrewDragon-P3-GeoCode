@@ -77,7 +77,7 @@ function Admin() {
               <p>Retrouvez ici toutes les informations concernant vos bornes</p>
             </li>
           </Link>
-          <Link to="/administrateur/">
+          <Link to="/administrateur/reservations">
             <li className="admin-List-Items">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
