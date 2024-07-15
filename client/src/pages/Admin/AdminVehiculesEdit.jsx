@@ -6,7 +6,6 @@ import { useAuth } from "../../contexts/AuthContext";
 
 function AdminVehiculesEdit() {
   const [cars, setCars] = useState([]);
-  console.info(cars);
   const { vehicule, brandData } = useLoaderData();
   const { auth } = useAuth();
   const { trigger, watch, register } = useForm();

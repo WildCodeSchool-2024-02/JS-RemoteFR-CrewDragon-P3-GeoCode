@@ -1,10 +1,12 @@
 import { Form, Link, useLoaderData } from "react-router-dom";
+import axios from "axios";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import Cookies from "js-cookie";
 import { jwtDecode } from "jwt-decode";
 
 function ProfilVehiculesEdit() {
+  const [cars, setCars] = useState([]);
   const { vehicule, brandData } = useLoaderData();
   const { trigger, watch, register } = useForm();
 
@@ -15,6 +17,26 @@ function ProfilVehiculesEdit() {
     const authDecoded = jwtDecode(authData);
     sub = authDecoded.sub;
   }
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get(
+          `${import.meta.env.VITE_API_URL}/api/users/${sub}/`,
+          {
+            headers: {
+              Authorization: `Bearer ${authData}`,
+            },
+          }
+        );
+        setCars(response.data.cars);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
+
+    fetchData();
+  }, []);
 
   const watchBrand = watch("brand");
   const [selectedBrand, setSelectedBrand] = useState(null);
@@ -107,9 +129,13 @@ function ProfilVehiculesEdit() {
         <button type="submit">Modifier</button>
       </Form>
 
-      <Form method="delete">
-        <button type="submit">Supprimer</button>
-      </Form>
+      {cars.length > 1 ? (
+        <Form method="delete">
+          <button type="submit">Supprimer</button>
+        </Form>
+      ) : (
+        ""
+      )}
     </section>
   );
 }
