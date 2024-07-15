@@ -4,24 +4,25 @@ import { jwtDecode } from "jwt-decode";
 
 function ProfilUtilisateurEdit() {
   const user = useLoaderData();
- const authData = Cookies.get("authData");
- let sub = null;
+  console.info(user);
+  const authData = Cookies.get("authData");
+  let sub = null;
 
- if (authData) {
-   const authDecoded = jwtDecode(authData);
-   sub = authDecoded.sub;
- }
+  if (authData) {
+    const authDecoded = jwtDecode(authData);
+    sub = authDecoded.sub;
+  }
 
- return (
-   <section>
-     <Link to={`/profil/gestion/${sub}/`}>
-       <img
-         className="returnPreviousPage"
-         src="https://img.icons8.com/?size=100&id=11538&format=png&color=000000"
-         alt="retour"
-       />
-     </Link>
-     <h1> Modifier mon profil </h1>
+  return (
+    <section>
+      <Link to={`/profil/gestion/${sub}/`}>
+        <img
+          className="returnPreviousPage"
+          src="https://img.icons8.com/?size=100&id=11538&format=png&color=000000"
+          alt="retour"
+        />
+      </Link>
+      <h1> Modifier mon profil </h1>
 
       <Form method="put">
         <div className="profil-user-container">
@@ -75,15 +76,6 @@ function ProfilUtilisateurEdit() {
           />
         </div>
         <div className="form-group">
-          <label htmlFor="birthday">Date de naissance</label>{" "}
-          <input
-            type="date"
-            id="birthday"
-            name="birthday"
-            defaultValue={user.birthday}
-          />
-        </div>
-        <div className="form-group">
           <label htmlFor="address">Addresse</label>{" "}
           <input
             type="text"
@@ -107,15 +99,15 @@ function ProfilUtilisateurEdit() {
             <input type="text" id="city" name="city" defaultValue={user.city} />
           </div>
         </div>
-       <button type="submit">Modifier mes informations</button>
-     </Form>
-     <Form method="delete">
-       <button type="submit" className="btn-secondary">
-         Supprimer mon profil
-       </button>
-     </Form>
-   </section>
- );
+        <button type="submit">Modifier mes informations</button>
+      </Form>
+      <Form method="delete">
+        <button type="submit" className="btn-secondary">
+          Supprimer mon profil
+        </button>
+      </Form>
+    </section>
+  );
 }
 
 export default ProfilUtilisateurEdit;

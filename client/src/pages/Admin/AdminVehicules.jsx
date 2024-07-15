@@ -4,6 +4,7 @@ import HeaderSearchbar from "../../components/HeaderSearchbar";
 
 function AdminVehicule() {
   const items = useLoaderData(); // Récupération des items via le loader dans main.jsx
+  console.info(items, items[0].id);
 
   return (
     // Import du provider ICI car on fait remonter les items dans le Contexte
@@ -47,7 +48,7 @@ function Content() {
               <p>{car.name}</p>
               <p>{car.id}</p>
             </div>
-            <Link to={`/administrateur/vehicules/${car.id}/edit`}>
+            <Link to={`/administrateur/vehicules/edit/${car.id}`}>
               <svg
                 viewBox="0 0 24 24"
                 height={20}

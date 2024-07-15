@@ -88,7 +88,7 @@ function ClusterMarkers({ terminals }) {
           <p><strong> Prise :</strong> ${borne.plug_type}</p>
           <p><strong>Enseigne :</strong> ${borne.chain_name}</p>
           <p><strong>Ouverture :</strong> ${borne.accessibility}</p>
-          <button type="button"> <a href="carte/bornes/${borne.id}" style="color: white; text-decoration: none;" >Réserver</a></button>
+          <a href="carte/bornes/${borne.id}"style="color: white; text-decoration: none; background-color: #21a89a; padding: 0.5rem 1rem; border-radius: 2rem; margin: 1rem 0;" >Réserver</a>
         </div>
       `);
 

@@ -5,6 +5,8 @@ import HeaderSearchbar from "../../components/HeaderSearchbar";
 function AdminUtilisateur() {
   const items = useLoaderData(); // Récupération des items via le loader dans main.jsx
 
+  console.info(items);
+
   return (
     // Import du provider ICI car on fait remonter les items dans le Contexte
     <SearchProvider items={items}>
@@ -41,7 +43,7 @@ function Content() {
       <ul className="admin-users-list">
         {filteredItems.map((user) => (
           <Link
-            to={`/administrateur/utilisateurs/${user.id}/edit`}
+            to={`/administrateur/utilisateurs/edit/${user.id}`}
             key={user.id}
           >
             <li className="admin-users-item">

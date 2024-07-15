@@ -6,6 +6,7 @@ import { jwtDecode } from "jwt-decode";
 
 function ProfilVehiculesEdit() {
   const { vehicule, brandData } = useLoaderData();
+  console.info(vehicule);
   const { trigger, watch, register } = useForm();
 
   const authData = Cookies.get("authData");
@@ -107,10 +108,6 @@ function ProfilVehiculesEdit() {
         </div>
 
         <button type="submit">Envoyer</button>
-      </Form>
-
-      <Form method="delete">
-        <button type="submit">Supprimer</button>
       </Form>
 
       <Form method="delete">

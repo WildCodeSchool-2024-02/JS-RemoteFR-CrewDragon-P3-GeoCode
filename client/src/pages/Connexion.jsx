@@ -1,11 +1,12 @@
 import Cookies from "js-cookie";
+import "react-toastify/dist/ReactToastify.css";
+import { ToastContainer, toast } from "react-toastify";
 import { useRef } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { useAuth } from "../contexts/AuthContext";
 
 function Connexion() {
   const { setAuth } = useAuth();
-  // Références pour les champs email et mot de passe
 
   const emailRef = useRef();
   const passwordRef = useRef();
@@ -37,10 +38,32 @@ function Connexion() {
         const authData = await Cookies.get("authData");
         setAuth(authData);
 
-        navigate("/carte");
+        toast.success("🚗 Connection réussie !", {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        });
+        setTimeout(() => {
+          navigate("/carte");
+        }, 1500); // Adjust the delay as needed
       } else {
         // Log des détails de la réponse en cas d'échec
         console.info(response);
+        toast.error("🚗 Erreur lors de la connexion !", {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        });
       }
     } catch (err) {
       // Log des erreurs possibles
@@ -50,6 +73,18 @@ function Connexion() {
 
   return (
     <section>
+      <ToastContainer
+        position="top-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+      />
       <h1>Ravi de vous revoir !</h1>
       <form onSubmit={handleSubmit}>
         <div className="form-group">

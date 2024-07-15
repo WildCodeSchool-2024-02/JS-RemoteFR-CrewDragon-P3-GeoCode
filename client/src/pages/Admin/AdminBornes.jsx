@@ -58,7 +58,10 @@ function AdminBornes() {
 
       <ul className="admin-terminals-list">
         {filteredterminals.map((terminal) => (
-          <Link to={`/administrateur/bornes/${terminal.id}`} key={terminal.id}>
+          <Link
+            to={`/administrateur/bornes/edit/${terminal.id}`}
+            key={terminal.id}
+          >
             <li className="admin-terminals-item">
               <img
                 src="https://img.icons8.com/?size=100&id=112235&format=png&color=000000"
