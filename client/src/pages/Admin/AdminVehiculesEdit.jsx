@@ -98,7 +98,7 @@ function AdminVehiculesEdit() {
           )}
         </div>
 
-        <button type="submit">Send</button>
+        <button type="submit">Modifier</button>
       </Form>
 
       <Form method="delete">

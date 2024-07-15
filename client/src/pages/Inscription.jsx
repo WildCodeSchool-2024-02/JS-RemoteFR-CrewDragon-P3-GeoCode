@@ -209,6 +209,44 @@ function Inscription() {
                   "Êtes-vous sûr d'avoir écrit correctement votre email ? 🤔"}
               </p>
             )}
+            <div className="form-group">
+              <label htmlFor="password">Mot de passe</label>{" "}
+              <input
+                type="password"
+                id="password"
+                {...register("password", {
+                  required: true,
+                  validate: validatePassword,
+                })}
+                onBlur={() => trigger("password")}
+              />
+              {errors.password && (
+                <p role="alert">
+                  {errors.password.type === "required" &&
+                    "Un mot de passe est obligatoire pour protéger l'accès à votre compte"}
+                  {errors.password.type === "validate" &&
+                    errors.password.message}
+                </p>
+              )}
+            </div>
+            <div className="form-group">
+              <label htmlFor="confirmPassword">Confirmer le mot de passe</label>
+              <input
+                type="password"
+                id="confirmPassword"
+                {...register("confirmPassword", {
+                  required: "La confirmation du mot de passe est obligatoire",
+                  validate: (value) =>
+                    value === password ||
+                    "Les mots de passe ne correspondent pas",
+                })}
+                onBlur={() => trigger("confirmPassword")}
+              />
+
+              {errors.confirmPassword && (
+                <p role="alert">{errors.confirmPassword.message}</p>
+              )}
+            </div>
           </div>
         </details>
         <details>
@@ -273,43 +311,6 @@ function Inscription() {
                 </p>
               )}
             </div>
-          </div>
-          <div className="form-group">
-            <label htmlFor="password">Mot de passe</label>{" "}
-            <input
-              type="password"
-              id="password"
-              {...register("password", {
-                required: true,
-                validate: validatePassword,
-              })}
-              onBlur={() => trigger("password")}
-            />
-            {errors.password && (
-              <p role="alert">
-                {errors.password.type === "required" &&
-                  "Un mot de passe est obligatoire pour protéger l'accès à votre compte"}
-                {errors.password.type === "validate" && errors.password.message}
-              </p>
-            )}
-          </div>
-          <div className="form-group">
-            <label htmlFor="confirmPassword">Confirmer le mot de passe</label>
-            <input
-              type="password"
-              id="confirmPassword"
-              {...register("confirmPassword", {
-                required: "La confirmation du mot de passe est obligatoire",
-                validate: (value) =>
-                  value === password ||
-                  "Les mots de passe ne correspondent pas",
-              })}
-              onBlur={() => trigger("confirmPassword")}
-            />
-
-            {errors.confirmPassword && (
-              <p role="alert">{errors.confirmPassword.message}</p>
-            )}
           </div>
         </details>
         <details>

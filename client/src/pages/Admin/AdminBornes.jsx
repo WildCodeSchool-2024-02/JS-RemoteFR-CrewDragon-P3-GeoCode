@@ -35,9 +35,6 @@ function AdminBornes() {
 
       <form onSubmit={(e) => e.preventDefault()}>
         <label htmlFor="site-search">
-          <Link to="/administrateur/bornes/csv">
-            <p className="btnBornesImport"> Importer des bornes </p>
-          </Link>
           Trouvez ci-dessous la liste de nos bornes.
         </label>
         <input
@@ -50,6 +47,9 @@ function AdminBornes() {
           placeholder="Rechercher une borne 🔎"
         />
       </form>
+      <Link to="/administrateur/bornes/csv">
+        <p className="btnBornesImport">Importer des bornes</p>
+      </Link>
       <p>
         {filteredterminals.length === 0
           ? "Aucune borne correpondant à la recherche"
