@@ -36,6 +36,20 @@ class CarRepository extends AbstractRepository {
     return rows;
   }
 
+  async readByCar(id) {
+    // Execute the SQL SELECT query to retrieve a specific car by its ID
+    const [rows] = await this.database.query(
+      `SELECT car.*, model.name m_name, brand.name b_name from ${this.table} AS car 
+      JOIN model ON car.model_id = model.id
+      JOIN brand on model.brand_id = brand.id 
+      where car.id = ?`,
+      [id]
+    );
+
+    // Return the first row of the result, which represents the car
+    return rows[0];
+  }
+
   async readAll() {
     // Execute the SQL SELECT query to retrieve all cars from the "car" table
     const [rows] = await this.database
@@ -69,7 +83,6 @@ class CarRepository extends AbstractRepository {
 
     const [result] = await this.database.query(
       `delete from ${this.table} where id = ?`,
-
       [id]
     );
 

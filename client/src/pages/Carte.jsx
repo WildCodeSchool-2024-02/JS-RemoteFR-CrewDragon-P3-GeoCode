@@ -64,6 +64,7 @@ function ClusterMarkers({ terminals }) {
   const map = useMap();
 
   useEffect(() => {
+    const authData = Cookies.get("authData");
     // eslint-disable-next-line no-undef
     const markerClusterGroup = L.markerClusterGroup();
 
@@ -81,15 +82,15 @@ function ClusterMarkers({ terminals }) {
 
       // eslint-disable-next-line no-undef
       const marker = L.marker([longi, lati], { icon }).bindPopup(`
-        <div>
+        <div style="margin-bottom: 2rem">
          <img src=${borneimg} alt="" />
           <h1>Borne : ${borne.name}</h1>
           <p>${borne.address}</p>
           <p><strong> Prise :</strong> ${borne.plug_type}</p>
           <p><strong>Enseigne :</strong> ${borne.chain_name}</p>
           <p><strong>Ouverture :</strong> ${borne.accessibility}</p>
-          <a href="carte/bornes/${borne.id}"style="color: white; text-decoration: none; background-color: #21a89a; padding: 0.5rem 1rem; border-radius: 2rem; margin: 1rem 0;" >Réserver</a>
-        </div>
+          ${authData ? `<a href="carte/bornes/${borne.id}" style="color: white; text-decoration: none; background-color: #21a89a; padding: 0.5rem 1rem; border-radius: 2rem; margin: 1rem 0;">Réserver</a>` : `<a href="connexion" style="color: white; text-decoration: none; background-color: #21a89a; padding: 0.5rem 1rem; border-radius: 2rem; margin: 1rem 0;">Me connecter</a>`}                  
+          </div>
       `);
 
       markerClusterGroup.addLayer(marker);

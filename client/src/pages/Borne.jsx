@@ -142,7 +142,7 @@ function Borne() {
               ))}
           </details>
         )}
-        <h2>Récapitulatif de la réservation</h2>
+        <h2 style={{ marginTop: "2rem" }}>Récapitulatif de la réservation</h2>
         <p>
           Vous vous apprêtez à faire une réservation pour le{" "}
           <strong>{formattedDate}</strong> sur le créneau suivant :{" "}
