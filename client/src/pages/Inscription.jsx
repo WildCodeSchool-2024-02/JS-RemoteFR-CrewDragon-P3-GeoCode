@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
+import "react-toastify/dist/ReactToastify.css";
+import { ToastContainer, toast } from "react-toastify";
 import { Link, useNavigate, useLoaderData } from "react-router-dom";
 
 function Inscription() {
@@ -49,6 +51,7 @@ function Inscription() {
   }, [watchBrand]);
 
   const onSubmit = async (data) => {
+    console.info(data);
     try {
       // Appel à l'API pour créer un nouvel utilisateur
       const response = await fetch(
@@ -76,10 +79,32 @@ function Inscription() {
       );
       // Redirection vers la page de connexion si la création réussit
       if (response.status === 201) {
-        navigate("/connexion");
+        toast.success("🚗 Inscription réussie !", {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        });
+        setTimeout(() => {
+          navigate("/connexion");
+        }, 1500); // Adjust the delay as needed
       } else {
         // Log des détails de la réponse en cas d'échec
         console.info(response);
+        toast.error("🚗 Erreur lors de l'inscription!", {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        });
       }
     } catch (err) {
       // Log des erreurs possibles
@@ -89,6 +114,18 @@ function Inscription() {
 
   return (
     <section>
+      <ToastContainer
+        position="top-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+      />
       <h1>Rejoignez la communauté ! </h1>
 
       <form onSubmit={handleSubmit(onSubmit)}>
@@ -138,7 +175,15 @@ function Inscription() {
           </div>
           <div className="form-group">
             <label htmlFor="birthday">Date de naissance</label>{" "}
-            <input type="date" id="birthday" name="birthday" />
+            <input
+              type="date"
+              id="birthday"
+              {...register("birthday", {
+                required: "Vous avez oublié votre date de naissance ? 🤭",
+              })}
+              onBlur={() => trigger("birthday")}
+            />
+            {errors.birthday && <p role="alert">{errors.birthday.message}</p>}
           </div>
 
           <div className="form-group">
@@ -164,6 +209,44 @@ function Inscription() {
                   "Êtes-vous sûr d'avoir écrit correctement votre email ? 🤔"}
               </p>
             )}
+            <div className="form-group">
+              <label htmlFor="password">Mot de passe</label>{" "}
+              <input
+                type="password"
+                id="password"
+                {...register("password", {
+                  required: true,
+                  validate: validatePassword,
+                })}
+                onBlur={() => trigger("password")}
+              />
+              {errors.password && (
+                <p role="alert">
+                  {errors.password.type === "required" &&
+                    "Un mot de passe est obligatoire pour protéger l'accès à votre compte"}
+                  {errors.password.type === "validate" &&
+                    errors.password.message}
+                </p>
+              )}
+            </div>
+            <div className="form-group">
+              <label htmlFor="confirmPassword">Confirmer le mot de passe</label>
+              <input
+                type="password"
+                id="confirmPassword"
+                {...register("confirmPassword", {
+                  required: "La confirmation du mot de passe est obligatoire",
+                  validate: (value) =>
+                    value === password ||
+                    "Les mots de passe ne correspondent pas",
+                })}
+                onBlur={() => trigger("confirmPassword")}
+              />
+
+              {errors.confirmPassword && (
+                <p role="alert">{errors.confirmPassword.message}</p>
+              )}
+            </div>
           </div>
         </details>
         <details>
@@ -228,43 +311,6 @@ function Inscription() {
                 </p>
               )}
             </div>
-          </div>
-          <div className="form-group">
-            <label htmlFor="password">Mot de passe</label>{" "}
-            <input
-              type="password"
-              id="password"
-              {...register("password", {
-                required: true,
-                validate: validatePassword,
-              })}
-              onBlur={() => trigger("password")}
-            />
-            {errors.password && (
-              <p role="alert">
-                {errors.password.type === "required" &&
-                  "Un mot de passe est obligatoire pour protéger l'accès à votre compte"}
-                {errors.password.type === "validate" && errors.password.message}
-              </p>
-            )}
-          </div>
-          <div className="form-group">
-            <label htmlFor="confirmPassword">Confirmer le mot de passe</label>
-            <input
-              type="password"
-              id="confirmPassword"
-              {...register("confirmPassword", {
-                required: "La confirmation du mot de passe est obligatoire",
-                validate: (value) =>
-                  value === password ||
-                  "Les mots de passe ne correspondent pas",
-              })}
-              onBlur={() => trigger("confirmPassword")}
-            />
-
-            {errors.confirmPassword && (
-              <p role="alert">{errors.confirmPassword.message}</p>
-            )}
           </div>
         </details>
         <details>

@@ -9,6 +9,7 @@
   "dependencies": {
     "@react-leaflet/core": "^2.1.0",
     "axios": "^1.7.2",
+    "date-fns": "^3.6.0",
     "js-cookie": "^3.0.5",
     "jwt-decode": "^4.0.0",
     "leaflet": "^1.9.4",
@@ -20,6 +21,7 @@
     "react-hook-form": "^7.52.0",
     "react-leaflet": "^4.2.1",
     "react-router-dom": "^6.23.0",
+    "react-toastify": "^10.0.5",
     "sass": "^1.77.5"
   },
   "devDependencies": {

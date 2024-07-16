@@ -1,10 +1,14 @@
-import { useLoaderData, Link } from "react-router-dom";
+import { Form, useLoaderData, Link } from "react-router-dom";
+import { useForm } from "react-hook-form";
+import { useState, useEffect } from "react";
 import Cookies from "js-cookie";
 import { jwtDecode } from "jwt-decode";
 
-// Déclaration d'un composant Content CAR, on a besoin de items pour le state init du filteredItems (qui est dans le context). On peut ainsi l'appeler avec useSearch sans undefined.
+// Déclaration d'un composant Content CAR, on a besoin de vehicules pour le state init du filteredvehicules (qui est dans le context). On peut ainsi l'appeler avec useSearch sans undefined.
 function ProfilVehicules() {
-  const items = useLoaderData(); // Récupération des items via le loader dans main.jsx
+  const { vehicules, brandData } = useLoaderData();
+  const { trigger, watch, register } = useForm();
+
   const authData = Cookies.get("authData");
   let sub = null;
 
@@ -12,6 +16,14 @@ function ProfilVehicules() {
     const authDecoded = jwtDecode(authData);
     sub = authDecoded.sub;
   }
+
+  const watchBrand = watch("brand");
+  const [selectedBrand, setSelectedBrand] = useState(null);
+
+  useEffect(() => {
+    const brand = brandData.find((b) => b.id === parseInt(watchBrand, 10));
+    setSelectedBrand(brand);
+  }, [watchBrand]);
 
   return (
     <section>
@@ -25,16 +37,17 @@ function ProfilVehicules() {
       <h1>Mes véhicules</h1>
 
       <ul className="admin-users-list">
-        {items.map((vehicule) => (
+        {vehicules.map((vehicule) => (
           <Link
-            to={`/profil/gestion/${vehicule.id}/vehicules/edit`}
+            to={`/profil/gestion/${sub}/vehicules/${vehicule.id}/edit`}
             key={vehicule.id}
           >
             <li className="admin-users-item">
               <img src={vehicule.image} alt={`${vehicule.name}`} />
               <div className="admin-users-infos">
                 <p>{vehicule.name}</p>
-                <p>{vehicule.n_name}</p>
+                <p>{vehicule.m_name}</p>
+                <p>{vehicule.id}</p>
                 <p>{vehicule.b_name}</p>
               </div>
               <svg
@@ -49,6 +62,61 @@ function ProfilVehicules() {
           </Link>
         ))}
       </ul>
+      {/* eslint-disable react/jsx-props-no-spreading */}
+      <Form method="post">
+        <h2 style={{ marginTop: "2rem" }}>Ajouter un véhicule </h2>
+        <div className="form-group">
+          <label htmlFor="image"> Image </label>{" "}
+          <input type="text" id="image" name="image" />
+        </div>
+        <div className="form-group">
+          <label htmlFor="name">Nom de la voiture</label>
+          <input
+            id="name"
+            name="name"
+            // Validation au moment de la perte du focus
+            onBlur={() => trigger("name")}
+          />
+        </div>
+
+        <div className="form-group-50-50">
+          <div className="form-group">
+            <label htmlFor="brand">Marque de la voiture</label>
+            <select
+              id="brand"
+              name="brand"
+              {...register("brand")}
+              onBlur={() => trigger("brand")}
+            >
+              {brandData.map((brand) => (
+                <option key={brand.id} value={brand.id}>
+                  {brand.name}
+                </option>
+              ))}
+            </select>
+          </div>
+
+          {selectedBrand && (
+            <div className="form-group">
+              <label htmlFor="model">Modèle de la voiture</label>
+              <select
+                id="model"
+                name="model"
+                {...register("model")}
+                onBlur={() => trigger("model")}
+              >
+                {selectedBrand.models.map((model) => (
+                  <option key={model.id} value={model.id}>
+                    {model.name}
+                  </option>
+                ))}
+              </select>
+            </div>
+          )}
+        </div>
+
+        <button type="submit">Envoyer</button>
+      </Form>
     </section>
   );
 }

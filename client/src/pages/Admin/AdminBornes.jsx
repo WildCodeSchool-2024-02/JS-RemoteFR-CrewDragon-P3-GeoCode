@@ -35,9 +35,6 @@ function AdminBornes() {
 
       <form onSubmit={(e) => e.preventDefault()}>
         <label htmlFor="site-search">
-          <Link to="/administrateur/bornes/csv">
-            <p className="btnBornesImport"> Importer des bornes </p>
-          </Link>
           Trouvez ci-dessous la liste de nos bornes.
         </label>
         <input
@@ -50,6 +47,9 @@ function AdminBornes() {
           placeholder="Rechercher une borne 🔎"
         />
       </form>
+      <Link to="/administrateur/bornes/csv">
+        <p className="btnBornesImport">Importer des bornes</p>
+      </Link>
       <p>
         {filteredterminals.length === 0
           ? "Aucune borne correpondant à la recherche"
@@ -58,7 +58,10 @@ function AdminBornes() {
 
       <ul className="admin-terminals-list">
         {filteredterminals.map((terminal) => (
-          <Link to={`/administrateur/bornes/${terminal.id}`} key={terminal.id}>
+          <Link
+            to={`/administrateur/bornes/edit/${terminal.id}`}
+            key={terminal.id}
+          >
             <li className="admin-terminals-item">
               <img
                 src="https://img.icons8.com/?size=100&id=112235&format=png&color=000000"

@@ -71,6 +71,21 @@ const edit = async (req, res, next) => {
   }
 };
 
+const editUser = async (req, res, next) => {
+  // Extract the car data from the request body and params
+  const user = { ...req.body, id: req.params.id };
+  try {
+    // Update the car in the database
+    await tables.user.updateUser(user);
+    // Respond with HTTP 204 (No Content)
+    res.sendStatus(204);
+  } catch (err) {
+    // Pass any errors to the error-handling middleware
+    res.sendStatus(520);
+    next(err);
+  }
+};
+
 // The A of BREAD - Add (Create) operation
 const add = async (req, res, next) => {
   // Extract the user data from the request body
@@ -109,6 +124,7 @@ module.exports = {
   browse,
   read,
   edit,
+  editUser,
   add,
   destroy,
 };

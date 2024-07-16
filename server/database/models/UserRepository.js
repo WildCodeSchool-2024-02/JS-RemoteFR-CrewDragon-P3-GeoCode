@@ -69,20 +69,51 @@ class UserRepository extends AbstractRepository {
 
   async read(id) {
     // Convert the id from string to integer
+    const userId = parseInt(id, 10);
 
-    // Execute the SQL SELECT query to retrieve a specific user by its ID
+    // Execute the SQL SELECT query to retrieve a specific user and their cars by user ID
     const [rows] = await this.database.query(
       `SELECT user.*, car.*
          FROM ${this.table} AS user
-         JOIN car ON car.user_id = user.id
+        JOIN car ON car.user_id = user.id
          WHERE user.id = ?`,
-      [id]
+      [userId]
     );
 
-    // Return the first row of the result, which represents the user
-    console.info("MAJ BDD user / read :", rows[0]);
+    if (rows.length === 0) {
+      return null; // No user found with the given ID
+    }
 
-    return rows[0];
+    // Extract the user data from the first row
+    const user = {
+      id: rows[0].id,
+      avatar: rows[0].avatar,
+      email: rows[0].email,
+      hashed_password: rows[0].hashed_password,
+      firstname: rows[0].firstname,
+      lastname: rows[0].lastname,
+      birthday: rows[0].birthday,
+      address: rows[0].address,
+      zip_code: rows[0].zip_code,
+      city: rows[0].city,
+      role_id: rows[0].role_id,
+      cars: [],
+    };
+
+    rows.forEach((row) => {
+      if (row.user_id) {
+        user.cars.push({
+          user_id: row.user_id,
+          model_id: row.model_id,
+          image: row.image,
+          name: row.name,
+        });
+      }
+    });
+
+    console.info("MAJ BDD user / read :", user);
+
+    return user;
   }
 
   async readAll() {
@@ -106,6 +137,31 @@ class UserRepository extends AbstractRepository {
 
   // The U of CRUD - Update operation
   async update(user) {
+    // Execute the SQL UPDATE query to update a specific user
+
+    const [result] = await this.database.query(
+      `update ${this.table} set firstname = ?, lastname = ?, email = ?, address = ?, zip_code = ?, city = ?, avatar = ?, role_id = ? where id = ?`,
+
+      [
+        user.firstname,
+        user.lastname,
+        user.email,
+        user.address,
+        user.zip_code,
+        user.city,
+        user.avatar,
+        user.role_id,
+        user.id,
+      ]
+    );
+
+    // Return how many rows were affected
+    console.info(result.affectedRows);
+    return result.affectedRows;
+  }
+
+  // The U of CRUD - Update operation
+  async updateUser(user) {
     // Execute the SQL UPDATE query to update a specific user
 
     const [result] = await this.database.query(

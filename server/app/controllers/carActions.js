@@ -34,6 +34,24 @@ const readByUser = async (req, res, next) => {
   }
 };
 
+const readByCar = async (req, res, next) => {
+  try {
+    // Fetch a specific car from the database based on the provided ID
+    const car = await tables.car.readByCar(req.params.car);
+
+    // If the car is not found, respond with HTTP 404 (Not Found)
+    // Otherwise, respond with the car in JSON format
+    if (car == null) {
+      res.sendStatus(404);
+    } else {
+      res.json(car);
+    }
+  } catch (err) {
+    // Pass any errors to the error-handling middleware
+    next(err);
+  }
+};
+
 // The E of BREAD - Edit (Update) operation
 const edit = async (req, res, next) => {
   // Extract the car data from the request body and params
@@ -88,6 +106,7 @@ const destroy = async (req, res, next) => {
 module.exports = {
   browse,
   readByUser,
+  readByCar,
   edit,
   add,
   destroy,

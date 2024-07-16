@@ -36,6 +36,11 @@ function Borne() {
     setIsOpen(!isOpen);
   };
 
+  let formattedDate = "";
+  if (selectedDate) {
+    formattedDate = selectedDate.split("-").reverse().join("-");
+  }
+
   const onSubmit = async (data) => {
     try {
       // Appel à l'API pour créer un nouvel utilisateur
@@ -56,9 +61,8 @@ function Borne() {
           }),
         }
       );
-      // Redirection vers la page de connexion si la création réussit
       if (response.status === 201) {
-        navigate("/connexion");
+        navigate(`/profil/gestion/${sub}/reservations/`);
       } else {
         // Log des détails de la réponse en cas d'échec
         console.info(response);
@@ -138,10 +142,14 @@ function Borne() {
               ))}
           </details>
         )}
+        <h2 style={{ marginTop: "2rem" }}>Récapitulatif de la réservation</h2>
+        <p>
+          Vous vous apprêtez à faire une réservation pour le{" "}
+          <strong>{formattedDate}</strong> sur le créneau suivant :{" "}
+          <strong> {slotData} </strong>{" "}
+        </p>
         <button type="submit">Réserver</button>
       </form>
-
-      <h2>Récapitulatif de commande</h2>
     </>
   );
 }

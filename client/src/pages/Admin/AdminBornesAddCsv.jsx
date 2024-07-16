@@ -59,7 +59,9 @@ function AdminBornesAddCsv() {
         required
       />
       <div className="btnUploadCsvImg">
-        <button type="submit">Téléchargement</button>
+        <button type="submit" className="btn-secondary">
+          Téléchargement
+        </button>
         {statusAlert === "loading" ? (
           <img
             className="statusAlertChargementImg statusAlertImg"

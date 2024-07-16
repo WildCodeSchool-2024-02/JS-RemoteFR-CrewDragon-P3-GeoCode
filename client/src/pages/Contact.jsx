@@ -1,7 +1,21 @@
+import "react-toastify/dist/ReactToastify.css";
+import { ToastContainer, toast } from "react-toastify";
 import { Link } from "react-router-dom";
 import { useState } from "react";
 
 function Contact() {
+  const notify = () =>
+    toast.success("🚗 Message envoyé !", {
+      position: "top-right",
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "light",
+    });
+
   const [formData, setFormData] = useState({
     nom: "",
     prenom: "",
@@ -77,9 +91,15 @@ function Contact() {
           />
         </div>
 
-        <button type="submit" id="submit-bouton" style={{ display: "block" }}>
+        <button
+          type="submit"
+          id="submit-bouton"
+          style={{ display: "block" }}
+          onClick={notify}
+        >
           Envoyer ma demande
         </button>
+        <ToastContainer />
         <Link to="/aides/" className="btn-secondary">
           Accéder au help center
         </Link>
