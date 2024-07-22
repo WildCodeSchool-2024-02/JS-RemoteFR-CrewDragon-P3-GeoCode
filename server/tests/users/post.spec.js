@@ -16,9 +16,10 @@ describe("POST /api/auths", () => {
     const fakeItem = {
       avatar: "https://avatar.iran.liara.run/public/12",
       email: "test@test.com",
-      birthday: "26/05/1998",
+      birthday: "26-05-1998",
       password: "Azerty123@",
       firstname: "Simon",
+      lastname: "Beget",
       address: "2 Place Bellecour",
       zip_code: "69000",
       city: "Lyon",

@@ -1,7 +1,15 @@
-const { app, request } = require("../config");
+const { app, request, database } = require("../config");
 
 describe("Controlled inputs after POST on auths/register", () => {
+  beforeEach(() => {
+    // Réinitialiser les mocks avant chaque test
+    jest.resetAllMocks();
+  });
+
   it("should not register a new user if email is invalid", async () => {
+    // Mock la fonction de validation pour simuler une erreur
+    jest.spyOn(database, "query").mockImplementation(() => Promise.resolve([]));
+
     const fakeItem = {
       avatar: "https://avatar.iran.liara.run/public/12",
       email: "invalid-email", // Invalide email pour tester l'erreur
@@ -28,6 +36,9 @@ describe("Controlled inputs after POST on auths/register", () => {
   });
 
   it("should not register a new user if password is invalid", async () => {
+    // Mock la fonction de validation pour simuler une erreur
+    jest.spyOn(database, "query").mockImplementation(() => Promise.resolve([]));
+
     const fakeItem = {
       avatar: "https://avatar.iran.liara.run/public/12",
       email: "test@testo.fr",
@@ -54,6 +65,11 @@ describe("Controlled inputs after POST on auths/register", () => {
   });
 
   it("should register a new user if data is valid", async () => {
+    // Mock la fonction de base de données pour simuler une insertion réussie
+    jest
+      .spyOn(database, "query")
+      .mockImplementation(() => Promise.resolve([{ insertId: 1 }]));
+
     const fakeItem = {
       avatar: "https://avatar.iran.liara.run/public/12",
       email: "test@test.com",
@@ -73,6 +89,7 @@ describe("Controlled inputs after POST on auths/register", () => {
       .post("/api/auths/register")
       .send(fakeItem);
 
+    // Assertions
     expect(response.status).toBe(201);
   });
 });
