@@ -72,11 +72,10 @@ function ProfilUtilisateurEdit() {
             type="password"
             id="password"
             name="password"
-            defaultValue={user.password}
           />
         </div>
         <div className="form-group">
-          <label htmlFor="address">Addresse</label>{" "}
+          <label htmlFor="address">Adresse</label>{" "}
           <input
             type="text"
             id="address"

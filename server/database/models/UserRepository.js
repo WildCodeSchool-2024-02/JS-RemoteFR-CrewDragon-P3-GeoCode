@@ -140,11 +140,12 @@ class UserRepository extends AbstractRepository {
     // Execute the SQL UPDATE query to update a specific user
 
     const [result] = await this.database.query(
-      `update ${this.table} set firstname = ?, lastname = ?, email = ?, address = ?, zip_code = ?, city = ?, avatar = ?, role_id = ? where id = ?`,
+      `update ${this.table} set firstname = ?, lastname = ?, hashed_password = ?, email = ?, address = ?, zip_code = ?, city = ?, avatar = ?, role_id = ? where id = ?`,
 
       [
         user.firstname,
         user.lastname,
+        user.hashedPassword,
         user.email,
         user.address,
         user.zip_code,
