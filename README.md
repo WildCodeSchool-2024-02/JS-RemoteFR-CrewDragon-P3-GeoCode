@@ -60,7 +60,7 @@ npm install
 -  /api/bookings : Pour la gestion des réservations.
 
 
-# ©️ Crédits :
+# ©️ Remerciements :
 
 Geocode est un prototype de site web créé par une équipe de quatre étudiants de la Wild Code School :
 
