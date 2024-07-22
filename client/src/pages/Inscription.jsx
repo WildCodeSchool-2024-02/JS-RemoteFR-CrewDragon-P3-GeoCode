@@ -1,10 +1,14 @@
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
+import { FaEye, FaEyeSlash } from "react-icons/fa";
 import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer, toast } from "react-toastify";
 import { Link, useNavigate, useLoaderData } from "react-router-dom";
 
+
 function Inscription() {
+  const [showPassword, setShowPassword] = useState(false);
+
   const {
     register,
     handleSubmit,
@@ -211,15 +215,32 @@ function Inscription() {
             )}
             <div className="form-group">
               <label htmlFor="password">Mot de passe</label>{" "}
-              <input
-                type="password"
-                id="password"
-                {...register("password", {
-                  required: true,
-                  validate: validatePassword,
-                })}
-                onBlur={() => trigger("password")}
-              />
+              <div
+                className="password-container"
+                style={{
+                  display: "flex",
+                  flexDirection: "row",
+                  gap: "1rem",
+                  alignItems: "center",
+                }}
+              >
+                <input
+                  type={showPassword ? "text" : "password"}
+                  id="password"
+                  {...register("password", {
+                    required: true,
+                    validate: validatePassword,
+                  })}
+                  onBlur={() => trigger("password")}
+                />
+                <span
+                  aria-hidden="true"
+                  className="eye-icon"
+                  onClick={() => setShowPassword((prev) => !prev)}
+                >
+                  {showPassword ? <FaEyeSlash /> : <FaEye />}
+                </span>
+              </div>
               {errors.password && (
                 <p role="alert">
                   {errors.password.type === "required" &&
@@ -231,8 +252,17 @@ function Inscription() {
             </div>
             <div className="form-group">
               <label htmlFor="confirmPassword">Confirmer le mot de passe</label>
+              <div
+                className="password-container"
+                style={{
+                  display: "flex",
+                  flexDirection: "row",
+                  gap: "1rem",
+                  alignItems: "center",
+                }}
+              >
               <input
-                type="password"
+               type={showPassword ? "text" : "password"}
                 id="confirmPassword"
                 {...register("confirmPassword", {
                   required: "La confirmation du mot de passe est obligatoire",
@@ -242,6 +272,14 @@ function Inscription() {
                 })}
                 onBlur={() => trigger("confirmPassword")}
               />
+              <span
+                  aria-hidden="true"
+                  className="eye-icon"
+                  onClick={() => setShowPassword((prev) => !prev)}
+                >
+                  {showPassword ? <FaEyeSlash /> : <FaEye />}
+                </span>
+                </div>
 
               {errors.confirmPassword && (
                 <p role="alert">{errors.confirmPassword.message}</p>
