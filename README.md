@@ -14,18 +14,18 @@ Geocode est une l'application idéale pour la géolocalisation des bornes élect
 [Site de Geocode](https://geo-code.remote-fr-2.wilders.dev/)
 
 
-# 🎨 Design (mock-ups):
+# 🎨 Design (maquettes):
 
 <div align="center">
 <h2> Phone </h2>
-<img align="center" src="./client/src/assets/images/phone.png" alt="phone-mock-up" />
+<img align="center" src="./phone.jpg" alt="design téléphone" />
 </div>
 
 <div align="center">
 <h2> Desktop </h2>
-<img src="./client/src/assets/images/ordi1.png" alt="computer-mock-up-1" />
+<img src="./ordi-1.jpg" alt="design ordinateur" />
 <p></p>
-<img  src="./client/src/assets/images/ordi2.png" alt="computer-mock-up-2" />
+<img  src="./ordi-2.jpg" alt="design ordinateur 2" width="100%" />
 </div>
 
 
@@ -60,7 +60,7 @@ npm install
 -  /api/bookings : Pour la gestion des réservations.
 
 
-# ©️ Credits :
+# ©️ Crédits :
 
 Geocode est un prototype de site web créé par une équipe de quatre étudiants de la Wild Code School :
 
