@@ -1,6 +1,62 @@
 const argon2 = require("argon2");
 const jwt = require("jsonwebtoken");
 
+const checkRegisterData = async (req, res, next) => {
+  try {
+    const request = req.body;
+    console.info("from checkData", request);
+
+    // iterate throught req values
+    for (let i = 0; i < request.length; i += 1) {
+      // Check on each value is not null
+      if (Object.values(req.body)[i] === null) {
+        throw new Error(`Missing value at index : ${[i]}`);
+      }
+
+      // Check on password a second time
+      if (Object.keys(req.body)[i] === "password") {
+        if (!/(?=.*[a-z])/.test(Object.values(req.body)[i])) {
+          throw new Error("Il manque une lettre minuscule. 🙃");
+        }
+
+        if (!/(?=.*[A-Z])/.test(Object.values(req.body)[i])) {
+          throw new Error("Il manque une lettre majuscule. 🙃");
+        }
+
+        if (!/(?=.*\d)/.test(Object.values(req.body)[i])) {
+          throw new Error("Il manque un chiffre. 🙃");
+        }
+
+        if (!/(?=.*[\W_])/.test(Object.values(req.body)[i])) {
+          throw new Error("Il manque un caractère spécial. 🙃");
+        }
+
+        if (!/.{8,}/.test(Object.values(req.body)[i])) {
+          throw new Error(
+            "Il manque des caractères pour atteindre 8 caractères. 🙃"
+          );
+        }
+      }
+
+      // Check on email contain @
+      if (Object.keys(req.body)[i] === "email") {
+        // Check on email if get good pattern
+        if (
+          /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/.test(
+            Object.values(req.body)[i]
+          )
+        ) {
+          throw new Error("Erreur d'email 🤔");
+        }
+      }
+    }
+
+    next();
+  } catch (err) {
+    next(err);
+  }
+};
+
 // Options de hachage (voir documentation : https://github.com/ranisalt/node-argon2/wiki/Options)
 // Recommandations **minimales** de l'OWASP : https://cheatsheetseries.owasp.org/cheatsheets/Password_Storage_Cheat_Sheet.html
 const hashingOptions = {
@@ -13,6 +69,7 @@ const hashingOptions = {
 const hashPassword = async (req, res, next) => {
   try {
     // Extraction du mot de passe de la requête
+    console.info("from hash");
 
     const { password } = req.body;
 
@@ -62,6 +119,7 @@ const verifyToken = (req, res, next) => {
 };
 
 module.exports = {
+  checkRegisterData,
   hashPassword,
   verifyToken,
 };
