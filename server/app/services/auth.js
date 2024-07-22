@@ -4,56 +4,60 @@ const jwt = require("jsonwebtoken");
 const checkRegisterData = async (req, res, next) => {
   try {
     const request = req.body;
-    console.info("from checkData", request);
 
-    // iterate throught req values
-    for (let i = 0; i < request.length; i += 1) {
-      // Check on each value is not null
-      if (Object.values(req.body)[i] === null) {
-        throw new Error(`Missing value at index : ${[i]}`);
+    // Itérer à travers les valeurs de la requête
+    for (let i = 0; i < Object.keys(request).length; i += 1) {
+      const key = Object.keys(request)[i];
+      const value = Object.values(req.body)[i];
+
+      // Vérifier que chaque valeur n'est pas null
+      if (value === null) {
+        return res.status(401).json({ error: `Missing value for ${key}` });
       }
 
-      // Check on password a second time
-      if (Object.keys(req.body)[i] === "password") {
-        if (!/(?=.*[a-z])/.test(Object.values(req.body)[i])) {
-          throw new Error("Il manque une lettre minuscule. 🙃");
+      // Vérifier le mot de passe
+      if (key === "password") {
+        if (!/(?=.*[a-z])/.test(value)) {
+          return res
+            .status(401)
+            .json({ error: "Il manque une lettre minuscule. 🙃" });
         }
 
-        if (!/(?=.*[A-Z])/.test(Object.values(req.body)[i])) {
-          throw new Error("Il manque une lettre majuscule. 🙃");
+        if (!/(?=.*[A-Z])/.test(value)) {
+          return res
+            .status(401)
+            .json({ error: "Il manque une lettre majuscule. 🙃" });
         }
 
-        if (!/(?=.*\d)/.test(Object.values(req.body)[i])) {
-          throw new Error("Il manque un chiffre. 🙃");
+        if (!/(?=.*\d)/.test(value)) {
+          return res.status(401).json({ error: "Il manque un chiffre. 🙃" });
         }
 
-        if (!/(?=.*[\W_])/.test(Object.values(req.body)[i])) {
-          throw new Error("Il manque un caractère spécial. 🙃");
+        if (!/(?=.*[\W_])/.test(value)) {
+          return res
+            .status(401)
+            .json({ error: "Il manque un caractère spécial. 🙃" });
         }
 
-        if (!/.{8,}/.test(Object.values(req.body)[i])) {
-          throw new Error(
-            "Il manque des caractères pour atteindre 8 caractères. 🙃"
-          );
+        if (!/.{8,}/.test(value)) {
+          return res.status(401).json({
+            error: "Il manque des caractères pour atteindre 8 caractères. 🙃",
+          });
         }
       }
 
-      // Check on email contain @
-      if (Object.keys(req.body)[i] === "email") {
-        // Check on email if get good pattern
-        if (
-          /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/.test(
-            Object.values(req.body)[i]
-          )
-        ) {
-          throw new Error("Erreur d'email 🤔");
+      // Vérifier l'email
+      if (key === "email") {
+        if (!/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/.test(value)) {
+          return res.status(401).json({ error: "Erreur d'email 🤔" });
         }
       }
     }
 
-    next();
+    return next();
   } catch (err) {
-    next(err);
+    // Gérer les erreurs de manière uniforme
+    return res.status(401).json({ error: err.message });
   }
 };
 
@@ -69,7 +73,6 @@ const hashingOptions = {
 const hashPassword = async (req, res, next) => {
   try {
     // Extraction du mot de passe de la requête
-    console.info("from hash");
 
     const { password } = req.body;
 
@@ -113,7 +116,6 @@ const verifyToken = (req, res, next) => {
     next();
   } catch (err) {
     console.error(err);
-
     res.sendStatus(401);
   }
 };
