@@ -111,7 +111,7 @@ class UserRepository extends AbstractRepository {
       }
     });
 
-    console.info("MAJ BDD user / read :", user);
+    console.info("user / read :", user);
 
     return user;
   }

@@ -55,7 +55,6 @@ function Inscription() {
   }, [watchBrand]);
 
   const onSubmit = async (data) => {
-    console.info(data);
     try {
       // Appel à l'API pour créer un nouvel utilisateur
       const response = await fetch(

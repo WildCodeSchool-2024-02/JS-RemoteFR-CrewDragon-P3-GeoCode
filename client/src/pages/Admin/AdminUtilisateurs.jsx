@@ -5,8 +5,6 @@ import HeaderSearchbar from "../../components/HeaderSearchbar";
 function AdminUtilisateur() {
   const items = useLoaderData(); // Récupération des items via le loader dans main.jsx
 
-  console.info(items);
-
   return (
     // Import du provider ICI car on fait remonter les items dans le Contexte
     <SearchProvider items={items}>
