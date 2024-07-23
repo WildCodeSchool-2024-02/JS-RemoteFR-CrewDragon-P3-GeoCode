@@ -11,7 +11,7 @@ function App() {
     for (let i = 0; i < Data.length; i++) {
       if (
         Data[i].img.includes(path) ||
-        Data[i].img.startsWith(path.slice(0, 4))
+        Data[i].name.startsWith(path.slice(0, 4))
       ) {
         return Data[i].img;
       }
@@ -42,7 +42,7 @@ function App() {
         className="hero"
         style={{
           backgroundImage: `url(${isCurrentPage(heroData, page)})`,
-          filter: "blur(3px)",
+          backgroundPosition: "center",
         }}
       />
       <div

@@ -1,6 +1,66 @@
 const argon2 = require("argon2");
 const jwt = require("jsonwebtoken");
 
+const checkRegisterData = async (req, res, next) => {
+  try {
+    const request = req.body;
+
+    // Itérer à travers les valeurs de la requête
+    for (let i = 0; i < Object.keys(request).length; i += 1) {
+      const key = Object.keys(request)[i];
+      const value = Object.values(req.body)[i];
+
+      // Vérifier que chaque valeur n'est pas null
+      if (value === null) {
+        return res.status(401).json({ error: `Missing value for ${key}` });
+      }
+
+      // Vérifier le mot de passe
+      if (key === "password") {
+        if (!/(?=.*[a-z])/.test(value)) {
+          return res
+            .status(401)
+            .json({ error: "Il manque une lettre minuscule. 🙃" });
+        }
+
+        if (!/(?=.*[A-Z])/.test(value)) {
+          return res
+            .status(401)
+            .json({ error: "Il manque une lettre majuscule. 🙃" });
+        }
+
+        if (!/(?=.*\d)/.test(value)) {
+          return res.status(401).json({ error: "Il manque un chiffre. 🙃" });
+        }
+
+        if (!/(?=.*[\W_])/.test(value)) {
+          return res
+            .status(401)
+            .json({ error: "Il manque un caractère spécial. 🙃" });
+        }
+
+        if (!/.{8,}/.test(value)) {
+          return res.status(401).json({
+            error: "Il manque des caractères pour atteindre 8 caractères. 🙃",
+          });
+        }
+      }
+
+      // Vérifier l'email
+      if (key === "email") {
+        if (!/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/.test(value)) {
+          return res.status(401).json({ error: "Erreur d'email 🤔" });
+        }
+      }
+    }
+
+    return next();
+  } catch (err) {
+    // Gérer les erreurs de manière uniforme
+    return res.status(401).json({ error: err.message });
+  }
+};
+
 // Options de hachage (voir documentation : https://github.com/ranisalt/node-argon2/wiki/Options)
 // Recommandations **minimales** de l'OWASP : https://cheatsheetseries.owasp.org/cheatsheets/Password_Storage_Cheat_Sheet.html
 const hashingOptions = {
@@ -16,11 +76,13 @@ const hashPassword = async (req, res, next) => {
 
     const { password } = req.body;
 
-    // Hachage du mot de passe avec les options spécifiées
-    const hashedPassword = await argon2.hash(password, hashingOptions);
+    if (password !== null) {
+      // Hachage du mot de passe avec les options spécifiées
+      const hashedPassword = await argon2.hash(password, hashingOptions);
 
-    // Remplacement du mot de passe non haché par le mot de passe haché dans la requête
-    req.body.hashedPassword = hashedPassword;
+      // Remplacement du mot de passe non haché par le mot de passe haché dans la requête
+      req.body.hashedPassword = hashedPassword;
+    }
 
     // Suppression du mot de passe non haché de la requête par mesure de sécurité
     delete req.body.password;
@@ -54,12 +116,12 @@ const verifyToken = (req, res, next) => {
     next();
   } catch (err) {
     console.error(err);
-
     res.sendStatus(401);
   }
 };
 
 module.exports = {
+  checkRegisterData,
   hashPassword,
   verifyToken,
 };

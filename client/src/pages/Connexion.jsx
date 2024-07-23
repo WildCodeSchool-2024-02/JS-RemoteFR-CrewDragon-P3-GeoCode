@@ -1,7 +1,8 @@
 import Cookies from "js-cookie";
 import "react-toastify/dist/ReactToastify.css";
+import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { ToastContainer, toast } from "react-toastify";
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { useAuth } from "../contexts/AuthContext";
 
@@ -10,6 +11,8 @@ function Connexion() {
 
   const emailRef = useRef();
   const passwordRef = useRef();
+
+  const [showPassword, setShowPassword] = useState(false);
 
   // Hook pour la navigation
   const navigate = useNavigate();
@@ -93,7 +96,28 @@ function Connexion() {
         </div>
         <div className="form-group">
           <label htmlFor="password">Votre mot de passe</label>{" "}
-          <input type="password" id="password" ref={passwordRef} />
+          <div
+            className="password-container"
+            style={{
+              display: "flex",
+              flexDirection: "row",
+              gap: "1rem",
+              alignItems: "center",
+            }}
+          >
+            <input
+              type={showPassword ? "text" : "password"}
+              id="password"
+              ref={passwordRef}
+            />
+            <span
+              aria-hidden="true"
+              className="eye-icon"
+              onClick={() => setShowPassword((prev) => !prev)}
+            >
+              {showPassword ? <FaEyeSlash /> : <FaEye />}
+            </span>
+          </div>
         </div>
 
         <button type="submit">Me connecter</button>
