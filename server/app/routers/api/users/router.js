@@ -15,6 +15,7 @@ const {
   destroy,
   editUser,
 } = require("../../../controllers/userActions");
+const { hashPassword } = require("../../../services/auth");
 
 // Route to get a list of items
 router.get("/", browse);
@@ -23,7 +24,7 @@ router.get("/", browse);
 router.get("/:id", read);
 
 // Route to edit a specific item by ID
-router.put("/:id", edit);
+router.put("/:id", hashPassword, edit);
 
 // Route to edit a specific item by ID
 router.put("/:id/user", editUser);

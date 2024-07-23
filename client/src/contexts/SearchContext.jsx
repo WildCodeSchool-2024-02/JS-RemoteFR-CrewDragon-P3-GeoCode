@@ -1,10 +1,4 @@
-import {
-  useState,
-  createContext,
-  useContext,
-  useMemo,
-  useCallback,
-} from "react";
+import {  useState, createContext, useContext, useMemo, useCallback,} from "react";
 import PropTypes from "prop-types";
 
 const SearchContext = createContext();

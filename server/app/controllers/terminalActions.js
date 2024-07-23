@@ -90,8 +90,6 @@ const destroy = async (req, res, next) => {
 };
 
 const uploadCSVHandler = async (req, res, next) => {
-  console.info("coucou from handler", req.file);
-
   try {
     await tables.terminal.clear();
 
