@@ -416,12 +416,11 @@ const router = createBrowserRouter([
                 // eslint-disable-next-line spaced-comment
                 /*Modifiction du endpoint ?*/
 
-                `${import.meta.env.VITE_API_URL}/api/users/${id}/user`,
+                `${import.meta.env.VITE_API_URL}/api/users/${id}`,
                 {
                   firstname: formData.get("firstname"),
                   lastname: formData.get("lastname"),
                   email: formData.get("email"),
-                  password: formData.get("password"),
                   birthday: formData.get("birthday"),
                   address: formData.get("address"),
                   zip_code: formData.get("zip_code"),
