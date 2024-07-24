@@ -44,11 +44,19 @@ function ProfilVehicules() {
           >
             <li className="admin-users-item">
               <img src={vehicule.image} alt={`${vehicule.name}`} />
-              <div className="admin-users-infos">
-                <p>{vehicule.name}</p>
-                <p>{vehicule.m_name}</p>
-                <p>{vehicule.id}</p>
-                <p>{vehicule.b_name}</p>
+              <div className="admin-bornes-infos" style={{ width: "100%" }}>
+                <p>
+                  <strong> Nom : </strong>
+                  {vehicule.name}
+                </p>
+                <p>
+                  <strong> Modèle: </strong>
+                  {vehicule.m_name}
+                </p>
+                <p>
+                  <strong> Marque : </strong>
+                  {vehicule.b_name}
+                </p>
               </div>
               <svg
                 viewBox="0 0 24 24"
@@ -65,10 +73,6 @@ function ProfilVehicules() {
       {/* eslint-disable react/jsx-props-no-spreading */}
       <Form method="post">
         <h2 style={{ marginTop: "2rem" }}>Ajouter un véhicule </h2>
-        <div className="form-group">
-          <label htmlFor="image"> Image </label>{" "}
-          <input type="text" id="image" name="image" />
-        </div>
         <div className="form-group">
           <label htmlFor="name">Nom de la voiture</label>
           <input

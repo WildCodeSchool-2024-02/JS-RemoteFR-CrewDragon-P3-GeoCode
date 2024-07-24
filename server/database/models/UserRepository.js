@@ -140,32 +140,6 @@ class UserRepository extends AbstractRepository {
     // Execute the SQL UPDATE query to update a specific user
 
     const [result] = await this.database.query(
-      `update ${this.table} set firstname = ?, lastname = ?, hashed_password = ?, email = ?, address = ?, zip_code = ?, city = ?, avatar = ?, role_id = ? where id = ?`,
-
-      [
-        user.firstname,
-        user.lastname,
-        user.hashedPassword,
-        user.email,
-        user.address,
-        user.zip_code,
-        user.city,
-        user.avatar,
-        user.role_id,
-        user.id,
-      ]
-    );
-
-    // Return how many rows were affected
-    console.info(result.affectedRows);
-    return result.affectedRows;
-  }
-
-  // The U of CRUD - Update operation
-  async updateUser(user) {
-    // Execute the SQL UPDATE query to update a specific user
-
-    const [result] = await this.database.query(
       `update ${this.table} set firstname = ?, lastname = ?, email = ?, address = ?, zip_code = ?, city = ?, avatar = ?, role_id = ? where id = ?`,
 
       [
@@ -185,6 +159,7 @@ class UserRepository extends AbstractRepository {
     console.info(result.affectedRows);
     return result.affectedRows;
   }
+
 
   // The D of CRUD - Delete operation
   async delete(id) {

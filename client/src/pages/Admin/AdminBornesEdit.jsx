@@ -25,7 +25,7 @@ function AdminBornesEdit() {
           />
         </div>
         <div className="form-group">
-          <label htmlFor="address">Addresse :</label>
+          <label htmlFor="address">Adresse :</label>
           <input
             type="text"
             id="address"
@@ -34,7 +34,7 @@ function AdminBornesEdit() {
           />
         </div>
         <div className="form-group">
-          <label htmlFor="cood">Coordonnée (attention) :</label>
+          <label htmlFor="cood">Coordonnées :</label>
           <input
             type="text"
             id="cood"
@@ -43,7 +43,7 @@ function AdminBornesEdit() {
           />
         </div>
         <div className="form-group">
-          <label htmlFor="power">Power :</label>
+          <label htmlFor="power">Puissance :</label>
           <input
             type="text"
             id="power"
@@ -70,7 +70,7 @@ function AdminBornesEdit() {
           />
         </div>
         <div className="form-group">
-          <label htmlFor="accessibility">Horraire :</label>
+          <label htmlFor="accessibility">Horaire :</label>
           <input
             type="text"
             id="accessibility"
