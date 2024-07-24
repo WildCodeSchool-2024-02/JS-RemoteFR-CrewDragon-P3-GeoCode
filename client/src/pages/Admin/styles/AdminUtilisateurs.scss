@@ -32,8 +32,10 @@
     padding: 1.5rem;
 
     img {
+      height: 6vw;
+      object-fit: cover;
       width: 6vw;
-      border-radius: 1.2rem;
+      border-radius: 100%;
     }
 
     .admin-users-infos {

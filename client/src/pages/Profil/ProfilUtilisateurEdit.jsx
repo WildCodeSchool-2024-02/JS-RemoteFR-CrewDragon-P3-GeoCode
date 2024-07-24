@@ -67,15 +67,6 @@ function ProfilUtilisateurEdit() {
           />
         </div>
         <div className="form-group">
-          <label htmlFor="email">Mot de passe </label>{" "}
-          <input type="password" id="password" name="password" />
-          <img
-            className="returnPreviousPage"
-            src="https://img.icons8.com/?size=100&id=11538&format=png&color=000000"
-            alt="retour"
-          />
-        </div>
-        <div className="form-group">
           <label htmlFor="address">Adresse</label>{" "}
           <input
             type="text"
