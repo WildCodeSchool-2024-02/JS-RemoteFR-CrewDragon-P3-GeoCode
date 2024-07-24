@@ -46,6 +46,11 @@ function ProfilReservation() {
         />
       </Link>
       <h1>Mes réservations</h1>
+      <p>
+        {items.length === 0
+          ? "Vous n'avez pas de réservations pour le moment."
+          : `${items.length} réservation${items.length === 1 ? "" : "s"}`}
+      </p>
 
       <ul className="admin-users-list">
         {items.map((reservation) => (

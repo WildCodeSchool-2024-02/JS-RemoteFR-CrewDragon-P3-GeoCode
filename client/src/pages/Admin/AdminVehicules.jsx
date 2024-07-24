@@ -43,8 +43,19 @@ function Content() {
         {filteredItems.map((car) => (
           <li className="admin-users-item" key={car.id}>
             <img src={car.image} alt={car.name} />
-            <div className="admin-users-infos">
-              <p>{car.name}</p>
+            <div className="admin-bornes-infos" style={{ width: "100%" }}>
+              <p>
+                <strong> Nom : </strong>
+                {car.name}
+              </p>
+              <p>
+                <strong> Modèle: </strong>
+                {car.m_name}
+              </p>
+              <p>
+                <strong> Marque : </strong>
+                {car.b_name}
+              </p>
             </div>
             <Link to={`/administrateur/vehicules/edit/${car.id}`}>
               <svg

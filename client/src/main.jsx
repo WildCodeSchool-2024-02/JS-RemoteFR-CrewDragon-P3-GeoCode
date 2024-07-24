@@ -171,7 +171,6 @@ const router = createBrowserRouter([
                   firstname: formData.get("firstname"),
                   lastname: formData.get("lastname"),
                   email: formData.get("email"),
-                  password: formData.get("password"),
                   birthday: formData.get("birthday"),
                   address: formData.get("address"),
                   zip_code: formData.get("zipcode"),
@@ -298,7 +297,7 @@ const router = createBrowserRouter([
                 {
                   name: formData.get("name"),
                   model_id: formData.get("model"),
-                  image: `https://avatar.iran.liara.run/username?username=${formData.get("name").split(" ").join("+")}`,
+                  image: formData.get("image"),
                 },
                 headers
               );
