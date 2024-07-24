@@ -4,7 +4,6 @@ import { jwtDecode } from "jwt-decode";
 
 function ProfilUtilisateurEdit() {
   const user = useLoaderData();
-  console.info(user);
   const authData = Cookies.get("authData");
   let sub = null;
 
