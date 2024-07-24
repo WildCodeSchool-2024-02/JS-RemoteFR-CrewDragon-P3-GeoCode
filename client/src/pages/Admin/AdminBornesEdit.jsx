@@ -70,7 +70,7 @@ function AdminBornesEdit() {
           />
         </div>
         <div className="form-group">
-          <label htmlFor="accessibility">Horaire :</label>
+          <label htmlFor="accessibility">Horaires :</label>
           <input
             type="text"
             id="accessibility"
