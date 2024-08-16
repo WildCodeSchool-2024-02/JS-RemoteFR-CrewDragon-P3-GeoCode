@@ -1,4 +1,4 @@
-<h1 align="center"> 🚗 Bienvenue chez Geocode ! 🚗 </h1>
+<h1 align="center"> 🚗 Bienvenue chez Géocode ! 🚗 </h1>
 <p align="center">
 <img  src="./client/src/assets/images/notfound/Visuel.png" alt="Visuel Geocode" />
 </p>
@@ -6,12 +6,12 @@
 
 # 📄 A propos :
 
-Geocode est une l'application idéale pour la géolocalisation des bornes électriques. Trouvez rapidement et facilement des bornes de recharge proches de vous et planifiez vos trajets en toute sérénité. 
+Géocode est une l'application idéale pour la géolocalisation des bornes électriques. Trouvez rapidement et facilement des bornes de recharge proches de vous et planifiez vos trajets en toute sérénité. 
 
 <p align="center"> ⚡Simplifiez votre expérience de conduite électrique avec Geocode ! ⚡</p>
 
 # 👩🏽‍💻 Découvrez le site :
-[Site de Geocode](https://geo-code.remote-fr-2.wilders.dev/)
+[Site de Géocode](https://geo-code.remote-fr-2.wilders.dev/)
 
 
 # 🎨 Design (maquettes):
